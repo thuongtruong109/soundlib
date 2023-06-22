@@ -2,10 +2,10 @@ package helpers
 
 import (
 	"time"
-	"math/rand"
+	"fmt"
 )
 
-func GenerateID() int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(1000000)
+func (h *Helper) GenerateID() string {
+	randomID := fmt.Sprint(time.Now().UnixNano())
+	return randomID
 }

@@ -1,91 +1,106 @@
 package cmd
 
 import (
+	"fmt"
 	"music-management/pkg/helpers"
 	"music-management/pkg/constants"
-
-	"music-management/usecases"
+	"music-management/internal/handlers"
 )
 
 type Delivery struct {
-	albumUC usecases.AlbumUsecases
+	albumHandler handlers.AlbumHandler
+	artistHandler handlers.ArtistHandler
+	genreHandler handlers.GenreHandler
+	playlistHandler handlers.PlaylistHandler
+	songHandler handlers.SongHandler
+	helper helpers.Helper
 }
 
-func NewDelivery(albumUC usecases.AlbumUsecases) *Delivery {
+func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler handlers.ArtistHandler, genreHandler handlers.GenreHandler, playlistHandler handlers.PlaylistHandler, songHandler handlers.SongHandler, helper helpers.Helper) *Delivery {
 	return &Delivery{
-		albumUC: albumUC,
+		albumHandler: albumHandler,
+		artistHandler: artistHandler,
+		genreHandler: genreHandler,
+		playlistHandler: playlistHandler,
+		songHandler: songHandler,
+		helper: helper,
 	}
 }
 
-func (h *Delivery) DisplayOptions() {
-	helpers.Output(constants.DESC, "1. Create new album")
-	helpers.Output(constants.DESC, "2. Get all albums")
-	helpers.Output(constants.DESC, "3. Get album by id")
-	helpers.Output(constants.DESC, "4. Delete album by id")
-
-	helpers.Output(constants.DESC, "5. Create new artist")
-	helpers.Output(constants.DESC, "6. Get all artists")
-	helpers.Output(constants.DESC, "7. Get artist by id")
-	helpers.Output(constants.DESC, "8. Get all albums of artist")
-	helpers.Output(constants.DESC, "9. Get all songs of artist")
-	helpers.Output(constants.DESC, "10. Delete artist by id")
-
-	helpers.Output(constants.DESC, "11. Create new genre")
-	helpers.Output(constants.DESC, "12. Get all genres")
-	helpers.Output(constants.DESC, "13. Get genre by id")
-	helpers.Output(constants.DESC, "14. Get all albums of genre")
-	helpers.Output(constants.DESC, "15. Get all songs of genre")
-	helpers.Output(constants.DESC, "16. Delete genre by id")
-
-	helpers.Output(constants.DESC, "17. Create new song")
-	helpers.Output(constants.DESC, "18. Get all songs")
-	helpers.Output(constants.DESC, "19. Get song by id")
-	helpers.Output(constants.DESC, "20. Delete song by id")
+func (d *Delivery) DisplayOptions() {
+	options := []map[int]string{
+		{1: "Create new album"},
+		{2: "Get all albums"},
+		{3: "Get album by id"},
+		{4: "Delete album by id"},
+		{5: "Create new artist"},
+		{6: "Get all artists"},
+		{7: "Get artist by id"},
+		{8: "Get all albums of artist"},
+		{9: "Get all songs of artist"},
+		{10: "Delete artist by id"},
+		{11: "Create new genre"},
+		{12: "Get all genres"},
+		{13: "Get genre by id"},
+		{14: "Get all albums of genre"},
+		{15: "Get all songs of genre"},
+		{16: "Delete genre by id"},
+		{17: "Create new song"},
+		{18: "Get all songs"},
+		{19: "Get song by id"},
+		{20: "Delete song by id"},
+	}
+	
+	for _, option := range options {
+		for key, value := range option {
+			d.helper.Output(constants.DESC, fmt.Sprintf("%v", key) + ". " + value)
+		}
+	}
 }
 
 func (h *Delivery) HandleOption(option int) {
 	switch option {
 	case 1:
-		h.albumUC.CreateAlbum()
+		h.albumHandler.CreateAlbum()
 	case 2:
-		h.albumUC.GetAlbums()
+		h.albumHandler.GetAlbums()
 	case 3:
-		h.albumUC.GetAlbum()
+		h.albumHandler.GetAlbum()
 	case 4:
-		h.albumUC.DeleteAlbum()
+		h.albumHandler.DeleteAlbum()
 	case 5:
-		helpers.Output(constants.DESC, "\n ::: Creating new artist")
+		h.artistHandler.CreateArtist()
 	case 6:
-		helpers.Output(constants.DESC, "\n ::: Getting all artists")
+		h.artistHandler.GetArtists()
 	case 7:
-		helpers.Output(constants.DESC, "\n ::: Getting artist by id")
+		h.artistHandler.GetArtist()
 	case 8:
-		helpers.Output(constants.DESC, "\n ::: Getting all albums of artist")
+		h.artistHandler.GetAlbumsOfArtist()
 	case 9:
-		helpers.Output(constants.DESC, "\n ::: Getting all songs of artist")
+		h.artistHandler.GetSongsOfArtist()
 	case 10:
-		helpers.Output(constants.DESC, "\n ::: Deleting artist by id")
+		h.artistHandler.DeleteArtist()
 	case 11:
-		helpers.Output(constants.DESC, "\n ::: Creating new genre")
+		h.genreHandler.CreateGenre()
 	case 12:
-		helpers.Output(constants.DESC, "\n ::: Getting all genres")
+		h.genreHandler.GetGenres()
 	case 13:
-		helpers.Output(constants.DESC, "\n ::: Getting genre by id")
+		h.genreHandler.GetGenre()
 	case 14:
-		helpers.Output(constants.DESC, "\n ::: Getting all albums of genre")
+		h.genreHandler.GetAlbumsOfGenre()
 	case 15:
-		helpers.Output(constants.DESC, "\n ::: Getting all songs of genre")
+		h.genreHandler.GetSongsOfGenre()
 	case 16:
-		helpers.Output(constants.DESC, "\n ::: Deleting genre by id")
+		h.genreHandler.DeleteGenre()
 	case 17:
-		helpers.Output(constants.DESC, "\n ::: Creating new song")
+		h.songHandler.CreateSong()
 	case 18:
-		helpers.Output(constants.DESC, "\n ::: Getting all songs")
+		h.songHandler.GetSongs()
 	case 19:
-		helpers.Output(constants.DESC, "\n ::: Getting song by id")
+		h.songHandler.GetSong()
 	case 20:
-		helpers.Output(constants.DESC, "\n ::: Deleting song by id")
+		h.songHandler.DeleteSong()
 	default:
-		helpers.Output(constants.DESC, "\n ::: Invalid option\n")
+		h.helper.Output(constants.ERROR, "Invalid option")
 	}
 }

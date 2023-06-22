@@ -1,16 +1,16 @@
 package constants
 
 const (
-	DEBUG int8 = 0
-	INFO int8 = 1
-	WARNING int8 = 2
-	ERROR int8 = 3
-	FATAL int8 = 4
+	DEBUG int8 = iota
+	INFO
+	WARNING
+	ERROR
+	FATAL
 
-	LABEL int8 = 5
-	DESC int8 = 6
-	QUERY int8 = 7
-	INPUT int8 = 8
+	LABEL
+	DESC
+	QUERY
+	INPUT
 )
 
 const (

@@ -1,16 +1,34 @@
 package cmd
 
 import (
-	"music-management/repositories"
-	"music-management/usecases"
+	"fmt"
+	"music-management/pkg/constants"
 )
 
+func (d *Delivery) Execution() {
+	loop := func() {
+		d.helper.Output(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
+		d.DisplayOptions()
+	
+		fmt.Print(d.helper.OutputColor(constants.INPUT) + "\n ::: Choose action: ")
+	
+		var option int
+		fmt.Scanln(&option)
+	
+		d.HandleOption(option)
+	}
+	loop()
 
-func Execute() {
-	albumRepo := repositories.NewAlbumRepository()
-	albumUC := usecases.NewAlbumUsecases(*albumRepo)
-
-	handler := NewDelivery(*albumUC)
-
-	handler.HandlerExecution()
+	for {
+		fmt.Print(d.helper.OutputColor(constants.QUERY) + "\n ::: Do you want to continue? (y/n): ")
+		var input string
+		fmt.Scanln(&input)
+		if input == "y" {
+			d.helper.ClearConsole()
+			loop()
+		} else {
+			d.helper.Output(constants.LABEL, "\n --- Thank you for using our service!")
+			break
+		}
+	}
 }

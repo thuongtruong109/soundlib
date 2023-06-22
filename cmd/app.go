@@ -1,34 +1,31 @@
 package cmd
 
 import (
-	"fmt"
+	"music-management/internal/handlers"
+	"music-management/internal/usecases"
 
 	"music-management/pkg/helpers"
-	"music-management/pkg/constants"
 )
 
-func (d *Delivery) HandlerExecution() {
-	loop := func() {
-		helpers.Output(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
-		d.DisplayOptions()
-	
-		fmt.Print(helpers.OutputColor(constants.INPUT) + "Choose action: ")
-	
-		var option int
-		fmt.Scanln(&option)
-	
-		d.HandleOption(option)
-	}
-	loop()
+func App() {
+	helper := helpers.NewHelper()
 
-	for {
-		fmt.Print(helpers.OutputColor(constants.QUERY) + "Do you want to continue? (y/n): ")
-		var input string
-		fmt.Scanln(&input)
-		if input == "y" {
-			loop()
-		} else {
-			break
-		}
-	}
+	albumUC := usecases.NewAlbumUsecase()
+	albumHandler := handlers.NewAlbumHandler(*albumUC, *helper)
+
+	artistUC := usecases.NewArtistUsecase()
+	artistHandler := handlers.NewArtistHandler(*artistUC, *helper)
+
+	genreUC := usecases.NewGenreUsecase()
+	genreHandler := handlers.NewGenreHandler(*genreUC, *helper)
+
+	playlistUC := usecases.NewPlaylistUsecase()
+	playlistHandler := handlers.NewPlaylistHandler(*playlistUC, *helper)
+
+	songUC := usecases.NewSongUsecase()
+	songHandler := handlers.NewSongHandler(*songUC, *helper)
+
+
+	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *songHandler, *helper)
+	exe.Execution()
 }

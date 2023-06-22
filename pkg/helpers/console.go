@@ -1,10 +1,13 @@
 package helpers
 
 import (
+	"os"
+	"os/exec"
+	"runtime"
 	"music-management/pkg/constants"
 )
 
-func OutputColor(level int8) string {
+func (h *Helper) OutputColor(level int8) string {
 	switch level {
 	case constants.DEBUG:
 		return constants.Gray
@@ -29,6 +32,19 @@ func OutputColor(level int8) string {
 	}
 }
 
-func Output(level int8, msg string) {
-	println(OutputColor(level) + msg + constants.Reset)
+func (h *Helper) Output(level int8, msg string) {
+	println(h.OutputColor(level) + msg + constants.Reset)
+}
+
+func (h *Helper) ClearConsole() {
+	var cmd *exec.Cmd
+
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/c", "cls")
+	} else {
+		cmd = exec.Command("clear")
+	}
+
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
