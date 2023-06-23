@@ -29,11 +29,26 @@ func (u *GenreHandler) GetGenres() {
 
 	u.helper.Output(constants.INFO, constants.GET_SUCCESS)
 
-	u.helper.TableOutput("Genre", result, nil)
+	var items []string
+	for _, item := range result {
+		items = append(items, fmt.Sprintf("Id: %s, Name: %s, Description: %s", item.ID, item.Name, item.Description))
+	}
+
+	helpers.TableOutput[string, string, interface{}]("Genre", items, nil)
 }
 
 func (u *GenreHandler) GetGenre() {
-	u.helper.Output(constants.INFO, "GetGenre")
+	result := u.uc.GetGenre()
+	if result == nil {
+		u.helper.Output(constants.ERROR, constants.GET_FAILED)
+		return
+	}
+
+	u.helper.Output(constants.INFO, constants.GET_SUCCESS)
+
+	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
+
+	helpers.TableOutput[string, string, interface{}]("Genre", newItem, nil)
 }
 
 func (u *GenreHandler) CreateGenre() {
@@ -45,17 +60,33 @@ func (u *GenreHandler) CreateGenre() {
 
 	u.helper.Output(constants.INFO, constants.CREATE_SUCCESS)
 
-	display := fmt.Sprintf("ID: %s\n", result.ID)
+	newItem := []string{fmt.Sprintf("Id: %s", result.ID)}
 
-	u.helper.TableOutput("Genre", []interface{}{display}, nil)
+	helpers.TableOutput[string, string, interface{}]("Genre", newItem, nil)
 }
 
 func (u *GenreHandler) DeleteGenre() {
-	u.helper.Output(constants.INFO, "DeleteGenre")
+	result := u.uc.DeleteGenre()
+	if result != nil {
+		u.helper.Output(constants.ERROR, constants.DELETE_FAILED)
+		return
+	}
+
+	u.helper.Output(constants.INFO, constants.DELETE_SUCCESS)
 }
 
 func (u *GenreHandler) UpdateGenre() {
-	u.helper.Output(constants.INFO, "UpdateGenre")
+	result := u.uc.UpdateGenre()
+	if result == nil {
+		u.helper.Output(constants.ERROR, constants.UPDATE_FAILED)
+		return
+	}
+
+	u.helper.Output(constants.INFO, constants.UPDATE_SUCCESS)
+
+	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
+
+	helpers.TableOutput[string, string, interface{}]("Genre", newItem, nil)
 }
 
 func (u *GenreHandler) GetAlbumsOfGenre() {

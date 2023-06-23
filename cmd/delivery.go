@@ -33,27 +33,37 @@ func (d *Delivery) DisplayOptions() {
 		{2: "Get all albums"},
 		{3: "Get album by id"},
 		{4: "Delete album by id"},
+
 		{5: "Create new artist"},
 		{6: "Get all artists"},
 		{7: "Get artist by id"},
 		{8: "Get all albums of artist"},
 		{9: "Get all songs of artist"},
 		{10: "Delete artist by id"},
+
 		{11: "Create new genre"},
 		{12: "Get all genres"},
 		{13: "Get genre by id"},
 		{14: "Get all albums of genre"},
 		{15: "Get all songs of genre"},
 		{16: "Delete genre by id"},
-		{17: "Create new song"},
-		{18: "Get all songs"},
-		{19: "Get song by id"},
-		{20: "Delete song by id"},
+		{17: "Update genre by id"},
+
+		{18: "Create new song"},
+		{19: "Get all songs"},
+		{20: "Get song by id"},
+		{21: "Delete song by id"},
+
+		{22: "Create new playlist"},
+		{23: "Get all playlists"},
+		{24: "Get playlist by id"},
+		{25: "Delete playlist by id"},
+		{26: "Update playlist by id"},
 	}
 	
 	for _, option := range options {
 		for key, value := range option {
-			d.helper.Output(constants.DESC, fmt.Sprintf("%v", key) + ". " + value)
+			d.helper.Output(constants.DESC, fmt.Sprintf("⦿ %v", key) + ". " + value)
 		}
 	}
 }
@@ -93,12 +103,14 @@ func (h *Delivery) HandleOption(option int) {
 	case 16:
 		h.genreHandler.DeleteGenre()
 	case 17:
-		h.songHandler.CreateSong()
+		h.genreHandler.UpdateGenre()
 	case 18:
-		h.songHandler.GetSongs()
+		h.songHandler.CreateSong()
 	case 19:
-		h.songHandler.GetSong()
+		h.songHandler.GetSongs()
 	case 20:
+		h.songHandler.GetSong()
+	case 21:
 		h.songHandler.DeleteSong()
 	default:
 		h.helper.Output(constants.ERROR, "Invalid option")

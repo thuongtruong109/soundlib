@@ -9,84 +9,158 @@ import (
 )
 
 type GenreUsecase struct {
-	db database.Database
 	helper helpers.Helper
 }
 
-func NewGenreUsecase(db database.Database, helper helpers.Helper) *GenreUsecase {
+func NewGenreUsecase(helper helpers.Helper) *GenreUsecase {
 	return &GenreUsecase{
-		db: db,
 		helper: helper,
 	}
 }
 
-func (g *GenreUsecase) GetGenres() []interface{} {
-	genresInterface, err := g.db.ReadFromDB(constants.GENRE_PATH)
+func (g *GenreUsecase) GetGenres() []*models.Genre {
+	genresInterface, err := database.ReadDB[*models.Genre](constants.GENRE_PATH)
+
 	if err != nil {
 		return nil
 	}
 
-	genres := make([]models.Genre, 0)
-	for _, genreInterface := range genresInterface {
-		if genreMap, ok := genreInterface.(map[string]interface{}); ok {
-			genre := models.Genre{
-				ID:          genreMap["id"].(string),
-				Name:        genreMap["name"].(string),
-				Description: genreMap["description"].(string),
-			}
-			genres = append(genres, genre)
+	if genresInterface == nil {
+		return nil
+	}
+
+	genres := make([]*models.Genre, len(genresInterface))
+	copy(genres, genresInterface)
+
+	return genres
+}
+
+func (g *GenreUsecase) GetGenre() *models.Genre {
+	allGenres := g.GetGenres()
+	if allGenres == nil {
+		return nil
+	}
+
+	var id string
+	fmt.Print("» Enter id: ")
+	fmt.Scanln(&id)
+
+	for _, genre := range allGenres {
+		if genre.ID == id {
+			return genre
 		}
 	}
 
-	interfaceSlice := make([]interface{}, len(genres))
-	for i, v := range genres {
-		interfaceSlice[i] = fmt.Sprintf("ID: %s\nName: %s\nDescription: %s\n", v.ID, v.Name, v.Description)
-	}
-
-	return interfaceSlice
-}
-
-func (g *GenreUsecase) GetGenre() string {
-	return "Genre by id"
+	return nil
 }
 
 func (g *GenreUsecase) CreateGenre() *models.Genre {
-	genresInterface, err := g.db.ReadFromDB(constants.GENRE_PATH)
-	if err != nil {
+	allGenres := g.GetGenres()
+	if allGenres == nil {
 		return nil
 	}
 
-	var allGenres []interface{}
+	var genresInit []*models.Genre
 
-	if genresInterface == nil {
-		allGenres = make([]interface{}, 0)
+	if allGenres == nil {
+		genresInit = make([]*models.Genre, 0)
 		
 	} else {
-		allGenres = make([]interface{}, len(genresInterface))
-		copy(allGenres, genresInterface)
+		genresInit = make([]*models.Genre, len(allGenres))
+		copy(genresInit, allGenres)
 	}
+
+	var name string
+	fmt.Print("» Enter name: ")
+	fmt.Scanln(&name)
+
+	var description string
+	fmt.Print("» Enter description: ")
+	fmt.Scanln(&description)
 
 	newGenre := &models.Genre{
 		ID:          g.helper.GenerateID(),
-		Name:        "Genre",
-		Description: "Description",
+		Name:        name,
+		Description: description,
 	}
 
-	allGenres = append(allGenres, newGenre)
+	genresInit = append(genresInit, newGenre)
 
-	err2 := g.db.SaveToDB(constants.GENRE_PATH, allGenres)
+	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return nil
 	}
 	return newGenre
 }
 
-func (g *GenreUsecase) DeleteGenre() string {
-	return "Delete Genre"
+func (g *GenreUsecase) DeleteGenre() error {
+	allGenres := g.GetGenres()
+	if allGenres == nil {
+		return fmt.Errorf(constants.DELETE_FAILED)
+	}
+
+	var id string
+	fmt.Print("» Enter id: ")
+	fmt.Scanln(&id)
+
+	var genresInit []*models.Genre
+
+	for i, genre := range allGenres {
+		if genre.ID == id {
+			genresInit = append(allGenres[:i], allGenres[i+1:]...)
+			break
+		}
+	}
+
+	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
+	if err2 != nil {
+		return fmt.Errorf(constants.DELETE_FAILED)
+	}
+
+	return nil
+
 }
 
-func (g *GenreUsecase) UpdateGenre() string {
-	return "Update Genre"
+func (g *GenreUsecase) UpdateGenre() *models.Genre {
+	allGenres := g.GetGenres()
+	if allGenres == nil {
+		return nil
+	}
+
+	var id string
+	fmt.Print("» Enter id: ")
+	fmt.Scanln(&id)
+
+	var name string
+	fmt.Print("» Enter name: ")
+	fmt.Scanln(&name)
+
+	var description string
+	fmt.Print("» Enter description: ")
+	fmt.Scanln(&description)
+
+	newGenre := &models.Genre{
+		ID:          id,
+		Name:        name,
+		Description: description,
+	}
+
+	var genresInit []*models.Genre
+
+	for i, genre := range allGenres {
+		if genre.ID == id {
+			genresInit = append(allGenres[:i], newGenre)
+			break
+		}
+	}
+
+	genresInit = append(genresInit, allGenres[len(genresInit):]...)
+
+	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
+	if err2 != nil {
+		return nil
+	}
+	return newGenre
 }
 
 func (g *GenreUsecase) GetAlbumsOfGenre() string {

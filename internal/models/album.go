@@ -1,9 +1,5 @@
 package models
 
-import (
-	"music-management/pkg/helpers"
-)
-
 type Album struct {
 	ID string `json:"id"`
 	Title string `json:"title"`
@@ -12,11 +8,5 @@ type Album struct {
 
 	GenreID int `json:"genre_id"`
 	ArtistID int `json:"artist_id"`
-}
-
-func NewAlbum(helper helpers.Helper) *Album {
-	return &Album{
-		ID: helper.GenerateID(),
-	}
 }
 

@@ -10,7 +10,7 @@ func (d *Delivery) Execution() {
 		d.helper.Output(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
 		d.DisplayOptions()
 	
-		fmt.Print(d.helper.OutputColor(constants.INPUT) + "\n ::: Choose action: ")
+		fmt.Print(d.helper.OutputColor(constants.INPUT) + "\n» Choose action: ")
 	
 		var option int
 		fmt.Scanln(&option)
@@ -20,7 +20,7 @@ func (d *Delivery) Execution() {
 	loop()
 
 	for {
-		fmt.Print(d.helper.OutputColor(constants.QUERY) + "\n ::: Do you want to continue? (y/n): ")
+		fmt.Print(d.helper.OutputColor(constants.QUERY) + "\n ¤ Do you want to continue? (y/n): ")
 		var input string
 		fmt.Scanln(&input)
 		if input == "y" {
@@ -28,7 +28,7 @@ func (d *Delivery) Execution() {
 			loop()
 		} else {
 			d.helper.ClearConsole()
-			d.helper.Output(constants.LABEL, "\n --- Thank you for using our service!")
+			d.helper.Output(constants.LABEL, "\n --- ♥ Thank you for using our service!")
 			break
 		}
 	}
