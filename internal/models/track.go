@@ -5,7 +5,7 @@ import (
 )
 
 type Track struct {
-	ID int `json:"id"`
+	ID string `json:"id"`
 	Title string `json:"title"`
 	Year int `json:"year"`
 	Duration int `json:"duration"`
@@ -15,14 +15,8 @@ type Track struct {
 	ArtistID int `json:"artist_id"`
 }
 
-func NewTrack(title string, year, duration, genreID, albumID, artistID int) *Track {
+func NewTrack(helper helpers.Helper) *Track {
 	return &Track{
-		ID: helpers.GenerateID(),
-		Title: title,
-		Year: year,
-		Duration: duration,
-		ArtistID: artistID,
-		AlbumID: albumID,
-		GenreID: genreID,
+		ID: helper.GenerateID(),
 	}
 }

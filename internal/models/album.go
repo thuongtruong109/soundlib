@@ -5,7 +5,7 @@ import (
 )
 
 type Album struct {
-	ID int `json:"id"`
+	ID string `json:"id"`
 	Title string `json:"title"`
 	Duration float32 `json:"duration"`
 	Year int `json:"year"`
@@ -14,14 +14,9 @@ type Album struct {
 	ArtistID int `json:"artist_id"`
 }
 
-func (a *Album) NewAlbum(title string, duration float32, year int, genreID int, artistID int) *Album {
+func NewAlbum(helper helpers.Helper) *Album {
 	return &Album{
-		ID: helpers.GenerateID(),
-		Title: title,
-		Duration: duration,
-		Year: year,
-		GenreID: genreID,
-		ArtistID: artistID,
+		ID: helper.GenerateID(),
 	}
 }
 

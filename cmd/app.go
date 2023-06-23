@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"music-management/database"
 	"music-management/internal/handlers"
 	"music-management/internal/usecases"
 
@@ -10,13 +11,15 @@ import (
 func App() {
 	helper := helpers.NewHelper()
 
+	db := database.NewDatabase()
+
 	albumUC := usecases.NewAlbumUsecase()
 	albumHandler := handlers.NewAlbumHandler(*albumUC, *helper)
 
 	artistUC := usecases.NewArtistUsecase()
 	artistHandler := handlers.NewArtistHandler(*artistUC, *helper)
 
-	genreUC := usecases.NewGenreUsecase()
+	genreUC := usecases.NewGenreUsecase(db, *helper)
 	genreHandler := handlers.NewGenreHandler(*genreUC, *helper)
 
 	playlistUC := usecases.NewPlaylistUsecase()
@@ -27,5 +30,6 @@ func App() {
 
 
 	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *songHandler, *helper)
+	
 	exe.Execution()
 }

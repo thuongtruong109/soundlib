@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"music-management/pkg/helpers"
 	"music-management/pkg/constants"
 
@@ -28,7 +29,14 @@ func (u *GenreHandler) GetGenre() {
 }
 
 func (u *GenreHandler) CreateGenre() {
-	u.helper.Output(constants.INFO, "CreateGenre")
+	result := u.uc.CreateGenre()
+
+	display := fmt.Sprintf("ID: %s\n", result.ID)
+
+	u.helper.Output(constants.INFO, "Create successfully")
+
+	u.helper.TableOutput("Genre", []interface{}{display}, nil)
+
 }
 
 func (u *GenreHandler) DeleteGenre() {

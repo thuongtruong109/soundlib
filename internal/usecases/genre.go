@@ -1,9 +1,21 @@
 package usecases
 
-type GenreUsecase struct {}
+import (
+	"music-management/database"
+	"music-management/internal/models"
+	"music-management/pkg/helpers"
+)
 
-func NewGenreUsecase() *GenreUsecase {
-	return &GenreUsecase{}
+type GenreUsecase struct {
+	db database.Database
+	helper helpers.Helper
+}
+
+func NewGenreUsecase(db database.Database, helper helpers.Helper) *GenreUsecase {
+	return &GenreUsecase{
+		db: db,
+		helper: helper,
+	}
 }
 
 func (g *GenreUsecase) GetGenres() string {
@@ -14,8 +26,15 @@ func (g *GenreUsecase) GetGenre() string {
 	return "Genre by id"
 }
 
-func (g *GenreUsecase) CreateGenre() string {
-	return "Create Genre"
+func (g *GenreUsecase) CreateGenre() *models.Genre {
+	newGenre := &models.Genre{
+		ID: g.helper.GenerateID(),
+		Name: "Genre",
+		Description: "Description",
+	}
+
+	g.db.SaveToDB("genres.json", *newGenre)
+	return newGenre
 }
 
 func (g *GenreUsecase) DeleteGenre() string {

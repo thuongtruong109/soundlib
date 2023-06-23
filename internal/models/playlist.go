@@ -5,17 +5,14 @@ import (
 )
 
 type PlayList struct {
-	ID int `json:"id"`
+	ID string `json:"id"`
 	Name string `json:"name"`
 	Tracks []Track `json:"tracks"`
 	Duration float32 `json:"duration"`
 }
 
-func NewPlayList() *PlayList {
+func NewPlayList(helper helpers.Helper) *PlayList {
 	return &PlayList{
-		ID: helpers.GenerateID(),
-		Name: "",
-		Tracks: []Track{},
-		Duration: 0,
+		ID: helper.GenerateID(),
 	}
 }

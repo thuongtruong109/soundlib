@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+    "github.com/jedib0t/go-pretty/v6/table"
 	"music-management/pkg/constants"
 )
 
@@ -47,4 +48,27 @@ func (h *Helper) ClearConsole() {
 
 	cmd.Stdout = os.Stdout
 	cmd.Run()
+}
+
+func (h *Helper) TableOutput(header interface{}, rows []interface{}, footer interface{}) {
+	t := table.NewWriter()
+    t.SetOutputMirror(os.Stdout)
+
+	if header != nil {
+		t.AppendHeader(table.Row{header})
+	}
+
+	if rows != nil {
+		for _, row := range rows {
+			t.AppendRow([]interface{}{row})
+			t.AppendSeparator()
+		}
+	}
+
+	if footer != nil {
+		t.AppendFooter(table.Row{footer})
+	}
+
+	t.SetStyle(table.StyleColoredBright)
+    t.Render()
 }
