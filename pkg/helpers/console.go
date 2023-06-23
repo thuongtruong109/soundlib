@@ -59,8 +59,8 @@ func (h *Helper) TableOutput(header interface{}, rows []interface{}, footer inte
 	}
 
 	if rows != nil {
-		for _, row := range rows {
-			t.AppendRow([]interface{}{row})
+		for i, row := range rows {
+			t.AppendRow([]interface{}{i, row})
 			t.AppendSeparator()
 		}
 	}

@@ -21,7 +21,15 @@ func NewGenreHandler(uc usecases.GenreUsecase, helper helpers.Helper) *GenreHand
 }
 
 func (u *GenreHandler) GetGenres() {
-	u.helper.Output(constants.INFO, "GetGenres")
+	result := u.uc.GetGenres()
+	if result == nil {
+		u.helper.Output(constants.ERROR, constants.GET_FAILED)
+		return
+	}
+
+	u.helper.Output(constants.INFO, constants.GET_SUCCESS)
+
+	u.helper.TableOutput("Genre", result, nil)
 }
 
 func (u *GenreHandler) GetGenre() {
@@ -30,13 +38,16 @@ func (u *GenreHandler) GetGenre() {
 
 func (u *GenreHandler) CreateGenre() {
 	result := u.uc.CreateGenre()
+	if result == nil {
+		u.helper.Output(constants.ERROR, constants.CREATE_FAILED)
+		return
+	}
+
+	u.helper.Output(constants.INFO, constants.CREATE_SUCCESS)
 
 	display := fmt.Sprintf("ID: %s\n", result.ID)
 
-	u.helper.Output(constants.INFO, "Create successfully")
-
 	u.helper.TableOutput("Genre", []interface{}{display}, nil)
-
 }
 
 func (u *GenreHandler) DeleteGenre() {

@@ -27,6 +27,7 @@ func (d *Delivery) Execution() {
 			d.helper.ClearConsole()
 			loop()
 		} else {
+			d.helper.ClearConsole()
 			d.helper.Output(constants.LABEL, "\n --- Thank you for using our service!")
 			break
 		}
