@@ -25,3 +25,11 @@ func (a *ArtistUsecase) DeleteArtist() string {
 func (a *ArtistUsecase) UpdateArtist() string {
 	return "Update Artist"
 }
+
+func (a *ArtistUsecase) GetAlbumsOfArtist() string {
+	return "Albums of Artist"
+}
+
+func (a *ArtistUsecase) GetTracksOfArtist() string {
+	return "Tracks of Artist"
+}

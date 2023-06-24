@@ -18,27 +18,31 @@ func NewGenreUsecase(helper helpers.Helper) *GenreUsecase {
 	}
 }
 
-func (g *GenreUsecase) GetGenres() []*models.Genre {
+func (g *GenreUsecase) GetGenres() ([]*models.Genre, error) {
 	genresInterface, err := database.ReadDB[*models.Genre](constants.GENRE_PATH)
 
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	if genresInterface == nil {
-		return nil
+		return nil, nil
 	}
 
 	genres := make([]*models.Genre, len(genresInterface))
 	copy(genres, genresInterface)
 
-	return genres
+	return genres, nil
 }
 
-func (g *GenreUsecase) GetGenre() *models.Genre {
-	allGenres := g.GetGenres()
+func (g *GenreUsecase) GetGenre() (*models.Genre, error) {
+	allGenres, err := g.GetGenres()
+	if err != nil {
+		return nil, err
+	}
+
 	if allGenres == nil {
-		return nil
+		return nil, nil
 	}
 
 	var id string
@@ -47,17 +51,21 @@ func (g *GenreUsecase) GetGenre() *models.Genre {
 
 	for _, genre := range allGenres {
 		if genre.ID == id {
-			return genre
+			return genre, nil
 		}
 	}
 
-	return nil
+	return nil, nil
 }
 
-func (g *GenreUsecase) CreateGenre() *models.Genre {
-	allGenres := g.GetGenres()
+func (g *GenreUsecase) CreateGenre() (*models.Genre, error) {
+	allGenres, err := g.GetGenres()
+	if err != nil {
+		return nil, err
+	}
+
 	if allGenres == nil {
-		return nil
+		return nil, nil
 	}
 
 	var genresInit []*models.Genre
@@ -88,15 +96,19 @@ func (g *GenreUsecase) CreateGenre() *models.Genre {
 
 	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
-		return nil
+		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
-	return newGenre
+	return newGenre, nil
 }
 
 func (g *GenreUsecase) DeleteGenre() error {
-	allGenres := g.GetGenres()
+	allGenres, err := g.GetGenres()
+	if err != nil {
+		return err
+	}
+
 	if allGenres == nil {
-		return fmt.Errorf(constants.DELETE_FAILED)
+		return nil
 	}
 
 	var id string
@@ -118,13 +130,16 @@ func (g *GenreUsecase) DeleteGenre() error {
 	}
 
 	return nil
-
 }
 
-func (g *GenreUsecase) UpdateGenre() *models.Genre {
-	allGenres := g.GetGenres()
+func (g *GenreUsecase) UpdateGenre() (*models.Genre, error) {
+	allGenres, err := g.GetGenres()
+	if err != nil {
+		return nil, err
+	}
+
 	if allGenres == nil {
-		return nil
+		return nil, nil
 	}
 
 	var id string
@@ -158,15 +173,11 @@ func (g *GenreUsecase) UpdateGenre() *models.Genre {
 
 	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
-		return nil
+		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
-	return newGenre
+	return newGenre, nil
 }
 
-func (g *GenreUsecase) GetAlbumsOfGenre() string {
-	return "Albums of genre"
-}
-
-func (g *GenreUsecase) GetSongsOfGenre() string {
-	return "Songs of genre"
+func (g *GenreUsecase) GetTracksOfGenre() string {
+	return "Tracks of Genre"
 }

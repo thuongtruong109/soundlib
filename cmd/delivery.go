@@ -12,17 +12,17 @@ type Delivery struct {
 	artistHandler handlers.ArtistHandler
 	genreHandler handlers.GenreHandler
 	playlistHandler handlers.PlaylistHandler
-	songHandler handlers.SongHandler
+	trackHandler handlers.TrackHandler
 	helper helpers.Helper
 }
 
-func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler handlers.ArtistHandler, genreHandler handlers.GenreHandler, playlistHandler handlers.PlaylistHandler, songHandler handlers.SongHandler, helper helpers.Helper) *Delivery {
+func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler handlers.ArtistHandler, genreHandler handlers.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
 	return &Delivery{
 		albumHandler: albumHandler,
 		artistHandler: artistHandler,
 		genreHandler: genreHandler,
 		playlistHandler: playlistHandler,
-		songHandler: songHandler,
+		trackHandler: trackHandler,
 		helper: helper,
 	}
 }
@@ -31,39 +31,47 @@ func (d *Delivery) DisplayOptions() {
 	options := []map[int]string{
 		{1: "Create new album"},
 		{2: "Get all albums"},
-		{3: "Get album by id"},
+		{3: "Get album info by id"},
 		{4: "Delete album by id"},
+		{5: "Update album by id"},
+		{6: "Get all tracks of album"},
 
-		{5: "Create new artist"},
-		{6: "Get all artists"},
-		{7: "Get artist by id"},
-		{8: "Get all albums of artist"},
-		{9: "Get all songs of artist"},
-		{10: "Delete artist by id"},
+		{7: "Create new artist"},
+		{8: "Get all artists"},
+		{9: "Get artist by id"},
+		{10: "Get all albums of artist"},
+		{11: "Get all songs of artist"},
+		{12: "Delete artist by id"},
 
-		{11: "Create new genre"},
-		{12: "Get all genres"},
-		{13: "Get genre by id"},
-		{14: "Get all albums of genre"},
-		{15: "Get all songs of genre"},
+		{13: "Create new genre"},
+		{14: "Get all genres"},
+		{15: "Get genre by id"},
 		{16: "Delete genre by id"},
 		{17: "Update genre by id"},
+		{18: "Get all tracks of genre"},
 
-		{18: "Create new song"},
-		{19: "Get all songs"},
-		{20: "Get song by id"},
-		{21: "Delete song by id"},
+		{19: "Create new track"},
+		{20: "Get all tracks"},
+		{21: "Get track by id"},
+		{22: "Delete track by id"},
+		{23: "Update track by id"},
 
-		{22: "Create new playlist"},
-		{23: "Get all playlists"},
-		{24: "Get playlist by id"},
-		{25: "Delete playlist by id"},
-		{26: "Update playlist by id"},
+		{24: "Create new playlist"},
+		{25: "Get all playlists"},
+		{26: "Get playlist by id"},
+		{27: "Delete playlist by id"},
+		{28: "Update playlist by id"},
+
+		{29: "Add track to playlist"},
+		{30: "Remove track from playlist"},
+		{31: "Get all tracks of playlist"},
+		{32: "Get all playlists have track"},
+		{33: "Get all playlists have track"},
 	}
 	
 	for _, option := range options {
 		for key, value := range option {
-			d.helper.Output(constants.DESC, fmt.Sprintf("⦿ %v", key) + ". " + value)
+			d.helper.OutputNomal(constants.DESC, fmt.Sprintf("⦿ %v", key) + ". " + value)
 		}
 	}
 }
@@ -79,40 +87,67 @@ func (h *Delivery) HandleOption(option int) {
 	case 4:
 		h.albumHandler.DeleteAlbum()
 	case 5:
-		h.artistHandler.CreateArtist()
+		h.albumHandler.UpdateAlbum()
 	case 6:
-		h.artistHandler.GetArtists()
+		h.albumHandler.GetTracksOfAlbum()
+
 	case 7:
-		h.artistHandler.GetArtist()
+		h.artistHandler.CreateArtist()
 	case 8:
-		h.artistHandler.GetAlbumsOfArtist()
+		h.artistHandler.GetArtists()
 	case 9:
-		h.artistHandler.GetSongsOfArtist()
+		h.artistHandler.GetArtist()
 	case 10:
-		h.artistHandler.DeleteArtist()
+		h.artistHandler.GetAlbumsOfArtist()
 	case 11:
-		h.genreHandler.CreateGenre()
+		h.artistHandler.GetTracksOfArtist()
 	case 12:
-		h.genreHandler.GetGenres()
+		h.artistHandler.DeleteArtist()
+
 	case 13:
-		h.genreHandler.GetGenre()
+		h.genreHandler.CreateGenre()
 	case 14:
-		h.genreHandler.GetAlbumsOfGenre()
+		h.genreHandler.GetGenres()
 	case 15:
-		h.genreHandler.GetSongsOfGenre()
+		h.genreHandler.GetGenre()
 	case 16:
 		h.genreHandler.DeleteGenre()
 	case 17:
 		h.genreHandler.UpdateGenre()
 	case 18:
-		h.songHandler.CreateSong()
+		h.genreHandler.GetTracksOfGenre()
+
 	case 19:
-		h.songHandler.GetSongs()
+		h.trackHandler.CreateTrack()
 	case 20:
-		h.songHandler.GetSong()
+		h.trackHandler.GetTracks()
 	case 21:
-		h.songHandler.DeleteSong()
+		h.trackHandler.GetTrack()
+	case 22:
+		h.trackHandler.DeleteTrack()
+	case 23:
+		h.trackHandler.UpdateTrack()
+
+	case 24:
+		h.playlistHandler.CreatePlaylist()
+	case 25:
+		h.playlistHandler.GetPlaylists()
+	case 26:
+		h.playlistHandler.GetPlaylist()
+	case 27:
+		h.playlistHandler.DeletePlaylist()
+	case 28:
+		h.playlistHandler.UpdatePlaylist()
+
+	case 29:
+		h.playlistHandler.AddTrackToPlaylist()
+	case 30:
+		h.playlistHandler.DeleteTrackFromPlaylist()
+	case 31:
+		h.playlistHandler.GetTracksOfPlaylist()
+	case 32:
+		h.playlistHandler.GetPlaylistsHaveTrack()
 	default:
-		h.helper.Output(constants.ERROR, "Invalid option")
+		h.helper.OutputNomal(constants.ERROR, "Invalid option")
 	}
 }

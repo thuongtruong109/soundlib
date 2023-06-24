@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"music-management/pkg/helpers"
-	"music-management/pkg/constants"
 
 	"music-management/internal/usecases"
 )
@@ -20,29 +19,29 @@ func NewArtistHandler(uc usecases.ArtistUsecase, helper helpers.Helper) *ArtistH
 }
 
 func (u *ArtistHandler) GetArtists() {
-	u.helper.Output(constants.INFO, "GetArtists")
+	u.helper.OutputSuccess("GetArtists")
 }
 
 func (u *ArtistHandler) GetArtist() {
-	u.helper.Output(constants.INFO, "GetArtist")
+	u.helper.OutputSuccess("GetArtist")
 }
 
 func (u *ArtistHandler) CreateArtist() {
-	u.helper.Output(constants.INFO, "CreateArtist")
+	u.helper.OutputSuccess("CreateArtist")
 }
 
 func (u *ArtistHandler) DeleteArtist() {
-	u.helper.Output(constants.INFO, "DeleteArtist")
+	u.helper.OutputSuccess("DeleteArtist")
 }
 
 func (u *ArtistHandler) UpdateArtist() {
-	u.helper.Output(constants.INFO, "UpdateArtist")
+	u.helper.OutputSuccess("UpdateArtist")
 }
 
 func (u *ArtistHandler) GetAlbumsOfArtist() {
-	u.helper.Output(constants.INFO, "GetAlbumsOfArtist")
+	u.helper.OutputSuccess("GetAlbumsOfArtist")
 }
 
-func (u *ArtistHandler) GetSongsOfArtist() {
-	u.helper.Output(constants.INFO, "GetSongsOfArtist")
+func (u *ArtistHandler) GetTracksOfArtist() {
+	u.helper.OutputSuccess("GetSongsOfArtist")
 }

@@ -7,6 +7,5 @@ type Track struct {
 	Duration int `json:"duration"`
 	
 	GenreID int `json:"genre_id"`
-	AlbumID int `json:"album_id"`
 	ArtistID int `json:"artist_id"`
 }

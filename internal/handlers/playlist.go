@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"music-management/pkg/helpers"
-	"music-management/pkg/constants"
 
 	"music-management/internal/usecases"
 )
@@ -20,29 +19,37 @@ func NewPlaylistHandler(uc usecases.PlaylistUsecase, helper helpers.Helper) *Pla
 }
 
 func (u *PlaylistHandler) GetPlaylists() {
-	u.helper.Output(constants.INFO, "GetPlaylists")
+	u.helper.OutputSuccess("GetPlaylists")
 }
 
 func (u *PlaylistHandler) GetPlaylist() {
-	u.helper.Output(constants.INFO, "GetPlaylist")
+	u.helper.OutputSuccess("GetPlaylist")
 }
 
 func (u *PlaylistHandler) CreatePlaylist() {
-	u.helper.Output(constants.INFO, "CreatePlaylist")
+	u.helper.OutputSuccess("CreatePlaylist")
 }
 
 func (u *PlaylistHandler) DeletePlaylist() {
-	u.helper.Output(constants.INFO, "DeletePlaylist")
+	u.helper.OutputSuccess("DeletePlaylist")
 }
 
 func (u *PlaylistHandler) UpdatePlaylist() {
-	u.helper.Output(constants.INFO, "UpdatePlaylist")
+	u.helper.OutputSuccess("UpdatePlaylist")
 }
 
-func (u *PlaylistHandler) GetPlaylistByAlbum() {
-	u.helper.Output(constants.INFO, "GetPlaylistByAlbum")
+func (u *PlaylistHandler) GetTracksOfPlaylist() {
+	u.helper.OutputSuccess("GetTracksOfPlaylist")
 }
 
-func (u *PlaylistHandler) GetPlaylistByArtist() {
-	u.helper.Output(constants.INFO, "GetPlaylistByArtist")
+func (u *PlaylistHandler) AddTrackToPlaylist() {
+	u.helper.OutputSuccess("AddTrackToPlaylist")
+}
+
+func (u *PlaylistHandler) DeleteTrackFromPlaylist() {
+	u.helper.OutputSuccess("DeleteTrackFromPlaylist")
+}
+
+func (u *PlaylistHandler) GetPlaylistsHaveTrack() {
+	u.helper.OutputSuccess("GetPlaylistsHaveTrack")
 }

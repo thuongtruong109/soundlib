@@ -7,7 +7,7 @@ import (
 
 func (d *Delivery) Execution() {
 	loop := func() {
-		d.helper.Output(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
+		d.helper.OutputNomal(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
 		d.DisplayOptions()
 	
 		fmt.Print(d.helper.OutputColor(constants.INPUT) + "\n» Choose action: ")
@@ -28,7 +28,7 @@ func (d *Delivery) Execution() {
 			loop()
 		} else {
 			d.helper.ClearConsole()
-			d.helper.Output(constants.LABEL, "\n --- ♥ Thank you for using our service!")
+			d.helper.OutputNomal(constants.LABEL, "\n --- ♥ Thank you for using our service!")
 			break
 		}
 	}

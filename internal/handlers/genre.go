@@ -21,13 +21,18 @@ func NewGenreHandler(uc usecases.GenreUsecase, helper helpers.Helper) *GenreHand
 }
 
 func (u *GenreHandler) GetGenres() {
-	result := u.uc.GetGenres()
-	if result == nil {
-		u.helper.Output(constants.ERROR, constants.GET_FAILED)
+	result, err := u.uc.GetGenres()
+	if err != nil {
+		u.helper.OutputError(constants.GET_FAILED, err.Error())
 		return
 	}
 
-	u.helper.Output(constants.INFO, constants.GET_SUCCESS)
+	if result == nil {
+		u.helper.OutputError(constants.GET_SUCCESS, constants.NOT_FOUND_DATA)
+		return
+	}
+
+	u.helper.OutputSuccess(constants.GET_SUCCESS)
 
 	var items []string
 	for _, item := range result {
@@ -38,13 +43,18 @@ func (u *GenreHandler) GetGenres() {
 }
 
 func (u *GenreHandler) GetGenre() {
-	result := u.uc.GetGenre()
-	if result == nil {
-		u.helper.Output(constants.ERROR, constants.GET_FAILED)
+	result, err := u.uc.GetGenre()
+	if err != nil {
+		u.helper.OutputError(constants.GET_FAILED, err.Error())
 		return
 	}
 
-	u.helper.Output(constants.INFO, constants.GET_SUCCESS)
+	if result == nil {
+		u.helper.OutputError(constants.GET_FAILED, constants.NOT_FOUND_DATA)
+		return
+	}
+
+	u.helper.OutputSuccess(constants.GET_SUCCESS)
 
 	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
 
@@ -52,13 +62,18 @@ func (u *GenreHandler) GetGenre() {
 }
 
 func (u *GenreHandler) CreateGenre() {
-	result := u.uc.CreateGenre()
-	if result == nil {
-		u.helper.Output(constants.ERROR, constants.CREATE_FAILED)
+	result, err := u.uc.CreateGenre()
+	if err != nil {
+		u.helper.OutputError(constants.CREATE_FAILED, err.Error())
 		return
 	}
 
-	u.helper.Output(constants.INFO, constants.CREATE_SUCCESS)
+	if result == nil {
+		u.helper.OutputError(constants.CREATE_FAILED, constants.NOT_FOUND_DATA)
+		return
+	}
+
+	u.helper.OutputSuccess(constants.CREATE_SUCCESS)
 
 	newItem := []string{fmt.Sprintf("Id: %s", result.ID)}
 
@@ -66,33 +81,34 @@ func (u *GenreHandler) CreateGenre() {
 }
 
 func (u *GenreHandler) DeleteGenre() {
-	result := u.uc.DeleteGenre()
-	if result != nil {
-		u.helper.Output(constants.ERROR, constants.DELETE_FAILED)
+	err := u.uc.DeleteGenre()
+	if err != nil {
+		u.helper.OutputError(constants.DELETE_FAILED, err.Error())
 		return
 	}
 
-	u.helper.Output(constants.INFO, constants.DELETE_SUCCESS)
+	u.helper.OutputSuccess(constants.DELETE_SUCCESS)
 }
 
 func (u *GenreHandler) UpdateGenre() {
-	result := u.uc.UpdateGenre()
-	if result == nil {
-		u.helper.Output(constants.ERROR, constants.UPDATE_FAILED)
+	result, err := u.uc.UpdateGenre()
+	if err != nil {
+		u.helper.OutputError(constants.UPDATE_FAILED, err.Error())
 		return
 	}
 
-	u.helper.Output(constants.INFO, constants.UPDATE_SUCCESS)
+	if result == nil {
+		u.helper.OutputError(constants.UPDATE_FAILED, constants.NOT_FOUND_DATA)
+		return
+	}
+
+	u.helper.OutputSuccess(constants.UPDATE_SUCCESS)
 
 	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
 
 	helpers.TableOutput[string, string, interface{}]("Genre", newItem, nil)
 }
 
-func (u *GenreHandler) GetAlbumsOfGenre() {
-	u.helper.Output(constants.INFO, "GetAlbumsOfGenre")
-}
-
-func (u *GenreHandler) GetSongsOfGenre() {
-	u.helper.Output(constants.INFO, "GetSongsOfGenre")
+func (u *GenreHandler) GetTracksOfGenre() {
+	u.helper.OutputSuccess(constants.GET_SUCCESS)
 }

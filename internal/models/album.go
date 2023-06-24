@@ -6,7 +6,6 @@ type Album struct {
 	Duration float32 `json:"duration"`
 	Year int `json:"year"`
 
-	GenreID int `json:"genre_id"`
 	ArtistID int `json:"artist_id"`
 }
 

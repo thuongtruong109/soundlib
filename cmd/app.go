@@ -22,11 +22,11 @@ func App() {
 	playlistUC := usecases.NewPlaylistUsecase()
 	playlistHandler := handlers.NewPlaylistHandler(*playlistUC, *helper)
 
-	songUC := usecases.NewSongUsecase()
-	songHandler := handlers.NewSongHandler(*songUC, *helper)
+	trackUC := usecases.NewTrackUsecase()
+	trackHandler := handlers.NewTrackHandler(*trackUC, *helper)
 
 
-	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *songHandler, *helper)
+	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *trackHandler, *helper)
 	
 	exe.Execution()
 }
