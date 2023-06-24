@@ -13,7 +13,7 @@ func App() {
 	albumUC := usecases.NewAlbumUsecase()
 	albumHandler := handlers.NewAlbumHandler(*albumUC, *helper)
 
-	artistUC := usecases.NewArtistUsecase()
+	artistUC := usecases.NewArtistUsecase(*helper)
 	artistHandler := handlers.NewArtistHandler(*artistUC, *helper)
 
 	genreUC := usecases.NewGenreUsecase(*helper)

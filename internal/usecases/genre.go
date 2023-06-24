@@ -59,20 +59,12 @@ func (g *GenreUsecase) GetGenre() (*models.Genre, error) {
 }
 
 func (g *GenreUsecase) CreateGenre() (*models.Genre, error) {
-	allGenres, err := g.GetGenres()
-	if err != nil {
-		return nil, err
-	}
-
-	if allGenres == nil {
-		return nil, nil
-	}
+	allGenres, _ := g.GetGenres()
 
 	var genresInit []*models.Genre
 
 	if allGenres == nil {
 		genresInit = make([]*models.Genre, 0)
-		
 	} else {
 		genresInit = make([]*models.Genre, len(allGenres))
 		copy(genresInit, allGenres)

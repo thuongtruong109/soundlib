@@ -42,31 +42,32 @@ func (d *Delivery) DisplayOptions() {
 		{10: "Get all albums of artist"},
 		{11: "Get all songs of artist"},
 		{12: "Delete artist by id"},
+		{13: "Update artist by id"},
 
-		{13: "Create new genre"},
-		{14: "Get all genres"},
-		{15: "Get genre by id"},
-		{16: "Delete genre by id"},
-		{17: "Update genre by id"},
-		{18: "Get all tracks of genre"},
+		{14: "Create new genre"},
+		{15: "Get all genres"},
+		{16: "Get genre by id"},
+		{17: "Delete genre by id"},
+		{18: "Update genre by id"},
+		{19: "Get all tracks of genre"},
 
-		{19: "Create new track"},
-		{20: "Get all tracks"},
-		{21: "Get track by id"},
-		{22: "Delete track by id"},
-		{23: "Update track by id"},
+		{20: "Create new track"},
+		{21: "Get all tracks"},
+		{22: "Get track by id"},
+		{23: "Delete track by id"},
+		{24: "Update track by id"},
 
-		{24: "Create new playlist"},
-		{25: "Get all playlists"},
-		{26: "Get playlist by id"},
-		{27: "Delete playlist by id"},
-		{28: "Update playlist by id"},
+		{25: "Create new playlist"},
+		{26: "Get all playlists"},
+		{27: "Get playlist by id"},
+		{28: "Delete playlist by id"},
+		{29: "Update playlist by id"},
 
-		{29: "Add track to playlist"},
-		{30: "Remove track from playlist"},
-		{31: "Get all tracks of playlist"},
-		{32: "Get all playlists have track"},
+		{30: "Add track to playlist"},
+		{31: "Remove track from playlist"},
+		{32: "Get all tracks of playlist"},
 		{33: "Get all playlists have track"},
+		{34: "Get all playlists have track"},
 	}
 	
 	for _, option := range options {
@@ -103,49 +104,51 @@ func (h *Delivery) HandleOption(option int) {
 		h.artistHandler.GetTracksOfArtist()
 	case 12:
 		h.artistHandler.DeleteArtist()
-
 	case 13:
-		h.genreHandler.CreateGenre()
+		h.artistHandler.UpdateArtist()
+
 	case 14:
-		h.genreHandler.GetGenres()
+		h.genreHandler.CreateGenre()
 	case 15:
-		h.genreHandler.GetGenre()
+		h.genreHandler.GetGenres()
 	case 16:
-		h.genreHandler.DeleteGenre()
+		h.genreHandler.GetGenre()
 	case 17:
-		h.genreHandler.UpdateGenre()
+		h.genreHandler.DeleteGenre()
 	case 18:
+		h.genreHandler.UpdateGenre()
+	case 19:
 		h.genreHandler.GetTracksOfGenre()
 
-	case 19:
-		h.trackHandler.CreateTrack()
 	case 20:
-		h.trackHandler.GetTracks()
+		h.trackHandler.CreateTrack()
 	case 21:
-		h.trackHandler.GetTrack()
+		h.trackHandler.GetTracks()
 	case 22:
-		h.trackHandler.DeleteTrack()
+		h.trackHandler.GetTrack()
 	case 23:
+		h.trackHandler.DeleteTrack()
+	case 24:
 		h.trackHandler.UpdateTrack()
 
-	case 24:
-		h.playlistHandler.CreatePlaylist()
 	case 25:
-		h.playlistHandler.GetPlaylists()
+		h.playlistHandler.CreatePlaylist()
 	case 26:
-		h.playlistHandler.GetPlaylist()
+		h.playlistHandler.GetPlaylists()
 	case 27:
-		h.playlistHandler.DeletePlaylist()
+		h.playlistHandler.GetPlaylist()
 	case 28:
+		h.playlistHandler.DeletePlaylist()
+	case 29:
 		h.playlistHandler.UpdatePlaylist()
 
-	case 29:
-		h.playlistHandler.AddTrackToPlaylist()
 	case 30:
-		h.playlistHandler.DeleteTrackFromPlaylist()
+		h.playlistHandler.AddTrackToPlaylist()
 	case 31:
-		h.playlistHandler.GetTracksOfPlaylist()
+		h.playlistHandler.DeleteTrackFromPlaylist()
 	case 32:
+		h.playlistHandler.GetTracksOfPlaylist()
+	case 33:
 		h.playlistHandler.GetPlaylistsHaveTrack()
 	default:
 		h.helper.OutputNomal(constants.ERROR, "Invalid option")
