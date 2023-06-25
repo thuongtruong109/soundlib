@@ -1,0 +1,35 @@
+package main
+
+import "fmt"
+
+type CallbackFunc[T any] func(T)
+
+type CallbackHandler[T any] interface {
+	RegisterCallback(CallbackFunc[T])
+	TriggerCallback(T)
+}
+
+type ExampleHandler[T any] struct {
+	callback CallbackFunc[T]
+}
+
+func (eh *ExampleHandler[T]) RegisterCallback(callback CallbackFunc[T]) {
+	eh.callback = callback
+}
+
+func (eh *ExampleHandler[T]) TriggerCallback(data T) {
+	if eh.callback != nil {
+		eh.callback(data)
+	}
+}
+
+func main() {
+	handler := &ExampleHandler[int]{} // Example with int type
+
+	callback := func(num int) {
+		fmt.Println("Callback executed with:", num)
+	}
+
+	handler.RegisterCallback(callback)
+	handler.TriggerCallback(42)
+}

@@ -30,13 +30,17 @@ func (h *Helper) OutputColor(level int8) string {
 }
 
 func (h *Helper) OutputSuccess(statusMsg string) {
-	println(constants.Green + "::: Status: " + statusMsg + constants.Reset)
+	println(constants.Green + "\n::: Status: " + statusMsg + constants.Reset)
 }
 
 func (h *Helper) OutputError(statusMsg string, err string) {
-	println(constants.Red + "::: Status: " + statusMsg + "\n::: Message: " + err + constants.Reset)
+	println(constants.Red + "\n::: Status: " + statusMsg + "\n::: Message: " + err + constants.Reset)
 }
 
 func (h *Helper) OutputNomal(label int8, msg string) {
 	println(h.OutputColor(label) + msg + constants.Reset)
+}
+
+func OutputTime(time string) {
+	println(constants.Purple + "\n::: Query time: " + time + constants.Reset)
 }
