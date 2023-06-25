@@ -7,21 +7,15 @@ import (
 
 func (d *Delivery) Execution() {
 	loop := func() {
-		d.helper.OutputNomal(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
-		d.DisplayOptions()
-		// d.Run()
-	
-		fmt.Print(d.helper.OutputColor(constants.INPUT) + "\n» Choose action: ")
-	
-		var option int
-		fmt.Scanln(&option)
-	
+		d.helper.OutputNomal(constants.LABEL, constants.BANNER_TEXT)
+
+		option := d.Run()
 		d.HandleOption(option)
 	}
 	loop()
 
 	for {
-		fmt.Print(d.helper.OutputColor(constants.QUERY) + "\n ¤ Do you want to continue? (y/n): ")
+		fmt.Print(d.helper.OutputColor(constants.QUERY) + constants.AGAIN_TEXT)
 		var input string
 		fmt.Scanln(&input)
 		if input == "y" {
@@ -29,7 +23,7 @@ func (d *Delivery) Execution() {
 			loop()
 		} else {
 			d.helper.ClearConsole()
-			d.helper.OutputNomal(constants.LABEL, "\n --- ♥ Thank you for using our service!")
+			d.helper.OutputNomal(constants.LABEL, constants.THANKYOU_TEXT)
 			break
 		}
 	}

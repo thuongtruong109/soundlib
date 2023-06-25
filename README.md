@@ -36,8 +36,10 @@ go run main.go
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## References
+<!-- ## References
 
 [Read x write JSON](https://www.developer.com/languages/json-files-golang/)
 
 [Append to Json](https://dev.to/evilcel3ri/append-data-to-json-in-go-5gbj)
+
+[symbol](https://www.cutesymbols.net/p/dot.html) -->
