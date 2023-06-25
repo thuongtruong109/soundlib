@@ -7,18 +7,19 @@ import (
 	"music-management/internal/handlers"
 
 	"music-management/internal/artists"
+	"music-management/internal/genres"
 )
 
 type Delivery struct {
 	albumHandler handlers.AlbumHandler
 	artistHandler artists.ArtistHandler
-	genreHandler handlers.GenreHandler
+	genreHandler genres.GenreHandler
 	playlistHandler handlers.PlaylistHandler
 	trackHandler handlers.TrackHandler
 	helper helpers.Helper
 }
 
-func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler handlers.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
+func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
 	return &Delivery{
 		albumHandler: albumHandler,
 		artistHandler: artistHandler,
@@ -156,3 +157,38 @@ func (h *Delivery) HandleOption(option int) {
 		h.helper.OutputNomal(constants.ERROR, "Invalid option")
 	}
 }
+
+/// servey
+
+// import ("github.com/AlecAivazis/survey/v2")
+// var qs = []*survey.Question{
+//     {
+//         Name: "level1",
+//         Prompt: &survey.Select{
+//             Message: "Choose a level 1:",
+//             Options: []string{"1a", "1b", "1c"},
+//         },
+//     },
+// 	{
+//         Name: "level2",
+//         Prompt: &survey.Select{
+//             Message: "Choose a level2:",
+//             Options: []string{"2a", "2b", "2c"},
+//         },
+//     },
+// }
+
+// func (h *Delivery) Run() {
+// 	answers := struct {
+//         Level1 string `survey:"level1"`
+// 		Level2 string `survey:"level2"`
+//     }{}
+
+//     err := survey.Ask(qs, &answers)
+//     if err != nil {
+//         fmt.Println(err.Error())
+//         return
+//     }
+
+//     fmt.Printf("level 1: %s - level 2: %s",  answers.Level1, answers.Level2)
+// }

@@ -9,6 +9,7 @@ func (d *Delivery) Execution() {
 	loop := func() {
 		d.helper.OutputNomal(constants.LABEL, "\n===== MUSIC MANAGEMENT =====")
 		d.DisplayOptions()
+		// d.Run()
 	
 		fmt.Print(d.helper.OutputColor(constants.INPUT) + "\n» Choose action: ")
 	

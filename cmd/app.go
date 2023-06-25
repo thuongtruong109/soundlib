@@ -6,6 +6,7 @@ import (
 
 	"music-management/pkg/helpers"
 	"music-management/internal/artists"
+	"music-management/internal/genres"
 )
 
 func App() {
@@ -18,8 +19,9 @@ func App() {
 	artistUC := artists.NewArtistUsecase(*artistRepo, *helper)
 	artistHandler := artists.NewArtistHandler(*artistUC, *helper)
 
-	genreUC := usecases.NewGenreUsecase(*helper)
-	genreHandler := handlers.NewGenreHandler(*genreUC, *helper)
+	genreRepo := genres.NewGenreRepository(*helper)
+	genreUC := genres.NewGenreUsecase(*genreRepo, *helper)
+	genreHandler := genres.NewGenreHandler(*genreUC, *helper)
 
 	playlistUC := usecases.NewPlaylistUsecase()
 	playlistHandler := handlers.NewPlaylistHandler(*playlistUC, *helper)
