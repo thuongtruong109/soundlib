@@ -1,55 +1,48 @@
 package database
 
 import (
-	"os"
-	"io/ioutil"
 	"encoding/json"
+	"io/ioutil"
+	"os"
 )
 
-func ReadMapFromDB[T any](path string) (map[string]*T, error) {
-	content, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	var data map[string]*T
-
-	err = json.Unmarshal(content, &data)
-	if err != nil {
-		return nil, err
-	}
-	return data, nil
-}
-
-func SaveMapToDB[T any](path string, data T) error {
-	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	err = json.NewEncoder(file).Encode(data)
-	if err != nil {
-		return err
+func checkFile(filename string) error {
+	_, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		_, err := os.Create(filename)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
 
-func ReadSliceFromDB[T any](path string) ([]*T, error) {
+func ReadDB[T any](path string) ([]T, error) {
+	err := checkFile(path)
+    if err != nil {
+        return nil, err
+    }
+
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
 
-	var data []*T
+	if len(content) == 0 {
+		return nil, nil
+	}
+
+	var data []T
+
 	err = json.Unmarshal(content, &data)
 	if err != nil {
 		return nil, err
 	}
+
 	return data, nil
 }
 
-func SaveSliceToDB[T any](path string, data []*T) error {
+func SaveDB[T any](path string, data T) error {
 	content, err := json.Marshal(data)
 	if err != nil {
 		return nil

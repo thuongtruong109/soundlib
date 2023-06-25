@@ -5,24 +5,27 @@ import (
 	"music-management/pkg/helpers"
 	"music-management/pkg/constants"
 	"music-management/internal/handlers"
+
+	"music-management/internal/artists"
+	"music-management/internal/genres"
 )
 
 type Delivery struct {
 	albumHandler handlers.AlbumHandler
-	artistHandler handlers.ArtistHandler
-	genreHandler handlers.GenreHandler
+	artistHandler artists.ArtistHandler
+	genreHandler genres.GenreHandler
 	playlistHandler handlers.PlaylistHandler
-	songHandler handlers.SongHandler
+	trackHandler handlers.TrackHandler
 	helper helpers.Helper
 }
 
-func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler handlers.ArtistHandler, genreHandler handlers.GenreHandler, playlistHandler handlers.PlaylistHandler, songHandler handlers.SongHandler, helper helpers.Helper) *Delivery {
+func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
 	return &Delivery{
 		albumHandler: albumHandler,
 		artistHandler: artistHandler,
 		genreHandler: genreHandler,
 		playlistHandler: playlistHandler,
-		songHandler: songHandler,
+		trackHandler: trackHandler,
 		helper: helper,
 	}
 }
@@ -31,29 +34,48 @@ func (d *Delivery) DisplayOptions() {
 	options := []map[int]string{
 		{1: "Create new album"},
 		{2: "Get all albums"},
-		{3: "Get album by id"},
+		{3: "Get album info by id"},
 		{4: "Delete album by id"},
-		{5: "Create new artist"},
-		{6: "Get all artists"},
-		{7: "Get artist by id"},
-		{8: "Get all albums of artist"},
-		{9: "Get all songs of artist"},
-		{10: "Delete artist by id"},
-		{11: "Create new genre"},
-		{12: "Get all genres"},
-		{13: "Get genre by id"},
-		{14: "Get all albums of genre"},
-		{15: "Get all songs of genre"},
-		{16: "Delete genre by id"},
-		{17: "Create new song"},
-		{18: "Get all songs"},
-		{19: "Get song by id"},
-		{20: "Delete song by id"},
+		{5: "Update album by id"},
+		{6: "Get all tracks of album"},
+
+		{7: "Create new artist"},
+		{8: "Get all artists"},
+		{9: "Get artist by id"},
+		{10: "Get all albums of artist"},
+		{11: "Get all songs of artist"},
+		{12: "Delete artist by id"},
+		{13: "Update artist by id"},
+
+		{14: "Create new genre"},
+		{15: "Get all genres"},
+		{16: "Get genre by id"},
+		{17: "Delete genre by id"},
+		{18: "Update genre by id"},
+		{19: "Get all tracks of genre"},
+
+		{20: "Create new track"},
+		{21: "Get all tracks"},
+		{22: "Get track by id"},
+		{23: "Delete track by id"},
+		{24: "Update track by id"},
+
+		{25: "Create new playlist"},
+		{26: "Get all playlists"},
+		{27: "Get playlist by id"},
+		{28: "Delete playlist by id"},
+		{29: "Update playlist by id"},
+
+		{30: "Add track to playlist"},
+		{31: "Remove track from playlist"},
+		{32: "Get all tracks of playlist"},
+		{33: "Get all playlists have track"},
+		{34: "Get all playlists have track"},
 	}
 	
 	for _, option := range options {
 		for key, value := range option {
-			d.helper.Output(constants.DESC, fmt.Sprintf("%v", key) + ". " + value)
+			d.helper.OutputNomal(constants.DESC, fmt.Sprintf("⦿ %v", key) + ". " + value)
 		}
 	}
 }
@@ -69,38 +91,104 @@ func (h *Delivery) HandleOption(option int) {
 	case 4:
 		h.albumHandler.DeleteAlbum()
 	case 5:
-		h.artistHandler.CreateArtist()
+		h.albumHandler.UpdateAlbum()
 	case 6:
-		h.artistHandler.GetArtists()
+		h.albumHandler.GetTracksOfAlbum()
+
 	case 7:
-		h.artistHandler.GetArtist()
+		h.artistHandler.CreateArtist()
 	case 8:
-		h.artistHandler.GetAlbumsOfArtist()
+		h.artistHandler.GetArtists()
 	case 9:
-		h.artistHandler.GetSongsOfArtist()
+		h.artistHandler.GetArtist()
 	case 10:
-		h.artistHandler.DeleteArtist()
+		h.artistHandler.GetAlbumsOfArtist()
 	case 11:
-		h.genreHandler.CreateGenre()
+		h.artistHandler.GetTracksOfArtist()
 	case 12:
-		h.genreHandler.GetGenres()
+		h.artistHandler.DeleteArtist()
 	case 13:
-		h.genreHandler.GetGenre()
+		h.artistHandler.UpdateArtist()
+
 	case 14:
-		h.genreHandler.GetAlbumsOfGenre()
+		h.genreHandler.CreateGenre()
 	case 15:
-		h.genreHandler.GetSongsOfGenre()
+		h.genreHandler.GetGenres()
 	case 16:
-		h.genreHandler.DeleteGenre()
+		h.genreHandler.GetGenre()
 	case 17:
-		h.songHandler.CreateSong()
+		h.genreHandler.DeleteGenre()
 	case 18:
-		h.songHandler.GetSongs()
+		h.genreHandler.UpdateGenre()
 	case 19:
-		h.songHandler.GetSong()
+		h.genreHandler.GetTracksOfGenre()
+
 	case 20:
-		h.songHandler.DeleteSong()
+		h.trackHandler.CreateTrack()
+	case 21:
+		h.trackHandler.GetTracks()
+	case 22:
+		h.trackHandler.GetTrack()
+	case 23:
+		h.trackHandler.DeleteTrack()
+	case 24:
+		h.trackHandler.UpdateTrack()
+
+	case 25:
+		h.playlistHandler.CreatePlaylist()
+	case 26:
+		h.playlistHandler.GetPlaylists()
+	case 27:
+		h.playlistHandler.GetPlaylist()
+	case 28:
+		h.playlistHandler.DeletePlaylist()
+	case 29:
+		h.playlistHandler.UpdatePlaylist()
+
+	case 30:
+		h.playlistHandler.AddTrackToPlaylist()
+	case 31:
+		h.playlistHandler.DeleteTrackFromPlaylist()
+	case 32:
+		h.playlistHandler.GetTracksOfPlaylist()
+	case 33:
+		h.playlistHandler.GetPlaylistsHaveTrack()
 	default:
-		h.helper.Output(constants.ERROR, "Invalid option")
+		h.helper.OutputNomal(constants.ERROR, "Invalid option")
 	}
 }
+
+/// servey
+
+// import ("github.com/AlecAivazis/survey/v2")
+// var qs = []*survey.Question{
+//     {
+//         Name: "level1",
+//         Prompt: &survey.Select{
+//             Message: "Choose a level 1:",
+//             Options: []string{"1a", "1b", "1c"},
+//         },
+//     },
+// 	{
+//         Name: "level2",
+//         Prompt: &survey.Select{
+//             Message: "Choose a level2:",
+//             Options: []string{"2a", "2b", "2c"},
+//         },
+//     },
+// }
+
+// func (h *Delivery) Run() {
+// 	answers := struct {
+//         Level1 string `survey:"level1"`
+// 		Level2 string `survey:"level2"`
+//     }{}
+
+//     err := survey.Ask(qs, &answers)
+//     if err != nil {
+//         fmt.Println(err.Error())
+//         return
+//     }
+
+//     fmt.Printf("level 1: %s - level 2: %s",  answers.Level1, answers.Level2)
+// }

@@ -22,10 +22,10 @@ func (a *AlbumUsecase) DeleteAlbum() string {
 	return "Delete Album"
 }
 
-func (a *AlbumUsecase) GetAlbumsOfArtist() string {
-	return "Albums of artist"
+func (a *AlbumUsecase) UpdateAlbum() string {
+	return "Update Album"
 }
 
-func (a *AlbumUsecase) GetAlbumsOfGenre() string {
-	return "Albums of genre"
+func (a *AlbumUsecase) GetTracksOfAlbum() string {
+	return "Tracks of Album"
 }

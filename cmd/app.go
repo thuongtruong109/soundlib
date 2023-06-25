@@ -5,6 +5,8 @@ import (
 	"music-management/internal/usecases"
 
 	"music-management/pkg/helpers"
+	"music-management/internal/artists"
+	"music-management/internal/genres"
 )
 
 func App() {
@@ -13,19 +15,22 @@ func App() {
 	albumUC := usecases.NewAlbumUsecase()
 	albumHandler := handlers.NewAlbumHandler(*albumUC, *helper)
 
-	artistUC := usecases.NewArtistUsecase()
-	artistHandler := handlers.NewArtistHandler(*artistUC, *helper)
+	artistRepo := artists.NewArtistRepository(*helper)
+	artistUC := artists.NewArtistUsecase(*artistRepo, *helper)
+	artistHandler := artists.NewArtistHandler(*artistUC, *helper)
 
-	genreUC := usecases.NewGenreUsecase()
-	genreHandler := handlers.NewGenreHandler(*genreUC, *helper)
+	genreRepo := genres.NewGenreRepository(*helper)
+	genreUC := genres.NewGenreUsecase(*genreRepo, *helper)
+	genreHandler := genres.NewGenreHandler(*genreUC, *helper)
 
 	playlistUC := usecases.NewPlaylistUsecase()
 	playlistHandler := handlers.NewPlaylistHandler(*playlistUC, *helper)
 
-	songUC := usecases.NewSongUsecase()
-	songHandler := handlers.NewSongHandler(*songUC, *helper)
+	trackUC := usecases.NewTrackUsecase()
+	trackHandler := handlers.NewTrackHandler(*trackUC, *helper)
 
 
-	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *songHandler, *helper)
+	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *trackHandler, *helper)
+	
 	exe.Execution()
 }
