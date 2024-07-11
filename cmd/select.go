@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 	"strings"
-	"music-management/pkg/constants"
 	"github.com/AlecAivazis/survey/v2"
 	"golang.org/x/exp/slices"
+	gu_shared "github.com/thuongtruong109/gouse/shared"
 )
 
 type option struct {
@@ -74,7 +74,7 @@ func (d *Delivery) Run() int8{
 	var scopes []string
 
 	for _, option := range options {
-		scopes = append(scopes, fmt.Sprintf(" ⦿ %v", option.Name))
+		scopes = append(scopes, fmt.Sprintf("%s%v", gu_shared.SCOPE_SYM, option.Name))
 	}
 
 	var qs = []*survey.Question{
@@ -109,7 +109,7 @@ func (d *Delivery) Run() int8{
 		if strings.Contains(answers.Scopes, option.Name) {
 			for _, item := range option.Items {
 				for k, v := range item {
-					choiceValue = append(choiceValue, fmt.Sprintf(constants.CHOICE_ICON+v))
+					choiceValue = append(choiceValue, fmt.Sprintf(gu_shared.DOT_SYM + v))
 					getResult := &Choice{
 						Key:   k,
 						Value: v,

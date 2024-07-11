@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"music-management/internal/handlers"
-	"music-management/internal/usecases"
+	"github.com/thuongtruong109/soundlib/internal/handlers"
+	"github.com/thuongtruong109/soundlib/internal/usecases"
 
-	"music-management/pkg/helpers"
-	"music-management/internal/artists"
-	"music-management/internal/genres"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/internal/artists"
+	"github.com/thuongtruong109/soundlib/internal/genres"
 )
 
 func App() {

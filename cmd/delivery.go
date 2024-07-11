@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"music-management/pkg/helpers"
-	"music-management/pkg/constants"
-	"music-management/internal/handlers"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/internal/handlers"
 
-	"music-management/internal/artists"
-	"music-management/internal/genres"
+	"github.com/thuongtruong109/soundlib/internal/artists"
+	"github.com/thuongtruong109/soundlib/internal/genres"
 )
 
 type Delivery struct {

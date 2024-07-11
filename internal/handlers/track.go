@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"music-management/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
 	
-	"music-management/internal/usecases"
+	"github.com/thuongtruong109/soundlib/internal/usecases"
 )
 
 type TrackHandler struct {

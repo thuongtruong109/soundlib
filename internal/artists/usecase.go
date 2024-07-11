@@ -2,9 +2,10 @@ package artists
 
 import (
 	"fmt"
-	"music-management/internal/models"
-	"music-management/pkg/helpers"
-	"music-management/pkg/constants"
+	"github.com/thuongtruong109/soundlib/internal/models"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	gu_helper "github.com/thuongtruong109/gouse/helper"
 )
 
 type ArtistUsecase struct {
@@ -62,7 +63,7 @@ func (a *ArtistUsecase) CreateArtist() ([]string, string) {
 	fmt.Scanln(&name)
 
 	artist := &models.Artist{
-		ID: a.helper.GenerateID(),
+		ID: gu_helper.RandomID(),
 		Name: name,
 	}
 

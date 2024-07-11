@@ -1,8 +1,6 @@
 package main
 
-import (
-	"music-management/cmd"
-)
+import "github.com/thuongtruong109/soundlib/cmd"
 
 func main() {
 	cmd.App()

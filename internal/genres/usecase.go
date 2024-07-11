@@ -2,9 +2,10 @@ package genres
 
 import (
 	"fmt"
-	"music-management/pkg/constants"
-	"music-management/pkg/helpers"
-	"music-management/internal/models"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/internal/models"
+	gu_helper "github.com/thuongtruong109/gouse/helper"
 )
 
 type GenreUsecase struct {
@@ -67,7 +68,7 @@ func (g *GenreUsecase) CreateGenre() ([]string, string) {
 	fmt.Scanln(&description)
 
 	newGenre := &models.Genre{
-		ID:          g.helper.GenerateID(),
+		ID:          gu_helper.RandomID(),
 		Name:        name,
 		Description: description,
 	}

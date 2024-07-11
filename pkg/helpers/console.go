@@ -2,30 +2,15 @@ package helpers
 
 import (
 	"os"
-	"os/exec"
-	"runtime"
-	"reflect"
     "github.com/jedib0t/go-pretty/v6/table"
+	"github.com/thuongtruong109/gouse/types"
 )
-
-func (h *Helper) ClearConsole() {
-	var cmd *exec.Cmd
-
-	if runtime.GOOS == "windows" {
-		cmd = exec.Command("cmd", "/c", "cls")
-	} else {
-		cmd = exec.Command("clear")
-	}
-
-	cmd.Stdout = os.Stdout
-	cmd.Run()
-}
 
 func TableOutput[H, R, F any](header H, rows []R, footer F) {
 	t := table.NewWriter()
     t.SetOutputMirror(os.Stdout)
 
-	if !isNil(header) {
+	if !types.IsNil(header) {
 		t.AppendHeader(table.Row{header})
 	}
 
@@ -42,24 +27,11 @@ func TableOutput[H, R, F any](header H, rows []R, footer F) {
 		}
 	}
 
-	if !isNil(footer) {
+	if !types.IsNil(footer) {
 		t.AppendFooter(table.Row{footer})
 	}
 
 
 	t.SetStyle(table.StyleColoredBright)
     t.Render()
-}
-
-func isNil(value interface{}) bool {
-	if value == nil {
-		return true
-	}
-
-	v := reflect.ValueOf(value)
-	if v.Kind() == reflect.Ptr || v.Kind() == reflect.Interface {
-		return v.IsNil()
-	}
-
-	return false
 }

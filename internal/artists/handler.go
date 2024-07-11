@@ -1,8 +1,8 @@
 package artists
 
 import (
-	"music-management/pkg/helpers"
-	"music-management/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
 type ArtistHandler struct {
