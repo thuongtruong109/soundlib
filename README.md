@@ -1,24 +1,28 @@
-# MUSIC MANAGEMENT SYSTEM
+# Soundlib - music management system
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thuongtruong109/soundlib)
+## Preview
+
+| ![Main Menu](/public/1.png) | ![Read data](/public/2.png) |
 
 ## Description
 
-This is a music management system that allows you to add, delete, and search for songs. It also allows you to create playlists and add songs to them.
+This is a music management system that allows you to interect and manage data through cli. Program is written in Go and uses JSON to store data. Practicing and handle usecases such as: file I/O, data structure, error handling, etc.
 
 ## Features
 
-- Add songs
-- Delete songs
-- Search for songs
-- Create playlists
-- Add songs to playlists
-- Delete songs from playlists
-- Search for playlists
-- Save data to JSON file
-- Load data from JSON file
+✅ Add/Delete/Search songs
+
+✅ Create/Search playlists
+
+✅ Add/Delete songs to playlists
+
+✅ Save/Load/Read data from/to file
 
 ## Architecture
 
-![ERD](/public/erd.png)
+![ERD](/docs/erd.png)
 
 ## Installation
 
@@ -35,6 +39,10 @@ go run main.go
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](LICENSE) License © 2023-PRESENT Tran Nguyen Thuong Truong
 
 <!-- ## References
 
