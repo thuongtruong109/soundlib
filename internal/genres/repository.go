@@ -2,7 +2,7 @@ package genres
 
 import (
 	"fmt"
-	"github.com/thuongtruong109/soundlib/database"
+	"github.com/thuongtruong109/gouse/io"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 	"github.com/thuongtruong109/soundlib/internal/models"
@@ -19,7 +19,7 @@ func NewGenreRepository(helper helpers.Helper) *GenreRepository {
 }
 
 func (g *GenreRepository) GetGenres() ([]*models.Genre, error) {
-	genres, err := database.ReadDB[*models.Genre](constants.GENRE_PATH)
+	genres, err := io.ReadFileObj[*models.Genre](constants.GENRE_PATH)
 
 	if err != nil {
 		return nil, err
@@ -65,7 +65,7 @@ func (g *GenreRepository) CreateGenre(newGenre *models.Genre) (*models.Genre, er
 
 	genresInit = append(genresInit, newGenre)
 
-	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
+	err2 := io.WriteFileObj[[]*models.Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
@@ -93,7 +93,7 @@ func (g *GenreRepository) UpdateGenre(updateGenre *models.Genre) (*models.Genre,
 
 	genresInit = append(genresInit, allGenres[len(genresInit):]...)
 
-	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
+	err2 := io.WriteFileObj[[]*models.Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
@@ -119,7 +119,7 @@ func (g *GenreRepository) DeleteGenre(genreID string) error {
 		}
 	}
 
-	err2 := database.SaveDB[[]*models.Genre](constants.GENRE_PATH, genresInit)
+	err2 := io.WriteFileObj[[]*models.Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return fmt.Errorf(constants.DELETE_FAILED)
 	}

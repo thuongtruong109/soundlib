@@ -2,9 +2,11 @@
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thuongtruong109/soundlib)
+
 ## Preview
 
-| ![Main Menu](/public/1.png) | ![Read data](/public/2.png) |
+![Main Menu](/public/1.png)
+![Read data](/public/2.png)
 
 ## Description
 

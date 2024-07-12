@@ -2,7 +2,7 @@ package artists
 
 import (
 	"fmt"
-	"github.com/thuongtruong109/soundlib/database"
+	"github.com/thuongtruong109/gouse/io"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/internal/models"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
@@ -19,7 +19,7 @@ func NewArtistRepository(helper helpers.Helper) *ArtistRepository {
 }
 
 func (a *ArtistRepository) GetArtists() ([]*models.Artist, error) {
-	allArtist, err := database.ReadDB[*models.Artist](constants.ARTIST_PATH)
+	allArtist, err := io.ReadFileObj[*models.Artist](constants.ARTIST_PATH)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (a *ArtistRepository) CreateArtist(newArtist *models.Artist) (*models.Artis
 
 	artistInit = append(artistInit, newArtist)
 
-	err2 := database.SaveDB[[]*models.Artist](constants.ARTIST_PATH, artistInit)
+	err2 := io.WriteFileObj[[]*models.Artist](constants.ARTIST_PATH, artistInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
@@ -89,7 +89,7 @@ func (a *ArtistRepository) UpdateArtist(artlistUpdate *models.Artist) (*models.A
 
 	artistInit = append(artistInit, allArtist[len(artistInit):]...)
 
-	err2 := database.SaveDB[[]*models.Artist](constants.ARTIST_PATH, allArtist)
+	err2 := io.WriteFileObj[[]*models.Artist](constants.ARTIST_PATH, allArtist)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
@@ -110,7 +110,7 @@ func (a *ArtistRepository) DeleteArtist(artlistID string) error {
 		}
 	}
 
-	err2 := database.SaveDB[[]*models.Artist](constants.ARTIST_PATH, allArtist)
+	err2 := io.WriteFileObj[[]*models.Artist](constants.ARTIST_PATH, allArtist)
 	if err2 != nil {
 		return fmt.Errorf(constants.DELETE_FAILED)
 	}
