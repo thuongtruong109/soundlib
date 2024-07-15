@@ -1,6 +1,6 @@
 # Soundlib - music management system
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
+![GitHub CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thuongtruong109/soundlib)
 
 ## Preview
@@ -14,13 +14,15 @@ This is a music management system that allows you to interect and manage data th
 
 ## Features
 
+✅ Save/Load/Read data from/to file
+
 ✅ Add/Delete/Search songs
 
 ✅ Create/Search playlists
 
 ✅ Add/Delete songs to playlists
 
-✅ Save/Load/Read data from/to file
+✅ Add/Update/GetAll/GetByID artists
 
 ## Architecture
 

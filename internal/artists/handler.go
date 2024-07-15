@@ -3,76 +3,51 @@ package artists
 import (
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/internal/common"
 )
 
 type ArtistHandler struct {
 	uc ArtistUsecase
 	helper helpers.Helper
+	ch common.CommonHandler
 }
 
-func NewArtistHandler(uc ArtistUsecase, helper helpers.Helper) *ArtistHandler {
+func NewArtistHandler(uc ArtistUsecase, helper helpers.Helper, ch common.CommonHandler) *ArtistHandler {
 	return &ArtistHandler{
 		uc: uc,
 		helper: helper,
+		ch: ch,
 	}
 }
 
 func (u *ArtistHandler) GetArtists() {
 	result, err := u.uc.GetArtists()
-	if err != "" {
-		u.helper.OutputError(constants.GET_FAILED, err)
-		return
-	}
-
-	u.helper.OutputSuccess(constants.GET_SUCCESS)
-
-	helpers.TableOutput[string, string, interface{}]("Artists", result, nil)
+	u.ch.ErrorWrapper(constants.GET_FAILED, err)
+	u.ch.SuccessWrapper(constants.GET_SUCCESS, result)
 }
 
 func (u *ArtistHandler) GetArtist() {
 	result, err := u.uc.GetArtist()
-	if err != "" {
-		u.helper.OutputError(constants.GET_FAILED, err)
-		return
-	}
-
-	u.helper.OutputSuccess(constants.GET_SUCCESS)
-
-	helpers.TableOutput[string, string, interface{}]("Artists", result, nil)
+	u.ch.ErrorWrapper(constants.GET_FAILED, err)
+	u.ch.SuccessWrapper(constants.GET_SUCCESS, result)
 }
 
 func (u *ArtistHandler) CreateArtist() {
 	result, err := u.uc.CreateArtist()
-	if err != "" {
-		u.helper.OutputError(constants.CREATE_FAILED, err)
-		return
-	}
-
-	u.helper.OutputSuccess(constants.CREATE_SUCCESS)
-
-	helpers.TableOutput[string, string, interface{}]("Artists", result, nil)
+	u.ch.ErrorWrapper(constants.CREATE_FAILED, err)
+	u.ch.SuccessWrapper(constants.CREATE_SUCCESS, result)
 }
 
 func (u *ArtistHandler) DeleteArtist() {
 	err := u.uc.DeleteArtist()
-	if err != nil {
-		u.helper.OutputError(constants.DELETE_FAILED, err.Error())
-		return
-	}
-
+	u.ch.ErrorWrapper(constants.DELETE_FAILED, err)
 	u.helper.OutputSuccess(constants.DELETE_SUCCESS)
 }
 
 func (u *ArtistHandler) UpdateArtist() {
 	result, err := u.uc.UpdateArtist()
-	if err != "" {
-		u.helper.OutputError(constants.UPDATE_FAILED, err)
-		return
-	}
-
-	u.helper.OutputSuccess(constants.UPDATE_SUCCESS)
-
-	helpers.TableOutput[string, string, interface{}]("Artists", result, nil)
+	u.ch.ErrorWrapper(constants.UPDATE_FAILED, err)
+	u.ch.SuccessWrapper(constants.UPDATE_SUCCESS, result)
 }
 
 func (u *ArtistHandler) GetAlbumsOfArtist() {

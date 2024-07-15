@@ -7,6 +7,7 @@ import (
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 	"github.com/thuongtruong109/soundlib/internal/artists"
 	"github.com/thuongtruong109/soundlib/internal/genres"
+	"github.com/thuongtruong109/soundlib/internal/common"
 )
 
 func App() {
@@ -17,11 +18,11 @@ func App() {
 
 	artistRepo := artists.NewArtistRepository(*helper)
 	artistUC := artists.NewArtistUsecase(*artistRepo, *helper)
-	artistHandler := artists.NewArtistHandler(*artistUC, *helper)
+	artistHandler := artists.NewArtistHandler(*artistUC, *helper, *common.NewCommonHandler(*helper, "Artists"))
 
 	genreRepo := genres.NewGenreRepository(*helper)
 	genreUC := genres.NewGenreUsecase(*genreRepo, *helper)
-	genreHandler := genres.NewGenreHandler(*genreUC, *helper)
+	genreHandler := genres.NewGenreHandler(*genreUC, *helper, *common.NewCommonHandler(*helper, "Genres"))
 
 	playlistUC := usecases.NewPlaylistUsecase()
 	playlistHandler := handlers.NewPlaylistHandler(*playlistUC, *helper)

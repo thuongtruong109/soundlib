@@ -20,14 +20,14 @@ func NewArtistUsecase(repo ArtistRepository, helper helpers.Helper) *ArtistUseca
 	}
 }
 
-func (a *ArtistUsecase) GetArtists() ([]string, string) {
+func (a *ArtistUsecase) GetArtists() ([]string, error) {
 	result, err := helpers.QueryTimeTwoOutput[[]*models.Artist](a.repo.GetArtists)()
 	if err != nil {
-		return nil, err.Error()
+		return nil, err
 	}
 
 	if result == nil {
-		return nil, constants.NOT_FOUND_DATA
+		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	var output []string
@@ -35,29 +35,29 @@ func (a *ArtistUsecase) GetArtists() ([]string, string) {
 		output = append(output, fmt.Sprintf("ID: %s, Name: %s", v.ID, v.Name))
 	}
 
-	return output, ""
+	return output, nil
 }
 
-func (a *ArtistUsecase) GetArtist() ([]string, string) {
+func (a *ArtistUsecase) GetArtist() ([]string, error) {
 	var id string
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Artist, string](a.repo.GetArtist)(id)
 	if err != nil {
-		return nil, err.Error()
+		return nil, err
 	}
 
 	if result == nil {
-		return nil, constants.NOT_FOUND_DATA
+		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s, Name: %s", result.ID, result.Name)}
 
-	return output, ""
+	return output, nil
 }
 
-func (a *ArtistUsecase) CreateArtist() ([]string, string) {
+func (a *ArtistUsecase) CreateArtist() ([]string, error) {
 	var name string
 	fmt.Print("» Enter name: ")
 	fmt.Scanln(&name)
@@ -69,16 +69,16 @@ func (a *ArtistUsecase) CreateArtist() ([]string, string) {
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Artist, *models.Artist](a.repo.CreateArtist)(artist)
 	if err != nil {
-		return nil, err.Error()
+		return nil, err
 	}
 
 	if result == nil {
-		return nil, constants.NOT_FOUND_DATA
+		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s", result.ID)}
 
-	return output, ""
+	return output, nil
 }
 
 func (a *ArtistUsecase) DeleteArtist() error {
@@ -94,7 +94,7 @@ func (a *ArtistUsecase) DeleteArtist() error {
 	return nil
 }
 
-func (a *ArtistUsecase) UpdateArtist() ([]string, string) {
+func (a *ArtistUsecase) UpdateArtist() ([]string, error) {
 	var id string
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
@@ -110,16 +110,16 @@ func (a *ArtistUsecase) UpdateArtist() ([]string, string) {
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Artist, *models.Artist](a.repo.UpdateArtist)(newArtist)
 	if err != nil {
-		return nil, err.Error()
+		return nil, err
 	}
 
 	if result == nil {
-		return nil, constants.NOT_FOUND_DATA
+		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s", result.ID)}
 
-	return output, ""
+	return output, nil
 }
 
 func (a *ArtistUsecase) GetAlbumsOfArtist() string {
