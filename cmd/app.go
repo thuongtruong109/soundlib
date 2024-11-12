@@ -4,19 +4,21 @@ import (
 	"github.com/thuongtruong109/soundlib/internal/handlers"
 	"github.com/thuongtruong109/soundlib/internal/usecases"
 
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
+	"github.com/thuongtruong109/soundlib/internal/albums"
 	"github.com/thuongtruong109/soundlib/internal/artists"
-	"github.com/thuongtruong109/soundlib/internal/genres"
 	"github.com/thuongtruong109/soundlib/internal/common"
+	"github.com/thuongtruong109/soundlib/internal/genres"
+
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 func App() {
 	helper := helpers.NewHelper()
 
-	albumUC := usecases.NewAlbumUsecase()
-	albumHandler := handlers.NewAlbumHandler(*albumUC, *helper)
+	albumUC := albums.NewAlbumUsecase()
+	albumHandler := albums.NewAlbumHandler(*albumUC, *helper)
 
-	artistRepo := artists.NewArtistRepository(*helper)
+	artistRepo := artists.NewArtistRepository()
 	artistUC := artists.NewArtistUsecase(*artistRepo, *helper)
 	artistHandler := artists.NewArtistHandler(*artistUC, *helper, *common.NewCommonHandler(*helper, "Artists"))
 
@@ -30,8 +32,7 @@ func App() {
 	trackUC := usecases.NewTrackUsecase()
 	trackHandler := handlers.NewTrackHandler(*trackUC, *helper)
 
-
 	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *trackHandler, *helper)
-	
+
 	exe.Execution()
 }

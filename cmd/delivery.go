@@ -1,31 +1,32 @@
 package cmd
 
 import (
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/internal/handlers"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
 
+	"github.com/thuongtruong109/soundlib/internal/albums"
 	"github.com/thuongtruong109/soundlib/internal/artists"
 	"github.com/thuongtruong109/soundlib/internal/genres"
 )
 
 type Delivery struct {
-	albumHandler handlers.AlbumHandler
-	artistHandler artists.ArtistHandler
-	genreHandler genres.GenreHandler
+	albumHandler    albums.AlbumHandler
+	artistHandler   artists.ArtistHandler
+	genreHandler    genres.GenreHandler
 	playlistHandler handlers.PlaylistHandler
-	trackHandler handlers.TrackHandler
-	helper helpers.Helper
+	trackHandler    handlers.TrackHandler
+	helper          helpers.Helper
 }
 
-func NewDelivery(albumHandler handlers.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
+func NewDelivery(albumHandler albums.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
 	return &Delivery{
-		albumHandler: albumHandler,
-		artistHandler: artistHandler,
-		genreHandler: genreHandler,
+		albumHandler:    albumHandler,
+		artistHandler:   artistHandler,
+		genreHandler:    genreHandler,
 		playlistHandler: playlistHandler,
-		trackHandler: trackHandler,
-		helper: helper,
+		trackHandler:    trackHandler,
+		helper:          helper,
 	}
 }
 

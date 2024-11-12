@@ -1,19 +1,17 @@
-package handlers
+package albums
 
 import (
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
-	
-	"github.com/thuongtruong109/soundlib/internal/usecases"
 )
 
 type AlbumHandler struct {
-	uc usecases.AlbumUsecase
+	uc     AlbumUsecase
 	helper helpers.Helper
 }
 
-func NewAlbumHandler(uc usecases.AlbumUsecase, helper helpers.Helper) *AlbumHandler {
+func NewAlbumHandler(uc AlbumUsecase, helper helpers.Helper) *AlbumHandler {
 	return &AlbumHandler{
-		uc: uc,
+		uc:     uc,
 		helper: helper,
 	}
 }

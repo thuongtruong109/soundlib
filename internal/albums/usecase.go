@@ -1,6 +1,6 @@
-package usecases
+package albums
 
-type AlbumUsecase struct {}
+type AlbumUsecase struct{}
 
 func NewAlbumUsecase() *AlbumUsecase {
 	return &AlbumUsecase{}

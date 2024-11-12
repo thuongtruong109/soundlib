@@ -1,7 +1,9 @@
 # Soundlib - music management system
 
 ![GitHub CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
+![CodeQL analysis](https://github.com/thuongtruong109/soundlib/actions/workflows/analysis.yml/badge.svg?branch=main)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thuongtruong109/soundlib)
+![GitHub License](https://img.shields.io/github/license/thuongtruong109/soundlib?color=orange)
 
 ## Preview
 
@@ -10,7 +12,7 @@
 
 ## Description
 
-This is a music management system that allows you to interect and manage data through cli. Program is written in Go and uses JSON to store data. Practicing and handle usecases such as: file I/O, data structure, error handling, etc.
+This is a music management system that allows you to interect and manage data through cli. Program is written in Go and uses JSON as store data format. Practicing and handle usecases such as: programing logic, database relation, file I/O, data structure, error handling, etc.
 
 ## Features
 

@@ -2,26 +2,26 @@ package artists
 
 import (
 	"fmt"
-	"github.com/thuongtruong109/soundlib/internal/models"
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
+
 	gu_helper "github.com/thuongtruong109/gouse/helper"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type ArtistUsecase struct {
-	repo ArtistRepository
+	repo   ArtistRepository
 	helper helpers.Helper
 }
 
 func NewArtistUsecase(repo ArtistRepository, helper helpers.Helper) *ArtistUsecase {
 	return &ArtistUsecase{
-		repo: repo,
+		repo:   repo,
 		helper: helper,
 	}
 }
 
 func (a *ArtistUsecase) GetArtists() ([]string, error) {
-	result, err := helpers.QueryTimeTwoOutput[[]*models.Artist](a.repo.GetArtists)()
+	result, err := helpers.QueryTimeTwoOutput[[]*Artist](a.repo.GetArtists)()
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (a *ArtistUsecase) GetArtist() ([]string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Artist, string](a.repo.GetArtist)(id)
+	result, err := helpers.QueryTimeTwoOutputWithParams[*Artist, string](a.repo.GetArtist)(id)
 	if err != nil {
 		return nil, err
 	}
@@ -62,12 +62,12 @@ func (a *ArtistUsecase) CreateArtist() ([]string, error) {
 	fmt.Print("» Enter name: ")
 	fmt.Scanln(&name)
 
-	artist := &models.Artist{
-		ID: gu_helper.RandomID(),
+	artist := &Artist{
+		ID:   gu_helper.RandomID(),
 		Name: name,
 	}
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Artist, *models.Artist](a.repo.CreateArtist)(artist)
+	result, err := helpers.QueryTimeTwoOutputWithParams[*Artist, *Artist](a.repo.CreateArtist)(artist)
 	if err != nil {
 		return nil, err
 	}
@@ -98,17 +98,17 @@ func (a *ArtistUsecase) UpdateArtist() ([]string, error) {
 	var id string
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
-	
+
 	var name string
 	fmt.Print("» Enter name: ")
 	fmt.Scanln(&name)
 
-	newArtist := &models.Artist{
-		ID: id,
+	newArtist := &Artist{
+		ID:   id,
 		Name: name,
 	}
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Artist, *models.Artist](a.repo.UpdateArtist)(newArtist)
+	result, err := helpers.QueryTimeTwoOutputWithParams[*Artist, *Artist](a.repo.UpdateArtist)(newArtist)
 	if err != nil {
 		return nil, err
 	}

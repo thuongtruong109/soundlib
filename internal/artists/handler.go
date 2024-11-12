@@ -1,22 +1,22 @@
 package artists
 
 import (
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/internal/common"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type ArtistHandler struct {
-	uc ArtistUsecase
+	uc     ArtistUsecase
 	helper helpers.Helper
-	ch common.CommonHandler
+	ch     common.CommonHandler
 }
 
 func NewArtistHandler(uc ArtistUsecase, helper helpers.Helper, ch common.CommonHandler) *ArtistHandler {
 	return &ArtistHandler{
-		uc: uc,
+		uc:     uc,
 		helper: helper,
-		ch: ch,
+		ch:     ch,
 	}
 }
 

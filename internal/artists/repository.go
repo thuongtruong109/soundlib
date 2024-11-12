@@ -2,24 +2,19 @@ package artists
 
 import (
 	"fmt"
+
 	"github.com/thuongtruong109/gouse/io"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
-	"github.com/thuongtruong109/soundlib/internal/models"
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
-type ArtistRepository struct {
-	helper helpers.Helper
+type ArtistRepository struct{}
+
+func NewArtistRepository() *ArtistRepository {
+	return &ArtistRepository{}
 }
 
-func NewArtistRepository(helper helpers.Helper) *ArtistRepository {
-	return &ArtistRepository{
-		helper: helper,
-	}
-}
-
-func (a *ArtistRepository) GetArtists() ([]*models.Artist, error) {
-	allArtist, err := io.ReadFileObj[*models.Artist](constants.ARTIST_PATH)
+func (ar *ArtistRepository) GetArtists() ([]*Artist, error) {
+	allArtist, err := io.ReadFileObj[*Artist](constants.ARTIST_PATH)
 	if err != nil {
 		return nil, err
 	}
@@ -31,8 +26,8 @@ func (a *ArtistRepository) GetArtists() ([]*models.Artist, error) {
 	return allArtist, nil
 }
 
-func (a *ArtistRepository) GetArtist(artistID string) (*models.Artist, error) {
-	allArtist, err := a.GetArtists()
+func (ar *ArtistRepository) GetArtist(artistID string) (*Artist, error) {
+	allArtist, err := ar.GetArtists()
 	if err != nil {
 		return nil, err
 	}
@@ -50,35 +45,35 @@ func (a *ArtistRepository) GetArtist(artistID string) (*models.Artist, error) {
 	return nil, nil
 }
 
-func (a *ArtistRepository) CreateArtist(newArtist *models.Artist) (*models.Artist, error) {
-	allGenres, _ := a.GetArtists()
+func (ar *ArtistRepository) CreateArtist(newArtist *Artist) (*Artist, error) {
+	allGenres, _ := ar.GetArtists()
 
-	var artistInit []*models.Artist
+	var artistInit []*Artist
 
 	if allGenres == nil {
-		artistInit = make([]*models.Artist, 0)
+		artistInit = make([]*Artist, 0)
 	} else {
-		artistInit = make([]*models.Artist, len(allGenres))
+		artistInit = make([]*Artist, len(allGenres))
 		copy(artistInit, allGenres)
 	}
 
 	artistInit = append(artistInit, newArtist)
 
-	err2 := io.WriteFileObj[[]*models.Artist](constants.ARTIST_PATH, artistInit)
+	err2 := io.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
 	return newArtist, nil
 }
 
-func (a *ArtistRepository) UpdateArtist(artlistUpdate *models.Artist) (*models.Artist, error) {
-	allArtist, _ := a.GetArtists()
+func (ar *ArtistRepository) UpdateArtist(artlistUpdate *Artist) (*Artist, error) {
+	allArtist, _ := ar.GetArtists()
 
 	if allArtist == nil {
 		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
 
-	var artistInit []*models.Artist
+	var artistInit []*Artist
 
 	for i, v := range allArtist {
 		if v.ID == artlistUpdate.ID {
@@ -89,15 +84,15 @@ func (a *ArtistRepository) UpdateArtist(artlistUpdate *models.Artist) (*models.A
 
 	artistInit = append(artistInit, allArtist[len(artistInit):]...)
 
-	err2 := io.WriteFileObj[[]*models.Artist](constants.ARTIST_PATH, allArtist)
+	err2 := io.WriteFileObj[[]*Artist](constants.ARTIST_PATH, allArtist)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
 	return artlistUpdate, nil
 }
 
-func (a *ArtistRepository) DeleteArtist(artlistID string) error {
-	allArtist, _ := a.GetArtists()
+func (ar *ArtistRepository) DeleteArtist(artlistID string) error {
+	allArtist, _ := ar.GetArtists()
 
 	if allArtist == nil {
 		return fmt.Errorf(constants.DELETE_FAILED)
@@ -110,7 +105,7 @@ func (a *ArtistRepository) DeleteArtist(artlistID string) error {
 		}
 	}
 
-	err2 := io.WriteFileObj[[]*models.Artist](constants.ARTIST_PATH, allArtist)
+	err2 := io.WriteFileObj[[]*Artist](constants.ARTIST_PATH, allArtist)
 	if err2 != nil {
 		return fmt.Errorf(constants.DELETE_FAILED)
 	}

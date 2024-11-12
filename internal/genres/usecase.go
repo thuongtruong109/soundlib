@@ -2,26 +2,26 @@ package genres
 
 import (
 	"fmt"
+
+	gu_helper "github.com/thuongtruong109/gouse/helper"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
-	"github.com/thuongtruong109/soundlib/internal/models"
-	gu_helper "github.com/thuongtruong109/gouse/helper"
 )
 
 type GenreUsecase struct {
-	repo GenreRepository
+	repo   GenreRepository
 	helper helpers.Helper
 }
 
 func NewGenreUsecase(repo GenreRepository, helper helpers.Helper) *GenreUsecase {
 	return &GenreUsecase{
-		repo: repo,
+		repo:   repo,
 		helper: helper,
 	}
 }
 
 func (g *GenreUsecase) GetGenres() ([]string, error) {
-	result, err := helpers.QueryTimeTwoOutput[[]*models.Genre](g.repo.GetGenres)()
+	result, err := helpers.QueryTimeTwoOutput[[]*Genre](g.repo.GetGenres)()
 
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (g *GenreUsecase) GetGenre() ([]string, error) {
 	fmt.Print("» Enter id: ")
 	fmt.Scanln(&id)
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Genre, string](g.repo.GetGenre)(id)
+	result, err := helpers.QueryTimeTwoOutputWithParams[*Genre, string](g.repo.GetGenre)(id)
 	if err != nil {
 		return nil, err
 	}
@@ -67,13 +67,13 @@ func (g *GenreUsecase) CreateGenre() ([]string, error) {
 	fmt.Print("» Enter description: ")
 	fmt.Scanln(&description)
 
-	newGenre := &models.Genre{
+	newGenre := &Genre{
 		ID:          gu_helper.RandomID(),
 		Name:        name,
 		Description: description,
 	}
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Genre, *models.Genre](g.repo.CreateGenre)(newGenre)
+	result, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.CreateGenre)(newGenre)
 	if err != nil {
 		return nil, err
 	}
@@ -113,13 +113,13 @@ func (g *GenreUsecase) UpdateGenre() ([]string, error) {
 	fmt.Print("» Enter description: ")
 	fmt.Scanln(&description)
 
-	newGenre := &models.Genre{
+	newGenre := &Genre{
 		ID:          id,
 		Name:        name,
 		Description: description,
 	}
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*models.Genre, *models.Genre](g.repo.UpdateGenre)(newGenre)
+	result, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.UpdateGenre)(newGenre)
 	if err != nil {
 		return nil, err
 	}
