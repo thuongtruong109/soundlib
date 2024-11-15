@@ -3,6 +3,7 @@ package artists
 import (
 	"fmt"
 
+	gu_date "github.com/thuongtruong109/gouse/date"
 	gu_helper "github.com/thuongtruong109/gouse/helper"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
@@ -32,7 +33,7 @@ func (a *ArtistUsecase) GetArtists() ([]string, error) {
 
 	var output []string
 	for _, v := range result {
-		output = append(output, fmt.Sprintf("ID: %s, Name: %s", v.ID, v.Name))
+		output = append(output, fmt.Sprintf("ID: %s, Username: %s, Full Name: %s, Bio: %s, Avatar URL: %s, Debut At: %s", v.ID, v.Username, v.FullName, v.Bio, v.AvatarUrl, v.DebutAt))
 	}
 
 	return output, nil
@@ -52,19 +53,32 @@ func (a *ArtistUsecase) GetArtist() ([]string, error) {
 		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
-	output := []string{fmt.Sprintf("ID: %s, Name: %s", result.ID, result.Name)}
+	output := []string{fmt.Sprintf("ID: %s, Username: %s, Full Name: %s, Bio: %s, Avatar URL: %s, Debut At: %s", result.ID, result.Username, result.FullName, result.Bio, result.AvatarUrl, result.DebutAt)}
 
 	return output, nil
 }
 
 func (a *ArtistUsecase) CreateArtist() ([]string, error) {
-	var name string
-	fmt.Print("» Enter name: ")
-	fmt.Scanln(&name)
+	var username, fullName, bio, avatarUrl string
+	fmt.Print("» Enter username: ")
+	fmt.Scanln(&username)
+
+	fmt.Print("» Enter full name: ")
+	fmt.Scanln(&fullName)
+
+	fmt.Print("» Enter bio: ")
+	fmt.Scanln(&bio)
+
+	fmt.Print("» Enter avatar URL: ")
+	fmt.Scanln(&avatarUrl)
 
 	artist := &Artist{
-		ID:   gu_helper.RandomID(),
-		Name: name,
+		ID:        gu_helper.RandomID(),
+		Username:  username,
+		FullName:  fullName,
+		Bio:       bio,
+		AvatarUrl: avatarUrl,
+		DebutAt:   gu_date.ISO(),
 	}
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*Artist, *Artist](a.repo.CreateArtist)(artist)
@@ -95,17 +109,29 @@ func (a *ArtistUsecase) DeleteArtist() error {
 }
 
 func (a *ArtistUsecase) UpdateArtist() ([]string, error) {
-	var id string
+	var id, username, fullName, bio, avatarUrl string
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	var name string
-	fmt.Print("» Enter name: ")
-	fmt.Scanln(&name)
+	fmt.Print("» Enter username: ")
+	fmt.Scanln(&username)
+
+	fmt.Print("» Enter full name: ")
+	fmt.Scanln(&fullName)
+
+	fmt.Print("» Enter bio: ")
+	fmt.Scanln(&bio)
+
+	fmt.Print("» Enter avatar URL: ")
+	fmt.Scanln(&avatarUrl)
 
 	newArtist := &Artist{
-		ID:   id,
-		Name: name,
+		ID:        id,
+		Username:  username,
+		FullName:  fullName,
+		Bio:       bio,
+		AvatarUrl: avatarUrl,
+		DebutAt:   gu_date.ISO(),
 	}
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*Artist, *Artist](a.repo.UpdateArtist)(newArtist)
@@ -122,10 +148,10 @@ func (a *ArtistUsecase) UpdateArtist() ([]string, error) {
 	return output, nil
 }
 
-func (a *ArtistUsecase) GetAlbumsOfArtist() string {
-	return "Albums of Artist"
+func (a *ArtistUsecase) GetTrackOfArtist() string {
+	return "Tracks of Artist"
 }
 
-func (a *ArtistUsecase) GetTracksOfArtist() string {
-	return "Tracks of Artist"
+func (a *ArtistUsecase) GetTracksOfGenre() string {
+	return "Tracks of Genre"
 }

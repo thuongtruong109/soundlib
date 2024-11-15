@@ -49,11 +49,3 @@ func (u *ArtistHandler) UpdateArtist() {
 	u.ch.ErrorWrapper(constants.UPDATE_FAILED, err)
 	u.ch.SuccessWrapper(constants.UPDATE_SUCCESS, result)
 }
-
-func (u *ArtistHandler) GetAlbumsOfArtist() {
-	u.helper.OutputSuccess("GetAlbumsOfArtist")
-}
-
-func (u *ArtistHandler) GetTracksOfArtist() {
-	u.helper.OutputSuccess("GetSongsOfArtist")
-}

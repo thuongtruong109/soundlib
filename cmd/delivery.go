@@ -1,7 +1,8 @@
 package cmd
 
 import (
-	"github.com/thuongtruong109/soundlib/internal/handlers"
+	"github.com/thuongtruong109/soundlib/internal/playlists"
+	"github.com/thuongtruong109/soundlib/internal/tracks"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 
@@ -14,12 +15,12 @@ type Delivery struct {
 	albumHandler    albums.AlbumHandler
 	artistHandler   artists.ArtistHandler
 	genreHandler    genres.GenreHandler
-	playlistHandler handlers.PlaylistHandler
-	trackHandler    handlers.TrackHandler
+	playlistHandler playlists.PlaylistHandler
+	trackHandler    tracks.TrackHandler
 	helper          helpers.Helper
 }
 
-func NewDelivery(albumHandler albums.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler handlers.PlaylistHandler, trackHandler handlers.TrackHandler, helper helpers.Helper) *Delivery {
+func NewDelivery(albumHandler albums.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler playlists.PlaylistHandler, trackHandler tracks.TrackHandler, helper helpers.Helper) *Delivery {
 	return &Delivery{
 		albumHandler:    albumHandler,
 		artistHandler:   artistHandler,
@@ -32,17 +33,17 @@ func NewDelivery(albumHandler albums.AlbumHandler, artistHandler artists.ArtistH
 
 func (h *Delivery) HandleOption(option int8) {
 	optionHandlers := map[int8]func(){
-		1:  h.albumHandler.CreateAlbum,
-		2:  h.albumHandler.GetAlbums,
-		3:  h.albumHandler.GetAlbum,
-		4:  h.albumHandler.DeleteAlbum,
-		5:  h.albumHandler.UpdateAlbum,
-		6:  h.albumHandler.GetTracksOfAlbum,
-		7:  h.artistHandler.CreateArtist,
-		8:  h.artistHandler.GetArtists,
-		9:  h.artistHandler.GetArtist,
-		10: h.artistHandler.GetAlbumsOfArtist,
-		11: h.artistHandler.GetTracksOfArtist,
+		1: h.albumHandler.CreateAlbum,
+		2: h.albumHandler.GetAlbums,
+		3: h.albumHandler.GetAlbum,
+		4: h.albumHandler.DeleteAlbum,
+		5: h.albumHandler.UpdateAlbum,
+		6: h.albumHandler.GetTracksOfAlbum,
+		7: h.artistHandler.CreateArtist,
+		8: h.artistHandler.GetArtists,
+		9: h.artistHandler.GetArtist,
+		// 10: h.artistHandler.GetAlbumsOfArtist,
+		// 11: h.artistHandler.GetTracksOfArtist,
 		12: h.artistHandler.DeleteArtist,
 		13: h.artistHandler.UpdateArtist,
 		14: h.genreHandler.CreateGenre,
@@ -50,7 +51,7 @@ func (h *Delivery) HandleOption(option int8) {
 		16: h.genreHandler.GetGenre,
 		17: h.genreHandler.DeleteGenre,
 		18: h.genreHandler.UpdateGenre,
-		19: h.genreHandler.GetTracksOfGenre,
+		// 19: h.genreHandler.GetTracksOfGenre,
 		20: h.trackHandler.CreateTrack,
 		21: h.trackHandler.GetTracks,
 		22: h.trackHandler.GetTrack,

@@ -1,29 +1,30 @@
-package handlers
+package playlists
 
 import (
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
-
-	"github.com/thuongtruong109/soundlib/internal/usecases"
 )
 
 type PlaylistHandler struct {
-	uc usecases.PlaylistUsecase
+	uc     PlaylistUsecase
 	helper helpers.Helper
 }
 
-func NewPlaylistHandler(uc usecases.PlaylistUsecase, helper helpers.Helper) *PlaylistHandler {
+func NewPlaylistHandler(uc PlaylistUsecase, helper helpers.Helper) *PlaylistHandler {
 	return &PlaylistHandler{
-		uc: uc,
+		uc:     uc,
 		helper: helper,
 	}
 }
 
-func (u *PlaylistHandler) GetPlaylists() {
-	u.helper.OutputSuccess("GetPlaylists")
+func (h *PlaylistHandler) GetPlaylists() {
+	// result, err := h.uc.GetPlaylists()
+	// h.helper.ErrorWrapper(constants.GET_FAILED, err)
+	// h.helper.SuccessWrapper(constants.GET_SUCCESS, result)
+	h.helper.OutputSuccess("GetPlaylist")
 }
 
-func (u *PlaylistHandler) GetPlaylist() {
-	u.helper.OutputSuccess("GetPlaylist")
+func (h *PlaylistHandler) GetPlaylist() {
+	h.helper.OutputSuccess("GetPlaylist")
 }
 
 func (u *PlaylistHandler) CreatePlaylist() {

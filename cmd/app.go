@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/thuongtruong109/soundlib/internal/handlers"
-	"github.com/thuongtruong109/soundlib/internal/usecases"
+	"github.com/thuongtruong109/soundlib/internal/playlists"
+	"github.com/thuongtruong109/soundlib/internal/tracks"
 
 	"github.com/thuongtruong109/soundlib/internal/albums"
 	"github.com/thuongtruong109/soundlib/internal/artists"
@@ -26,11 +26,11 @@ func App() {
 	genreUC := genres.NewGenreUsecase(*genreRepo, *helper)
 	genreHandler := genres.NewGenreHandler(*genreUC, *helper, *common.NewCommonHandler(*helper, "Genres"))
 
-	playlistUC := usecases.NewPlaylistUsecase()
-	playlistHandler := handlers.NewPlaylistHandler(*playlistUC, *helper)
+	playlistUC := playlists.NewPlaylistUsecase()
+	playlistHandler := playlists.NewPlaylistHandler(*playlistUC, *helper)
 
-	trackUC := usecases.NewTrackUsecase()
-	trackHandler := handlers.NewTrackHandler(*trackUC, *helper)
+	trackUC := tracks.NewTrackUsecase(*tracks.NewTrackRepository(), *helper)
+	trackHandler := tracks.NewTrackHandler(*trackUC, *helper, *common.NewCommonHandler(*helper, "Tracks"))
 
 	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *trackHandler, *helper)
 

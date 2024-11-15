@@ -133,7 +133,3 @@ func (g *GenreUsecase) UpdateGenre() ([]string, error) {
 	return newItem, nil
 
 }
-
-func (g *GenreUsecase) GetTracksOfGenre() string {
-	return "Tracks of Genre"
-}

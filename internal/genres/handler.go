@@ -1,22 +1,22 @@
 package genres
 
 import (
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/internal/common"
+	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type GenreHandler struct {
-	uc GenreUsecase
+	uc     GenreUsecase
 	helper helpers.Helper
-	ch common.CommonHandler
+	ch     common.CommonHandler
 }
 
 func NewGenreHandler(uc GenreUsecase, helper helpers.Helper, ch common.CommonHandler) *GenreHandler {
 	return &GenreHandler{
-		uc: uc,
+		uc:     uc,
 		helper: helper,
-		ch: ch,
+		ch:     ch,
 	}
 }
 
@@ -48,8 +48,4 @@ func (u *GenreHandler) UpdateGenre() {
 	result, err := u.uc.UpdateGenre()
 	u.ch.ErrorWrapper(constants.UPDATE_FAILED, err)
 	u.ch.SuccessWrapper(constants.UPDATE_SUCCESS, result)
-}
-
-func (u *GenreHandler) GetTracksOfGenre() {
-	u.helper.OutputSuccess(constants.GET_SUCCESS)
 }

@@ -1,6 +1,6 @@
-package usecases
+package playlists
 
-type PlaylistUsecase struct {}
+type PlaylistUsecase struct{}
 
 func NewPlaylistUsecase() *PlaylistUsecase {
 	return &PlaylistUsecase{}

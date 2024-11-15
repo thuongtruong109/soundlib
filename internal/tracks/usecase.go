@@ -3,6 +3,7 @@ package tracks
 import (
 	"fmt"
 
+	gu_date "github.com/thuongtruong109/gouse/date"
 	gu_helper "github.com/thuongtruong109/gouse/helper"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
@@ -32,7 +33,7 @@ func (a *TrackUsecase) GetTracks() ([]string, error) {
 
 	var output []string
 	for _, v := range result {
-		output = append(output, fmt.Sprintf("ID: %s, Name: %s", v.ID, v.Title))
+		output = append(output, fmt.Sprintf("ID: %s, Name: %s, Play Count: %d, Duration: %f, File URL: %s, Created At: %s", v.ID, v.Name, v.PlayCount, v.Duration, v.FileUrl, v.CreatedAt))
 	}
 
 	return output, nil
@@ -52,19 +53,42 @@ func (a *TrackUsecase) GetTrack() ([]string, error) {
 		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
-	output := []string{fmt.Sprintf("ID: %s, Name: %s", result.ID, result.Title)}
+	output := []string{fmt.Sprintf("ID: %s, Name: %s, Play Count: %d, Duration: %f, File URL: %s, Created At: %s", result.ID, result.Name, result.PlayCount, result.Duration, result.FileUrl, result.CreatedAt)}
 
 	return output, nil
 }
 
 func (a *TrackUsecase) CreateTrack() ([]string, error) {
-	var name string
+	var name, genreID, artistID, fileURL string
 	fmt.Print("» Enter track title: ")
 	fmt.Scanln(&name)
 
+	fmt.Print("» Enter genre ID: ")
+	fmt.Scanln(&genreID)
+
+	fmt.Print("» Enter artist ID: ")
+	fmt.Scanln(&artistID)
+
+	fmt.Print("» Enter file URL: ")
+	fmt.Scanln(&fileURL)
+
+	var duration float32
+	fmt.Print("» Enter duration: ")
+	fmt.Scanln(&duration)
+
+	var playCount int
+	fmt.Print("» Enter play count: ")
+	fmt.Scanln(&playCount)
+
 	newTrack := &Track{
-		ID:    gu_helper.RandomID(),
-		Title: name,
+		ID:        gu_helper.RandomID(),
+		Name:      name,
+		GenreID:   genreID,
+		ArtistID:  artistID,
+		FileUrl:   fileURL,
+		Duration:  duration,
+		PlayCount: playCount,
+		CreatedAt: gu_date.ISO(),
 	}
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*Track, *Track](a.repo.CreateTrack)(newTrack)
@@ -99,13 +123,36 @@ func (a *TrackUsecase) UpdateTrack() ([]string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	var name string
-	fmt.Print("» Enter name: ")
+	var name, genreID, artistID, fileURL string
+	fmt.Print("» Enter track name: ")
 	fmt.Scanln(&name)
 
+	fmt.Print("» Enter genre ID: ")
+	fmt.Scanln(&genreID)
+
+	fmt.Print("» Enter artist ID: ")
+	fmt.Scanln(&artistID)
+
+	fmt.Print("» Enter file URL: ")
+	fmt.Scanln(&fileURL)
+
+	var duration float32
+	fmt.Print("» Enter duration: ")
+	fmt.Scanln(&duration)
+
+	var playCount int
+	fmt.Print("» Enter play count: ")
+	fmt.Scanln(&playCount)
+
 	newTrack := &Track{
-		ID:    id,
-		Title: name,
+		ID:        id,
+		Name:      name,
+		GenreID:   genreID,
+		ArtistID:  artistID,
+		FileUrl:   fileURL,
+		Duration:  duration,
+		PlayCount: playCount,
+		CreatedAt: gu_date.ISO(),
 	}
 
 	result, err := helpers.QueryTimeTwoOutputWithParams[*Track, *Track](a.repo.UpdateTrack)(newTrack)
@@ -122,10 +169,10 @@ func (a *TrackUsecase) UpdateTrack() ([]string, error) {
 	return output, nil
 }
 
-func (a *TrackUsecase) GetAlbumsOfTrack() string {
-	return "Albums of Track"
+func (a *TrackUsecase) GetTracksOfGenre() string {
+	return "Tracks of Genre"
 }
 
-func (a *TrackUsecase) GetTracksOfTrack() string {
-	return "Tracks of Track"
+func (a *TrackUsecase) GetTracksOfArtist() string {
+	return "Tracks of Artist"
 }

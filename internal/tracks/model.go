@@ -1,11 +1,13 @@
 package tracks
 
 type Track struct {
-	ID       string `json:"id"`
-	Title    string `json:"title"`
-	Year     int    `json:"year"`
-	Duration int    `json:"duration"`
+	ID        string  `json:"id"`
+	Name      string  `json:"name"`
+	PlayCount int     `json:"play_count"`
+	Duration  float32 `json:"duration"`
+	FileUrl   string  `json:"file_url"`
+	CreatedAt string  `json:"created_at"`
 
-	GenreID  int `json:"genre_id"`
-	ArtistID int `json:"artist_id"`
+	GenreID  string `json:"genre_id"`
+	ArtistID string `json:"artist_id"`
 }
