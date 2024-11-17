@@ -21,9 +21,9 @@ func NewGenreHandler(uc GenreUsecase, helper helpers.Helper, ch common.CommonHan
 }
 
 func (u *GenreHandler) GetGenres() {
-	result, err := u.uc.GetGenres()
+	result, err, time := u.uc.GetGenres()
 	u.ch.ErrorWrapper(constants.GET_FAILED, err)
-	u.ch.SuccessWrapper(constants.GET_SUCCESS, result)
+	u.ch.SuccessWrapper2(constants.GET_SUCCESS, result, time)
 }
 
 func (u *GenreHandler) GetGenre() {

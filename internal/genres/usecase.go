@@ -20,15 +20,20 @@ func NewGenreUsecase(repo GenreRepository, helper helpers.Helper) *GenreUsecase 
 	}
 }
 
-func (g *GenreUsecase) GetGenres() ([]string, error) {
-	result, err := helpers.QueryTimeTwoOutput[[]*Genre](g.repo.GetGenres)()
+func (g *GenreUsecase) GetGenres() ([]string, error, string) {
+	_1, _ := helpers.QueryTimeTwoOutput[[]*Genre](g.repo.GetGenres)()
+	if _1 == nil {
+		return nil, fmt.Errorf(constants.NOT_FOUND_DATA), ""
+	}
+
+	result, time, err := helpers.QueryTimeTwoOutput2[[]*Genre](g.repo.GetGenres)()
 
 	if err != nil {
-		return nil, err
+		return nil, err, ""
 	}
 
 	if result == nil {
-		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, fmt.Errorf(constants.NOT_FOUND_DATA), ""
 	}
 
 	var items []string
@@ -36,7 +41,7 @@ func (g *GenreUsecase) GetGenres() ([]string, error) {
 		items = append(items, fmt.Sprintf("Id: %s, Name: %s, Description: %s", item.ID, item.Name, item.Description))
 	}
 
-	return items, nil
+	return items, nil, time
 }
 
 func (g *GenreUsecase) GetGenre() ([]string, error) {
