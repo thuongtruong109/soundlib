@@ -3,12 +3,11 @@ package cmd
 import (
 	"github.com/thuongtruong109/soundlib/internal/playlists"
 	// "github.com/thuongtruong109/soundlib/internal/tracks"
-
 	"github.com/thuongtruong109/soundlib/internal/albums"
-	// "github.com/thuongtruong109/soundlib/internal/artists"
-	"github.com/thuongtruong109/soundlib/internal/common"
+	"github.com/thuongtruong109/soundlib/internal/artists"
 	"github.com/thuongtruong109/soundlib/internal/genres"
 
+	"github.com/thuongtruong109/soundlib/pkg/common"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
@@ -18,11 +17,11 @@ func App() {
 	albumUC := albums.NewAlbumUsecase()
 	albumHandler := albums.NewAlbumHandler(*albumUC, *helper)
 
-	// artistRepo := artists.NewArtistRepository()
-	// artistUC := artists.NewArtistUsecase(*artistRepo, *helper)
-	// artistHandler := artists.NewArtistHandler(*artistUC, *helper, *common.NewCommonHandler(*helper, "Artists"))
+	artistRepo := artists.NewArtistRepository()
+	artistUC := artists.NewArtistUsecase(*artistRepo, *helper)
+	artistHandler := artists.NewArtistHandler(*artistUC, *helper, *common.NewCommonHandler(*helper, "Artists"))
 
-	genreRepo := genres.NewGenreRepository(*helper)
+	genreRepo := genres.NewGenreRepository()
 	genreUC := genres.NewGenreUsecase(*genreRepo, *helper)
 	genreHandler := genres.NewGenreHandler(*genreUC, *helper, *common.NewCommonHandler(*helper, "Genres"))
 
@@ -32,7 +31,8 @@ func App() {
 	// trackUC := tracks.NewTrackUsecase(*tracks.NewTrackRepository(), *helper)
 	// trackHandler := tracks.NewTrackHandler(*trackUC, *helper, *common.NewCommonHandler(*helper, "Tracks"))
 
-	exe := NewDelivery(*albumHandler /**artistHandler,*/, *genreHandler, *playlistHandler /**trackHandler,*/, *helper)
+	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *helper)
+	/**trackHandler)*/
 
 	exe.Execution()
 }

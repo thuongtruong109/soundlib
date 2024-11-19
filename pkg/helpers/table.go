@@ -7,7 +7,7 @@ import (
 	"github.com/thuongtruong109/gouse/types"
 )
 
-func TableOutput[H, R, F, F2, F3 any](header H, rows []R, footer ...F) {
+func TableOutput[H, R any, S, D, T string](header H, rows []R, sum S, description D, time T) {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 
@@ -28,15 +28,15 @@ func TableOutput[H, R, F, F2, F3 any](header H, rows []R, footer ...F) {
 		}
 	}
 
-	if !types.IsNil(footer) {
-		t.AppendFooter(table.Row{footer[0], footer[1], footer[2]})
+	if !types.IsNil(sum) && !types.IsNil(description) && !types.IsNil(time) {
+		t.AppendFooter(table.Row{sum, description, time})
 	}
 
 	t.SetStyle(table.StyleColoredBright)
 	t.Render()
 }
 
-func TableNoOutput[H, F, F2, F3 any](header H, footer ...F) {
+func TableNoOutput[H any, D, T string](header H, description D, time T) {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 
@@ -44,8 +44,8 @@ func TableNoOutput[H, F, F2, F3 any](header H, footer ...F) {
 		t.AppendHeader(table.Row{header})
 	}
 
-	if !types.IsNil(footer) {
-		t.AppendFooter(table.Row{footer[0], footer[1], footer[2]})
+	if !types.IsNil(description) && !types.IsNil(time) {
+		t.AppendFooter(table.Row{description, time})
 	}
 
 	t.SetStyle(table.StyleColoredBright)

@@ -7,20 +7,20 @@ import (
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 
 	"github.com/thuongtruong109/soundlib/internal/albums"
-	// "github.com/thuongtruong109/soundlib/internal/artists"
+	"github.com/thuongtruong109/soundlib/internal/artists"
 	"github.com/thuongtruong109/soundlib/internal/genres"
 )
 
 type Delivery struct {
-	albumHandler albums.AlbumHandler
-	// artistHandler   artists.ArtistHandler
+	albumHandler    albums.AlbumHandler
+	artistHandler   artists.ArtistHandler
 	genreHandler    genres.GenreHandler
 	playlistHandler playlists.PlaylistHandler
 	// trackHandler    tracks.TrackHandler
 	helper helpers.Helper
 }
 
-func NewDelivery(albumHandler albums.AlbumHandler /*artistHandler artists.ArtistHandler, */, genreHandler genres.GenreHandler, playlistHandler playlists.PlaylistHandler /*trackHandler tracks.TrackHandler,*/, helper helpers.Helper) *Delivery {
+func NewDelivery(albumHandler albums.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler playlists.PlaylistHandler /*trackHandler tracks.TrackHandler,*/, helper helpers.Helper) *Delivery {
 	return &Delivery{
 		albumHandler: albumHandler,
 		// artistHandler:   artistHandler,
@@ -39,13 +39,13 @@ func (h *Delivery) HandleOption(option int8) {
 		4: h.albumHandler.DeleteAlbum,
 		5: h.albumHandler.UpdateAlbum,
 		6: h.albumHandler.GetTracksOfAlbum,
-		// 7: h.artistHandler.CreateArtist,
-		// 8: h.artistHandler.GetArtists,
-		// 9: h.artistHandler.GetArtist,
+		7: h.artistHandler.CreateArtist,
+		8: h.artistHandler.GetArtists,
+		9: h.artistHandler.GetArtist,
 		// 10: h.artistHandler.GetAlbumsOfArtist,
 		// 11: h.artistHandler.GetTracksOfArtist,
-		// 12: h.artistHandler.DeleteArtist,
-		// 13: h.artistHandler.UpdateArtist,
+		12: h.artistHandler.DeleteArtist,
+		13: h.artistHandler.UpdateArtist,
 		14: h.genreHandler.CreateGenre,
 		15: h.genreHandler.GetGenres,
 		16: h.genreHandler.GetGenre,

@@ -28,20 +28,19 @@ func (ch *CommonHandler) ErrorWrapper(desc string, err error) {
 
 func (ch *CommonHandler) SuccessNoDataWrapper(desc string, time string) {
 	ch.helper.OutputSuccess(desc)
-	helpers.TableNoOutput[string, string, string, string](ch.scope, "", "", "")
-	return
+	helpers.TableNoOutput(ch.scope, "\t- Status: "+desc, "- Time: "+time)
 }
 
-func (ch *CommonHandler) SuccessWrapper(desc string, body_output []string, time string) {
+func (ch *CommonHandler) SuccessDataWrapper(desc string, body_output []string, time string) {
 	ch.helper.OutputSuccess(desc)
 	bodyLen := len(body_output)
 	if bodyLen > 0 {
 		if bodyLen > 1 {
-			helpers.TableOutput[string, string, interface{}, string, string](ch.scope, body_output, "Total: "+types.IntToString(bodyLen), "\t- Status: "+desc, "- Time: "+time)
+			helpers.TableOutput(ch.scope, body_output, "Total: "+types.IntToString(bodyLen), "\t- Status: "+desc, "- Time: "+time)
 			return
 		}
 
-		helpers.TableOutput[string, string, interface{}, string, string](ch.scope, body_output, nil, "", "", "")
+		helpers.TableOutput(ch.scope, body_output, "Total: 0", "\t- Status: "+desc, "- Time: "+time)
 		return
 	}
 }

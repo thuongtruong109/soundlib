@@ -23,19 +23,19 @@ package tracks
 // func (u *TrackHandler) GetTracks() {
 // 	result, err := u.uc.GetTracks()
 // 	u.ch.ErrorWrapper(constants.GET_FAILED, err)
-// 	u.ch.SuccessWrapper(constants.GET_SUCCESS, result)
+// 	u.ch.SuccessDataWrapper(constants.GET_SUCCESS, result)
 // }
 
 // func (u *TrackHandler) GetTrack() {
 // 	result, err := u.uc.GetTrack()
 // 	u.ch.ErrorWrapper(constants.GET_FAILED, err)
-// 	u.ch.SuccessWrapper(constants.GET_SUCCESS, result)
+// 	u.ch.SuccessDataWrapper(constants.GET_SUCCESS, result)
 // }
 
 // func (u *TrackHandler) CreateTrack() {
 // 	result, err := u.uc.CreateTrack()
 // 	u.ch.ErrorWrapper(constants.CREATE_FAILED, err)
-// 	u.ch.SuccessWrapper(constants.CREATE_SUCCESS, result)
+// 	u.ch.SuccessDataWrapper(constants.CREATE_SUCCESS, result)
 // }
 
 // func (u *TrackHandler) DeleteTrack() {
@@ -47,7 +47,7 @@ package tracks
 // func (u *TrackHandler) UpdateTrack() {
 // 	result, err := u.uc.UpdateTrack()
 // 	u.ch.ErrorWrapper(constants.UPDATE_FAILED, err)
-// 	u.ch.SuccessWrapper(constants.UPDATE_SUCCESS, result)
+// 	u.ch.SuccessDataWrapper(constants.UPDATE_SUCCESS, result)
 // }
 
 // func (u *TrackHandler) GetAlbumsOfTrack() {

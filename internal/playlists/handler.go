@@ -19,7 +19,7 @@ func NewPlaylistHandler(uc PlaylistUsecase, helper helpers.Helper) *PlaylistHand
 func (h *PlaylistHandler) GetPlaylists() {
 	// result, err := h.uc.GetPlaylists()
 	// h.helper.ErrorWrapper(constants.GET_FAILED, err)
-	// h.helper.SuccessWrapper(constants.GET_SUCCESS, result)
+	// h.helper.SuccessDataWrapper(constants.GET_SUCCESS, result)
 	h.helper.OutputSuccess("GetPlaylist")
 }
 

@@ -5,20 +5,15 @@ import (
 
 	"github.com/thuongtruong109/gouse/io"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
-	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
-type GenreRepository struct {
-	helper helpers.Helper
+type GenreRepository struct{}
+
+func NewGenreRepository() *GenreRepository {
+	return &GenreRepository{}
 }
 
-func NewGenreRepository(helper helpers.Helper) *GenreRepository {
-	return &GenreRepository{
-		helper: helper,
-	}
-}
-
-func (g *GenreRepository) GetGenres() ([]*Genre, error) {
+func (gr *GenreRepository) GetGenres() ([]*Genre, error) {
 	genres, err := io.ReadFileObj[*Genre](constants.GENRE_PATH)
 
 	if err != nil {
@@ -32,8 +27,8 @@ func (g *GenreRepository) GetGenres() ([]*Genre, error) {
 	return genres, nil
 }
 
-func (g *GenreRepository) GetGenre(genreID string) (*Genre, error) {
-	allGenres, err := g.GetGenres()
+func (gr *GenreRepository) GetGenre(genreID string) (*Genre, error) {
+	allGenres, err := gr.GetGenres()
 	if err != nil {
 		return nil, err
 	}
@@ -51,8 +46,8 @@ func (g *GenreRepository) GetGenre(genreID string) (*Genre, error) {
 	return nil, nil
 }
 
-func (g *GenreRepository) CreateGenre(newGenre *Genre) (*Genre, error) {
-	allGenres, _ := g.GetGenres()
+func (gr *GenreRepository) CreateGenre(newGenre *Genre) (*Genre, error) {
+	allGenres, _ := gr.GetGenres()
 
 	var genresInit []*Genre
 
@@ -65,15 +60,15 @@ func (g *GenreRepository) CreateGenre(newGenre *Genre) (*Genre, error) {
 
 	genresInit = append(genresInit, newGenre)
 
-	err2 := io.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
+	err2 := io.WriteFileObj(constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
 	return newGenre, nil
 }
 
-func (g *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
-	allGenres, err := g.GetGenres()
+func (gr *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
+	allGenres, err := gr.GetGenres()
 	if err != nil {
 		return nil, err
 	}
@@ -100,8 +95,8 @@ func (g *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
 	return updateGenre, nil
 }
 
-func (g *GenreRepository) DeleteGenre(genreID string) error {
-	allGenres, err := g.GetGenres()
+func (gr *GenreRepository) DeleteGenre(genreID string) error {
+	allGenres, err := gr.GetGenres()
 	if err != nil {
 		return err
 	}
