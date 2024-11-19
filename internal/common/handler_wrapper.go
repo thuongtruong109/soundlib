@@ -26,30 +26,22 @@ func (ch *CommonHandler) ErrorWrapper(desc string, err error) {
 	}
 }
 
-func (ch *CommonHandler) SuccessWrapper(desc string, body_output []string) {
+func (ch *CommonHandler) SuccessNoDataWrapper(desc string, time string) {
 	ch.helper.OutputSuccess(desc)
-	bodyLen := len(body_output)
-	if bodyLen > 0 {
-		if bodyLen > 1 {
-			helpers.TableOutput[string, string, interface{}](ch.scope, body_output, "Total: "+types.IntToString(bodyLen))
-			return
-		}
-
-		helpers.TableOutput[string, string, interface{}](ch.scope, body_output, nil)
-		return
-	}
+	helpers.TableNoOutput[string, string, string, string](ch.scope, "", "", "")
+	return
 }
 
-func (ch *CommonHandler) SuccessWrapper2(desc string, body_output []string, time string) {
+func (ch *CommonHandler) SuccessWrapper(desc string, body_output []string, time string) {
 	ch.helper.OutputSuccess(desc)
 	bodyLen := len(body_output)
 	if bodyLen > 0 {
 		if bodyLen > 1 {
-			helpers.TableOutput2[string, string, interface{}, string, string](ch.scope, body_output, "Total: "+types.IntToString(bodyLen), "\t- Status: "+desc, "- Time: "+time)
+			helpers.TableOutput[string, string, interface{}, string, string](ch.scope, body_output, "Total: "+types.IntToString(bodyLen), "\t- Status: "+desc, "- Time: "+time)
 			return
 		}
 
-		helpers.TableOutput[string, string, interface{}](ch.scope, body_output, nil)
+		helpers.TableOutput[string, string, interface{}, string, string](ch.scope, body_output, nil, "", "", "")
 		return
 	}
 }

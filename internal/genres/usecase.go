@@ -20,20 +20,15 @@ func NewGenreUsecase(repo GenreRepository, helper helpers.Helper) *GenreUsecase 
 	}
 }
 
-func (g *GenreUsecase) GetGenres() ([]string, error, string) {
-	_1, _ := helpers.QueryTimeTwoOutput[[]*Genre](g.repo.GetGenres)()
-	if _1 == nil {
-		return nil, fmt.Errorf(constants.NOT_FOUND_DATA), ""
-	}
-
-	result, time, err := helpers.QueryTimeTwoOutput2[[]*Genre](g.repo.GetGenres)()
+func (g *GenreUsecase) GetGenres() ([]string, string, error) {
+	result, time, err := helpers.QueryTimeTwoOutput[[]*Genre](g.repo.GetGenres)()
 
 	if err != nil {
-		return nil, err, ""
+		return nil, "", err
 	}
 
 	if result == nil {
-		return nil, fmt.Errorf(constants.NOT_FOUND_DATA), ""
+		return nil, "", fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	var items []string
@@ -41,29 +36,29 @@ func (g *GenreUsecase) GetGenres() ([]string, error, string) {
 		items = append(items, fmt.Sprintf("Id: %s, Name: %s, Description: %s", item.ID, item.Name, item.Description))
 	}
 
-	return items, nil, time
+	return items, time, nil
 }
 
-func (g *GenreUsecase) GetGenre() ([]string, error) {
+func (g *GenreUsecase) GetGenre() ([]string, string, error) {
 	var id string
 	fmt.Print("» Enter id: ")
 	fmt.Scanln(&id)
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*Genre, string](g.repo.GetGenre)(id)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Genre, string](g.repo.GetGenre)(id)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
 	if result == nil {
-		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, "", fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
 
-	return newItem, nil
+	return newItem, time, nil
 }
 
-func (g *GenreUsecase) CreateGenre() ([]string, error) {
+func (g *GenreUsecase) CreateGenre() ([]string, string, error) {
 	var name string
 	fmt.Print("» Enter name: ")
 	fmt.Scanln(&name)
@@ -78,34 +73,34 @@ func (g *GenreUsecase) CreateGenre() ([]string, error) {
 		Description: description,
 	}
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.CreateGenre)(newGenre)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.CreateGenre)(newGenre)
 	if err != nil {
-		return nil, err
+		return nil, time, err
 	}
 
 	if result == nil {
-		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	newItem := []string{fmt.Sprintf("Id: %s", result.ID)}
 
-	return newItem, nil
+	return newItem, time, err
 }
 
-func (g *GenreUsecase) DeleteGenre() error {
+func (g *GenreUsecase) DeleteGenre() (string, error) {
 	var id string
 	fmt.Print("» Enter id: ")
 	fmt.Scanln(&id)
 
-	err := helpers.QueryTimeOneOutputWithParams[error](g.repo.DeleteGenre)(id)
+	time, err := helpers.QueryTimeErrorWithParams[error](g.repo.DeleteGenre)(id)
 	if err != nil {
-		return err
+		return "", fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
-	return nil
+	return time, err
 }
 
-func (g *GenreUsecase) UpdateGenre() ([]string, error) {
+func (g *GenreUsecase) UpdateGenre() ([]string, string, error) {
 	var id string
 	fmt.Print("» Enter id: ")
 	fmt.Scanln(&id)
@@ -124,17 +119,17 @@ func (g *GenreUsecase) UpdateGenre() ([]string, error) {
 		Description: description,
 	}
 
-	result, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.UpdateGenre)(newGenre)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.UpdateGenre)(newGenre)
 	if err != nil {
-		return nil, err
+		return nil, time, err
 	}
 
 	if result == nil {
-		return nil, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
 	}
 
 	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
 
-	return newItem, nil
+	return newItem, time, nil
 
 }

@@ -21,31 +21,31 @@ func NewGenreHandler(uc GenreUsecase, helper helpers.Helper, ch common.CommonHan
 }
 
 func (u *GenreHandler) GetGenres() {
-	result, err, time := u.uc.GetGenres()
+	result, time, err := u.uc.GetGenres()
 	u.ch.ErrorWrapper(constants.GET_FAILED, err)
-	u.ch.SuccessWrapper2(constants.GET_SUCCESS, result, time)
+	u.ch.SuccessWrapper(constants.GET_SUCCESS, result, time)
 }
 
 func (u *GenreHandler) GetGenre() {
-	result, err := u.uc.GetGenre()
+	result, time, err := u.uc.GetGenre()
 	u.ch.ErrorWrapper(constants.GET_FAILED, err)
-	u.ch.SuccessWrapper(constants.GET_SUCCESS, result)
+	u.ch.SuccessWrapper(constants.GET_SUCCESS, result, time)
 }
 
 func (u *GenreHandler) CreateGenre() {
-	result, err := u.uc.CreateGenre()
+	result, time, err := u.uc.CreateGenre()
 	u.ch.ErrorWrapper(constants.CREATE_FAILED, err)
-	u.ch.SuccessWrapper(constants.CREATE_SUCCESS, result)
+	u.ch.SuccessWrapper(constants.CREATE_SUCCESS, result, time)
 }
 
 func (u *GenreHandler) DeleteGenre() {
-	err := u.uc.DeleteGenre()
+	time, err := u.uc.DeleteGenre()
 	u.ch.ErrorWrapper(constants.DELETE_FAILED, err)
-	u.helper.OutputSuccess(constants.DELETE_SUCCESS)
+	u.ch.SuccessWrapper(constants.DELETE_SUCCESS, nil, time)
 }
 
 func (u *GenreHandler) UpdateGenre() {
-	result, err := u.uc.UpdateGenre()
+	result, time, err := u.uc.UpdateGenre()
 	u.ch.ErrorWrapper(constants.UPDATE_FAILED, err)
-	u.ch.SuccessWrapper(constants.UPDATE_SUCCESS, result)
+	u.ch.SuccessWrapper(constants.UPDATE_SUCCESS, result, time)
 }
