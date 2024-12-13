@@ -3,7 +3,7 @@ package common
 import (
 	"fmt"
 
-	"github.com/thuongtruong109/gouse/types"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
@@ -36,7 +36,7 @@ func (ch *CommonHandler) SuccessDataWrapper(desc string, body_output []string, t
 	bodyLen := len(body_output)
 	if bodyLen > 0 {
 		if bodyLen > 1 {
-			helpers.TableOutput(ch.scope, body_output, "Total: "+types.IntToString(bodyLen), "\t- Status: "+desc, "- Time: "+time)
+			helpers.TableOutput(ch.scope, body_output, "Total: "+gouse.IntToString(bodyLen), "\t- Status: "+desc, "- Time: "+time)
 			return
 		}
 

@@ -3,8 +3,7 @@ package tracks
 import (
 	"fmt"
 
-	gu_date "github.com/thuongtruong109/gouse/date"
-	gu_helper "github.com/thuongtruong109/gouse/helper"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
@@ -81,14 +80,14 @@ func (a *TrackUsecase) CreateTrack() ([]string, string, error) {
 	fmt.Scanln(&playCount)
 
 	newTrack := &Track{
-		ID:        gu_helper.RandomID(),
+		ID:        gouse.RandID(),
 		Name:      name,
 		GenreID:   genreID,
 		ArtistID:  artistID,
 		FileUrl:   fileURL,
 		Duration:  duration,
 		PlayCount: playCount,
-		CreatedAt: gu_date.ISO(),
+		CreatedAt: gouse.ISODate(),
 	}
 
 	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Track, *Track](a.repo.CreateTrack)(newTrack)
@@ -152,7 +151,7 @@ func (a *TrackUsecase) UpdateTrack() ([]string, string, error) {
 		FileUrl:   fileURL,
 		Duration:  duration,
 		PlayCount: playCount,
-		CreatedAt: gu_date.ISO(),
+		CreatedAt: gouse.ISODate(),
 	}
 
 	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Track, *Track](a.repo.UpdateTrack)(newTrack)

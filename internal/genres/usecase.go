@@ -3,7 +3,7 @@ package genres
 import (
 	"fmt"
 
-	gu_helper "github.com/thuongtruong109/gouse/helper"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
@@ -68,7 +68,7 @@ func (g *GenreUsecase) CreateGenre() ([]string, string, error) {
 	fmt.Scanln(&description)
 
 	newGenre := &Genre{
-		ID:          gu_helper.RandomID(),
+		ID:          gouse.RandID(),
 		Name:        name,
 		Description: description,
 	}

@@ -3,7 +3,7 @@ package genres
 import (
 	"fmt"
 
-	"github.com/thuongtruong109/gouse/io"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
@@ -14,7 +14,7 @@ func NewGenreRepository() *GenreRepository {
 }
 
 func (gr *GenreRepository) GetGenres() ([]*Genre, error) {
-	genres, err := io.ReadFileObj[*Genre](constants.GENRE_PATH)
+	genres, err := gouse.ReadFileObj[*Genre](constants.GENRE_PATH)
 
 	if err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ func (gr *GenreRepository) CreateGenre(newGenre *Genre) (*Genre, error) {
 
 	genresInit = append(genresInit, newGenre)
 
-	err2 := io.WriteFileObj(constants.GENRE_PATH, genresInit)
+	err2 := gouse.WriteFileObj(constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
@@ -88,7 +88,7 @@ func (gr *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
 
 	genresInit = append(genresInit, allGenres[len(genresInit):]...)
 
-	err2 := io.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
+	err2 := gouse.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
@@ -96,10 +96,7 @@ func (gr *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
 }
 
 func (gr *GenreRepository) DeleteGenre(genreID string) error {
-	allGenres, err := gr.GetGenres()
-	if err != nil {
-		return err
-	}
+	allGenres, _ := gr.GetGenres()
 
 	if allGenres == nil {
 		return nil
@@ -114,7 +111,7 @@ func (gr *GenreRepository) DeleteGenre(genreID string) error {
 		}
 	}
 
-	err2 := io.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
+	err2 := gouse.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
 		return fmt.Errorf(constants.DELETE_FAILED)
 	}

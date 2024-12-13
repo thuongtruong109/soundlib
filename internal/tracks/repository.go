@@ -1,7 +1,7 @@
 package tracks
 
 import (
-	"github.com/thuongtruong109/gouse/io"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
@@ -12,7 +12,7 @@ func NewTrackRepository() *TrackRepository {
 }
 
 func (tr *TrackRepository) GetTracks() ([]*Track, error) {
-	allTracks, err := io.ReadFileObj[*Track](constants.TRACK_PATH)
+	allTracks, err := gouse.ReadFileObj[*Track](constants.TRACK_PATH)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (tr *TrackRepository) CreateTrack(newTrack *Track) (*Track, error) {
 
 	trackInit = append(trackInit, newTrack)
 
-	err := io.WriteFileObj(constants.TRACK_PATH, trackInit)
+	err := gouse.WriteFileObj(constants.TRACK_PATH, trackInit)
 	if err != nil {
 		return nil, err
 	}
@@ -89,11 +89,18 @@ func (tr *TrackRepository) DeleteTrack(trackId string) error {
 		return nil
 	}
 
+	var trackResult []*Track
+
 	for i, v := range allTracks {
 		if v.ID == trackId {
-			allTracks = append(allTracks[:i], allTracks[i+1:]...)
+			trackResult = append(allTracks[:i], allTracks[i+1:]...)
 			break
 		}
+	}
+
+	err := gouse.WriteFileObj(constants.TRACK_PATH, trackResult)
+	if err != nil {
+		return err
 	}
 
 	return nil

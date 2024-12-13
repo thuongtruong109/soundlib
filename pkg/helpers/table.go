@@ -4,14 +4,14 @@ import (
 	"os"
 
 	"github.com/jedib0t/go-pretty/v6/table"
-	"github.com/thuongtruong109/gouse/types"
+	"github.com/thuongtruong109/gouse"
 )
 
 func TableOutput[H, R any, S, D, T string](header H, rows []R, sum S, description D, time T) {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 
-	if !types.IsNil(header) {
+	if !gouse.IsNil(header) {
 		t.AppendHeader(table.Row{header})
 	}
 
@@ -28,7 +28,7 @@ func TableOutput[H, R any, S, D, T string](header H, rows []R, sum S, descriptio
 		}
 	}
 
-	if !types.IsNil(sum) && !types.IsNil(description) && !types.IsNil(time) {
+	if !gouse.IsNil(sum) && !gouse.IsNil(description) && !gouse.IsNil(time) {
 		t.AppendFooter(table.Row{sum, description, time})
 	}
 
@@ -40,11 +40,11 @@ func TableNoOutput[H any, D, T string](header H, description D, time T) {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 
-	if !types.IsNil(header) {
+	if !gouse.IsNil(header) {
 		t.AppendHeader(table.Row{header})
 	}
 
-	if !types.IsNil(description) && !types.IsNil(time) {
+	if !gouse.IsNil(description) && !gouse.IsNil(time) {
 		t.AppendFooter(table.Row{description, time})
 	}
 

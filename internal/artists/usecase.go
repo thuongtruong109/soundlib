@@ -3,8 +3,7 @@ package artists
 import (
 	"fmt"
 
-	gu_date "github.com/thuongtruong109/gouse/date"
-	gu_helper "github.com/thuongtruong109/gouse/helper"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
@@ -73,12 +72,12 @@ func (a *ArtistUsecase) CreateArtist() ([]string, string, error) {
 	fmt.Scanln(&avatarUrl)
 
 	artist := &Artist{
-		ID:        gu_helper.RandomID(),
+		ID:        gouse.RandID(),
 		Username:  username,
 		FullName:  fullName,
 		Bio:       bio,
 		AvatarUrl: avatarUrl,
-		DebutAt:   gu_date.ISO(),
+		DebutAt:   gouse.ISODate(),
 	}
 
 	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Artist, *Artist](a.repo.CreateArtist)(artist)
@@ -131,7 +130,7 @@ func (a *ArtistUsecase) UpdateArtist() ([]string, string, error) {
 		FullName:  fullName,
 		Bio:       bio,
 		AvatarUrl: avatarUrl,
-		DebutAt:   gu_date.ISO(),
+		DebutAt:   gouse.ISODate(),
 	}
 
 	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Artist, *Artist](a.repo.UpdateArtist)(newArtist)

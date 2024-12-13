@@ -3,7 +3,7 @@ package artists
 import (
 	"fmt"
 
-	"github.com/thuongtruong109/gouse/io"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
@@ -14,7 +14,7 @@ func NewArtistRepository() *ArtistRepository {
 }
 
 func (ar *ArtistRepository) GetArtists() ([]*Artist, error) {
-	allArtist, err := io.ReadFileObj[*Artist](constants.ARTIST_PATH)
+	allArtist, err := gouse.ReadFileObj[*Artist](constants.ARTIST_PATH)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (ar *ArtistRepository) CreateArtist(newArtist *Artist) (*Artist, error) {
 
 	artistInit = append(artistInit, newArtist)
 
-	err2 := io.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
+	err2 := gouse.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.CREATE_FAILED)
 	}
@@ -84,7 +84,7 @@ func (ar *ArtistRepository) UpdateArtist(artistUpdate *Artist) (*Artist, error) 
 
 	artistInit = append(artistInit, allArtist[len(artistInit):]...)
 
-	err2 := io.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
+	err2 := gouse.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(constants.UPDATE_FAILED)
 	}
@@ -105,7 +105,7 @@ func (ar *ArtistRepository) DeleteArtist(artlistID string) error {
 		}
 	}
 
-	err2 := io.WriteFileObj[[]*Artist](constants.ARTIST_PATH, allArtist)
+	err2 := gouse.WriteFileObj[[]*Artist](constants.ARTIST_PATH, allArtist)
 	if err2 != nil {
 		return fmt.Errorf(constants.DELETE_FAILED)
 	}

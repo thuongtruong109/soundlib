@@ -3,14 +3,13 @@ package cmd
 import (
 	"fmt"
 
-	gu_console "github.com/thuongtruong109/gouse/console"
-	gu_shared "github.com/thuongtruong109/gouse/shared"
+	"github.com/thuongtruong109/gouse"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
 func (d *Delivery) Execution() {
 	loop := func() {
-		gu_console.Banner(gu_shared.DOUBLE_ALPHA, "SOUNDLIB")
+		gouse.Banner(gouse.DOUBLE_ALPHA, constants.APP_NAME)
 
 		option := d.Run()
 		d.HandleOption(option)
@@ -22,10 +21,10 @@ func (d *Delivery) Execution() {
 		var input string
 		fmt.Scanln(&input)
 		if input == "y" {
-			gu_console.Clear()
+			gouse.Cls()
 			loop()
 		} else {
-			gu_console.Clear()
+			gouse.Cls()
 			d.helper.OutputNomal(constants.LABEL, constants.THANKYOU_TEXT)
 			break
 		}

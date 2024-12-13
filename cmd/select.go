@@ -3,9 +3,10 @@ package cmd
 import (
 	"fmt"
 	"strings"
+
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/thuongtruong109/gouse"
 	"golang.org/x/exp/slices"
-	gu_shared "github.com/thuongtruong109/gouse/shared"
 )
 
 type option struct {
@@ -74,7 +75,7 @@ func (d *Delivery) Run() int8{
 	var scopes []string
 
 	for _, option := range options {
-		scopes = append(scopes, fmt.Sprintf("%s%v", gu_shared.SCOPE_SYM, option.Name))
+		scopes = append(scopes, fmt.Sprintf("%s%v", gouse.SCOPE_SYM, option.Name))
 	}
 
 	var qs = []*survey.Question{
@@ -101,7 +102,7 @@ func (d *Delivery) Run() int8{
 		Key int8
 		Value string
 	}
-	
+
 	var choices []Choice
 	var choiceValue []string
 
@@ -109,7 +110,7 @@ func (d *Delivery) Run() int8{
 		if strings.Contains(answers.Scopes, option.Name) {
 			for _, item := range option.Items {
 				for k, v := range item {
-					choiceValue = append(choiceValue, fmt.Sprintf(gu_shared.DOT_SYM + v))
+					choiceValue = append(choiceValue, fmt.Sprintf(gouse.DOT_SYM + v))
 					getResult := &Choice{
 						Key:   k,
 						Value: v,
@@ -142,7 +143,7 @@ func (d *Delivery) Run() int8{
     }
 
 	idx := slices.IndexFunc(choices, func(c Choice) bool {
-		return strings.Contains(answers2.Options, c.Value) 
+		return strings.Contains(answers2.Options, c.Value)
 	})
 
 	return int8(choices[idx].Key)
