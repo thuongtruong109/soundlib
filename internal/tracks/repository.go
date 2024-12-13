@@ -57,6 +57,11 @@ func (tr *TrackRepository) CreateTrack(newTrack *Track) (*Track, error) {
 
 	trackInit = append(trackInit, newTrack)
 
+	err := io.WriteFileObj(constants.TRACK_PATH, trackInit)
+	if err != nil {
+		return nil, err
+	}
+
 	return newTrack, nil
 }
 

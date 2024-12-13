@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"github.com/thuongtruong109/soundlib/internal/playlists"
-	// "github.com/thuongtruong109/soundlib/internal/tracks"
 	"github.com/thuongtruong109/soundlib/internal/albums"
 	"github.com/thuongtruong109/soundlib/internal/artists"
 	"github.com/thuongtruong109/soundlib/internal/genres"
+	"github.com/thuongtruong109/soundlib/internal/playlists"
+	"github.com/thuongtruong109/soundlib/internal/tracks"
 
 	"github.com/thuongtruong109/soundlib/pkg/common"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
@@ -28,10 +28,11 @@ func App() {
 	playlistUC := playlists.NewPlaylistUsecase()
 	playlistHandler := playlists.NewPlaylistHandler(*playlistUC, *helper)
 
-	// trackUC := tracks.NewTrackUsecase(*tracks.NewTrackRepository(), *helper)
-	// trackHandler := tracks.NewTrackHandler(*trackUC, *helper, *common.NewCommonHandler(*helper, "Tracks"))
+	trackRepo := tracks.NewTrackRepository()
+	trackUC := tracks.NewTrackUsecase(*trackRepo, *helper)
+	trackHandler := tracks.NewTrackHandler(*trackUC, *helper, *common.NewCommonHandler(*helper, "Tracks"))
 
-	exe := NewDelivery(*albumHandler, *artistHandler, *genreHandler, *playlistHandler, *helper)
+	exe := NewDelivery(*helper, *albumHandler, *artistHandler, *genreHandler, *playlistHandler, *trackHandler)
 	/**trackHandler)*/
 
 	exe.Execution()

@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/thuongtruong109/soundlib/internal/playlists"
-	// "github.com/thuongtruong109/soundlib/internal/tracks"
+	"github.com/thuongtruong109/soundlib/internal/tracks"
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 
@@ -12,22 +12,22 @@ import (
 )
 
 type Delivery struct {
+	helper helpers.Helper
 	albumHandler    albums.AlbumHandler
 	artistHandler   artists.ArtistHandler
 	genreHandler    genres.GenreHandler
 	playlistHandler playlists.PlaylistHandler
-	// trackHandler    tracks.TrackHandler
-	helper helpers.Helper
+	trackHandler    tracks.TrackHandler
 }
 
-func NewDelivery(albumHandler albums.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler playlists.PlaylistHandler /*trackHandler tracks.TrackHandler,*/, helper helpers.Helper) *Delivery {
+func NewDelivery(helper helpers.Helper, albumHandler albums.AlbumHandler, artistHandler artists.ArtistHandler, genreHandler genres.GenreHandler, playlistHandler playlists.PlaylistHandler, trackHandler tracks.TrackHandler) *Delivery {
 	return &Delivery{
+		helper: helper,
 		albumHandler: albumHandler,
-		// artistHandler:   artistHandler,
+		artistHandler:   artistHandler,
 		genreHandler:    genreHandler,
 		playlistHandler: playlistHandler,
-		// trackHandler:    trackHandler,
-		helper: helper,
+		trackHandler:    trackHandler,
 	}
 }
 
@@ -39,6 +39,7 @@ func (h *Delivery) HandleOption(option int8) {
 		4: h.albumHandler.DeleteAlbum,
 		5: h.albumHandler.UpdateAlbum,
 		6: h.albumHandler.GetTracksOfAlbum,
+
 		7: h.artistHandler.CreateArtist,
 		8: h.artistHandler.GetArtists,
 		9: h.artistHandler.GetArtist,
@@ -46,17 +47,20 @@ func (h *Delivery) HandleOption(option int8) {
 		// 11: h.artistHandler.GetTracksOfArtist,
 		12: h.artistHandler.DeleteArtist,
 		13: h.artistHandler.UpdateArtist,
+
 		14: h.genreHandler.CreateGenre,
 		15: h.genreHandler.GetGenres,
 		16: h.genreHandler.GetGenre,
 		17: h.genreHandler.DeleteGenre,
 		18: h.genreHandler.UpdateGenre,
+
 		// 19: h.genreHandler.GetTracksOfGenre,
-		// 20: h.trackHandler.CreateTrack,
-		// 21: h.trackHandler.GetTracks,
-		// 22: h.trackHandler.GetTrack,
-		// 23: h.trackHandler.DeleteTrack,
-		// 24: h.trackHandler.UpdateTrack,
+		20: h.trackHandler.CreateTrack,
+		21: h.trackHandler.GetTracks,
+		22: h.trackHandler.GetTrack,
+		23: h.trackHandler.DeleteTrack,
+		24: h.trackHandler.UpdateTrack,
+
 		25: h.playlistHandler.CreatePlaylist,
 		26: h.playlistHandler.GetPlaylists,
 		27: h.playlistHandler.GetPlaylist,
