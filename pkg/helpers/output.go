@@ -5,6 +5,12 @@ import (
 	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
+type Helper struct {}
+
+func NewHelper() *Helper {
+	return &Helper{}
+}
+
 func (h *Helper) OutputColor(level int8) string {
 	switch level {
 	case constants.DEBUG:
@@ -38,7 +44,7 @@ func (h *Helper) OutputError(statusMsg string, err string) {
 	println(gouse.RED_CONSOLE + "\n::: Status: " + statusMsg + "\n::: Message: " + err + gouse.DEFAULT_CONSOLE)
 }
 
-func (h *Helper) OutputNomal(label int8, msg string) {
+func (h *Helper) OutputDefault(label int8, msg string) {
 	println(h.OutputColor(label) + msg + gouse.DEFAULT_CONSOLE)
 }
 

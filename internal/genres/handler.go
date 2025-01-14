@@ -2,17 +2,17 @@ package genres
 
 import (
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/common"
+	"github.com/thuongtruong109/soundlib/pkg/base"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type GenreHandler struct {
 	uc     GenreUsecase
 	helper helpers.Helper
-	ch     common.CommonHandler
+	ch     base.BaseHandler
 }
 
-func NewGenreHandler(uc GenreUsecase, helper helpers.Helper, ch common.CommonHandler) *GenreHandler {
+func NewGenreHandler(uc GenreUsecase, helper helpers.Helper, ch base.BaseHandler) *GenreHandler {
 	return &GenreHandler{
 		uc:     uc,
 		helper: helper,

@@ -15,17 +15,13 @@
 
 This is a music management system that allows you to interect and manage data through cli. Program is written in Go and uses JSON as store data format. Practicing and handle usecases such as: programing logic, database relation, file I/O, data structure, error handling, etc.
 
-## Features
+## ✨ Features
 
-✅ Save/Load/Read data from/to file
+✅ Save/Load/Read/Write data from/to file
 
-✅ Add/Delete/Search songs
+✅ Create/Get(all,one)/Update/Delete to Album/Artist/Genre/Playlist/Tracks
 
-✅ Create/Search playlists
-
-✅ Add/Delete songs to playlists
-
-✅ Add/Update/GetAll/GetByID artists
+✅ Add/Get/Remove songs to playlists/albums
 
 ## Architecture
 

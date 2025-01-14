@@ -24,7 +24,6 @@ var options = []option{
 			{4: "Delete album by id"},
 			{5: "Update album by id"},
 
-			// TrackInAlbum
 			{6: "Add track to album"},
 			{7: "Get all tracks of album"},
 			{8: "Delete track from album"},
@@ -50,7 +49,6 @@ var options = []option{
 			{16: "Get genre by id"},
 			{17: "Delete genre by id"},
 			{18: "Update genre by id"},
-			// {18: "Get all tracks of genre"},
 		},
 	},
 	{
@@ -72,7 +70,6 @@ var options = []option{
 			{27: "Delete playlist by id"},
 			{28: "Update playlist by id"},
 
-			// TrackInPlaylist
 			{29: "Add track to playlist"},
 			{30: "Get all tracks of playlist"},
 			{31: "Delete track of playlist"},
@@ -119,7 +116,7 @@ func (d *Delivery) Run() int8 {
 		if strings.Contains(answers.Scopes, option.Name) {
 			for _, item := range option.Items {
 				for k, v := range item {
-					choiceValue = append(choiceValue, fmt.Sprintf(gouse.DOT_SYM+v))
+					choiceValue = append(choiceValue, gouse.DOT_SYM+v)
 					getResult := &Choice{
 						Key:   k,
 						Value: v,

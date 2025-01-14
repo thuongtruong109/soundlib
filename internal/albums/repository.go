@@ -3,118 +3,54 @@ package albums
 import (
 	"fmt"
 
-	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
+	"github.com/thuongtruong109/soundlib/pkg/base"
 )
 
-type AlbumRepository struct{}
-
-func NewAlbumRepository() *AlbumRepository {
-	return &AlbumRepository{}
+type AlbumRepository struct {
+	*base.Repository[Album]
 }
 
-func (gr *AlbumRepository) GetAlbums() ([]*Album, error) {
-	albums, err := gouse.ReadFileObj[*Album](constants.ALBUM_PATH)
+func NewAlbumRepository(dbPath string) *AlbumRepository {
+	return &AlbumRepository{
+		Repository:  &base.Repository[Album]{DataPath: dbPath},
+	}
+}
 
+func (ar *AlbumRepository) GetAlbums() ([]*Album, error) {
+	albums, err := ar.Repository.GetAll()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get all albums: %w", err)
 	}
 
-	if albums == nil {
-		return nil, nil
+	var albumPointers []*Album
+	for _, album := range albums {
+		albumPointers = append(albumPointers, &album)
 	}
 
-	return albums, nil
+	return albumPointers, nil
 }
 
-func (ar *AlbumRepository) GetArtist(albumID string) (*Album, error) {
-	albums, err := ar.GetAlbums()
-	if err != nil {
-		return nil, err
-	}
-
-	if albums == nil {
-		return nil, nil
-	}
-
-	for _, v := range albums {
-		if v.ID == albumID {
-			return v, nil
-		}
-	}
-
-	return nil, nil
+func (ar *AlbumRepository) GetAlbum(albumID string) (*Album, error) {
+	return ar.Repository.GetByID(albumID)
 }
 
-func (gr *AlbumRepository) CreateAlbum(newGenre *Album) (*Album, error) {
-	albums, _ := gr.GetAlbums()
-
-	var albumInit []*Album
-
-	if albums == nil {
-		albumInit = make([]*Album, 0)
-	} else {
-		albumInit = make([]*Album, len(albums))
-		copy(albumInit, albums)
+func (ar *AlbumRepository) CreateAlbum(newAlbum *Album) (*Album, error) {
+	if err := ar.Repository.Create(newAlbum); err != nil {
+		return nil, fmt.Errorf("failed to create album: %w", err)
 	}
-
-	albumInit = append(albumInit, newGenre)
-
-	err2 := gouse.WriteFileObj(constants.ALBUM_PATH, albumInit)
-	if err2 != nil {
-		return nil, fmt.Errorf(gouse.DESC_CREATE_FAILED)
-	}
-	return newGenre, nil
+	return newAlbum, nil
 }
 
-func (gr *AlbumRepository) UpdateAlbum(updateGenre *Album) (*Album, error) {
-	albums, err := gr.GetAlbums()
-	if err != nil {
-		return nil, err
+func (ar *AlbumRepository) UpdateAlbum(updateAlbum *Album) (*Album, error) {
+	if err := ar.Repository.Update(updateAlbum); err != nil {
+		return nil, fmt.Errorf("failed to update album: %w", err)
 	}
-
-	if albums == nil {
-		return nil, nil
-	}
-
-	var albumInit []*Album
-
-	for i, genre := range albums {
-		if genre.ID == updateGenre.ID {
-			albumInit = append(albums[:i], updateGenre)
-			break
-		}
-	}
-
-	albumInit = append(albumInit, albums[len(albumInit):]...)
-
-	err2 := gouse.WriteFileObj[[]*Album](constants.ALBUM_PATH, albumInit)
-	if err2 != nil {
-		return nil, fmt.Errorf(gouse.DESC_UPDATE_FAILED)
-	}
-	return updateGenre, nil
+	return updateAlbum, nil
 }
 
-func (gr *AlbumRepository) DeleteAlbum(genreID string) error {
-	albums, _ := gr.GetAlbums()
-
-	if albums == nil {
-		return nil
+func (ar *AlbumRepository) DeleteAlbum(albumID string) error {
+	if err := ar.Repository.Delete(albumID); err != nil {
+		return fmt.Errorf("failed to delete album: %w", err)
 	}
-
-	var albumInit []*Album
-
-	for i, genre := range albums {
-		if genre.ID == genreID {
-			albumInit = append(albums[:i], albums[i+1:]...)
-			break
-		}
-	}
-
-	err2 := gouse.WriteFileObj[[]*Album](constants.ALBUM_PATH, albumInit)
-	if err2 != nil {
-		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
-	}
-
 	return nil
 }

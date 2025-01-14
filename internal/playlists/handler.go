@@ -1,56 +1,51 @@
 package playlists
 
 import (
+	"github.com/thuongtruong109/gouse"
+	"github.com/thuongtruong109/soundlib/pkg/base"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type PlaylistHandler struct {
 	uc     PlaylistUsecase
 	helper helpers.Helper
+	ch     base.BaseHandler
 }
 
-func NewPlaylistHandler(uc PlaylistUsecase, helper helpers.Helper) *PlaylistHandler {
+func NewPlaylistHandler(uc PlaylistUsecase, helper helpers.Helper, ch base.BaseHandler) *PlaylistHandler {
 	return &PlaylistHandler{
 		uc:     uc,
 		helper: helper,
+		ch:     ch,
 	}
 }
 
-func (h *PlaylistHandler) GetPlaylists() {
-	// result, err := h.uc.GetPlaylists()
-	// h.helper.ErrorWrapper(constants.gouse.DESC_GET_FAILED, err)
-	// h.helper.SuccessDataWrapper(constants.gouse.DESC_GET_SUCCESS, result)
-	h.helper.OutputSuccess("GetPlaylist")
+func (u *PlaylistHandler) GetPlaylists() {
+	result, time, err := u.uc.GetPlaylists()
+	u.ch.ErrorWrapper(gouse.DESC_GET_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_GET_SUCCESS, result, time)
 }
 
-func (h *PlaylistHandler) GetPlaylist() {
-	h.helper.OutputSuccess("GetPlaylist")
+func (u *PlaylistHandler) GetPlaylist() {
+	result, time, err := u.uc.GetPlaylist()
+	u.ch.ErrorWrapper(gouse.DESC_GET_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_GET_SUCCESS, result, time)
 }
 
 func (u *PlaylistHandler) CreatePlaylist() {
-	u.helper.OutputSuccess("CreatePlaylist")
+	result, time, err := u.uc.CreatePlaylist()
+	u.ch.ErrorWrapper(gouse.DESC_CREATE_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_CREATE_SUCCESS, result, time)
 }
 
 func (u *PlaylistHandler) DeletePlaylist() {
-	u.helper.OutputSuccess("DeletePlaylist")
+	time, err := u.uc.DeletePlaylist()
+	u.ch.ErrorWrapper(gouse.DESC_DELETE_FAILED, err)
+	u.ch.SuccessNoDataWrapper(gouse.DESC_DELETE_SUCCESS, time)
 }
 
 func (u *PlaylistHandler) UpdatePlaylist() {
-	u.helper.OutputSuccess("UpdatePlaylist")
-}
-
-func (u *PlaylistHandler) GetTracksOfPlaylist() {
-	u.helper.OutputSuccess("GetTracksOfPlaylist")
-}
-
-func (u *PlaylistHandler) AddTrackToPlaylist() {
-	u.helper.OutputSuccess("AddTrackToPlaylist")
-}
-
-func (u *PlaylistHandler) DeleteTrackFromPlaylist() {
-	u.helper.OutputSuccess("DeleteTrackFromPlaylist")
-}
-
-func (u *PlaylistHandler) GetPlaylistsHaveTrack() {
-	u.helper.OutputSuccess("GetPlaylistsHaveTrack")
+	result, time, err := u.uc.UpdatePlaylist()
+	u.ch.ErrorWrapper(gouse.DESC_UPDATE_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_UPDATE_SUCCESS, result, time)
 }

@@ -2,17 +2,17 @@ package tracks
 
 import (
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/common"
+	"github.com/thuongtruong109/soundlib/pkg/base"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type TrackHandler struct {
 	uc     TrackUsecase
 	helper helpers.Helper
-	ch     common.CommonHandler
+	ch     base.BaseHandler
 }
 
-func NewTrackHandler(uc TrackUsecase, helper helpers.Helper, ch common.CommonHandler) *TrackHandler {
+func NewTrackHandler(uc TrackUsecase, helper helpers.Helper, ch base.BaseHandler) *TrackHandler {
 	return &TrackHandler{
 		uc:     uc,
 		helper: helper,

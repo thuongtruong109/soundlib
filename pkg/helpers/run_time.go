@@ -6,7 +6,8 @@ import (
 )
 
 func calculateTime(start time.Time) string {
-	elapsedTime := float64(time.Since(start).Seconds() * 1000)
+	end := time.Now()
+	elapsedTime := float64(end.Sub(start).Seconds() * 1000)
 	return fmt.Sprintf("%.2f", elapsedTime) + "ms"
 }
 

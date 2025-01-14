@@ -1,41 +1,51 @@
 package albums
 
 import (
+	"github.com/thuongtruong109/gouse"
+	"github.com/thuongtruong109/soundlib/pkg/base"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type AlbumHandler struct {
 	uc     AlbumUsecase
 	helper helpers.Helper
+	ch     base.BaseHandler
 }
 
-func NewAlbumHandler(uc AlbumUsecase, helper helpers.Helper) *AlbumHandler {
+func NewAlbumHandler(uc AlbumUsecase, helper helpers.Helper, ch base.BaseHandler) *AlbumHandler {
 	return &AlbumHandler{
 		uc:     uc,
 		helper: helper,
+		ch:     ch,
 	}
 }
 
 func (u *AlbumHandler) GetAlbums() {
-	u.helper.OutputSuccess("GetAlbums")
+	result, time, err := u.uc.GetAlbums()
+	u.ch.ErrorWrapper(gouse.DESC_GET_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_GET_SUCCESS, result, time)
 }
 
 func (u *AlbumHandler) GetAlbum() {
-	u.helper.OutputSuccess("GetAlbum")
+	result, time, err := u.uc.GetAlbum()
+	u.ch.ErrorWrapper(gouse.DESC_GET_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_GET_SUCCESS, result, time)
 }
 
 func (u *AlbumHandler) CreateAlbum() {
-	u.helper.OutputSuccess("CreateAlbum")
+	result, time, err := u.uc.CreateAlbum()
+	u.ch.ErrorWrapper(gouse.DESC_CREATE_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_CREATE_SUCCESS, result, time)
 }
 
 func (u *AlbumHandler) DeleteAlbum() {
-	u.helper.OutputSuccess("DeleteAlbum")
+	time, err := u.uc.DeleteAlbum()
+	u.ch.ErrorWrapper(gouse.DESC_DELETE_FAILED, err)
+	u.ch.SuccessNoDataWrapper(gouse.DESC_DELETE_SUCCESS, time)
 }
 
 func (u *AlbumHandler) UpdateAlbum() {
-	u.helper.OutputSuccess("UpdateAlbum")
-}
-
-func (u *AlbumHandler) GetTracksOfAlbum() {
-	u.helper.OutputSuccess("GetTracksOfAlbum")
+	result, time, err := u.uc.UpdateAlbum()
+	u.ch.ErrorWrapper(gouse.DESC_UPDATE_FAILED, err)
+	u.ch.SuccessDataWrapper(gouse.DESC_UPDATE_SUCCESS, result, time)
 }

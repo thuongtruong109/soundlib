@@ -85,6 +85,6 @@ func (h *Delivery) HandleOption(option int8) {
 	if exists {
 		handler()
 	} else {
-		h.helper.OutputNomal(constants.ERROR, "Invalid option")
+		h.helper.OutputDefault(constants.ERROR, "Invalid option")
 	}
 }

@@ -25,7 +25,7 @@ func (d *Delivery) Execution() {
 			loop()
 		} else {
 			gouse.Cls()
-			d.helper.OutputNomal(constants.LABEL, constants.THANKYOU_TEXT)
+			d.helper.OutputDefault(constants.LABEL, constants.THANKYOU_TEXT)
 			break
 		}
 	}

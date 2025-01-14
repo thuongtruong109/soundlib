@@ -145,11 +145,3 @@ func (a *ArtistUsecase) UpdateArtist() ([]string, string, error) {
 
 	return output, time, nil
 }
-
-func (a *ArtistUsecase) GetTrackOfArtist() string {
-	return "Tracks of Artist"
-}
-
-func (a *ArtistUsecase) GetTracksOfGenre() string {
-	return "Tracks of Genre"
-}

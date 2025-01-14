@@ -4,17 +4,20 @@ import (
 	"fmt"
 
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
-type TrackInAlbumRepository struct{}
+type TrackInAlbumRepository struct{
+	dbPath string
+}
 
-func NewTrackInAlbumRepository() *TrackInAlbumRepository {
-	return &TrackInAlbumRepository{}
+func NewTrackInAlbumRepository(dbPath string) *TrackInAlbumRepository {
+	return &TrackInAlbumRepository{
+		dbPath: dbPath,
+	}
 }
 
 func (r *TrackInAlbumRepository) GetTracksOfAlbum() ([]*TrackInAlbum, error) {
-	tracks, err := gouse.ReadFileObj[*TrackInAlbum](constants.TRACK_IN_ALBUM_PATH)
+	tracks, err := gouse.ReadFileObj[*TrackInAlbum](r.dbPath)
 
 	if err != nil {
 		return nil, err
@@ -41,7 +44,7 @@ func (r *TrackInAlbumRepository) AddTrackToAlbum(newTrack *TrackInAlbum) (*Track
 
 	genresInit = append(genresInit, newTrack)
 
-	err2 := gouse.WriteFileObj(constants.TRACK_IN_ALBUM_PATH, genresInit)
+	err2 := gouse.WriteFileObj(r.dbPath, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(gouse.DESC_CREATE_FAILED)
 	}
@@ -64,7 +67,7 @@ func (r *TrackInAlbumRepository) DeleteTrackFromAlbum(trackID, albumID string) e
 		}
 	}
 
-	err2 := gouse.WriteFileObj[[]*TrackInAlbum](constants.TRACK_IN_ALBUM_PATH, tracksInit)
+	err2 := gouse.WriteFileObj[[]*TrackInAlbum](r.dbPath, tracksInit)
 	if err2 != nil {
 		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
 	}

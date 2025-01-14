@@ -2,17 +2,20 @@ package tracks
 
 import (
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 )
 
-type TrackRepository struct{}
+type TrackRepository struct{
+	dbPath string
+}
 
-func NewTrackRepository() *TrackRepository {
-	return &TrackRepository{}
+func NewTrackRepository(dbPath string) *TrackRepository {
+	return &TrackRepository{
+		dbPath: dbPath,
+	}
 }
 
 func (tr *TrackRepository) GetTracks() ([]*Track, error) {
-	allTracks, err := gouse.ReadFileObj[*Track](constants.TRACK_PATH)
+	allTracks, err := gouse.ReadFileObj[*Track](tr.dbPath)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +60,7 @@ func (tr *TrackRepository) CreateTrack(newTrack *Track) (*Track, error) {
 
 	trackInit = append(trackInit, newTrack)
 
-	err := gouse.WriteFileObj(constants.TRACK_PATH, trackInit)
+	err := gouse.WriteFileObj(tr.dbPath, trackInit)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +101,7 @@ func (tr *TrackRepository) DeleteTrack(trackId string) error {
 		}
 	}
 
-	err := gouse.WriteFileObj(constants.TRACK_PATH, trackResult)
+	err := gouse.WriteFileObj(tr.dbPath, trackResult)
 	if err != nil {
 		return err
 	}

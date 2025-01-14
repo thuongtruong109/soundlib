@@ -2,17 +2,17 @@ package artists
 
 import (
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/common"
+	"github.com/thuongtruong109/soundlib/pkg/base"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
 type ArtistHandler struct {
 	uc     ArtistUsecase
 	helper helpers.Helper
-	ch     common.CommonHandler
+	ch     base.BaseHandler
 }
 
-func NewArtistHandler(uc ArtistUsecase, helper helpers.Helper, ch common.CommonHandler) *ArtistHandler {
+func NewArtistHandler(uc ArtistUsecase, helper helpers.Helper, ch base.BaseHandler) *ArtistHandler {
 	return &ArtistHandler{
 		uc:     uc,
 		helper: helper,
