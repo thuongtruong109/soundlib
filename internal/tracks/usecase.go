@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
@@ -27,7 +26,7 @@ func (a *TrackUsecase) GetTracks() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, "", fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, "", fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	var output []string
@@ -49,7 +48,7 @@ func (a *TrackUsecase) GetTrack() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s, Name: %s, Play Count: %d, Duration: %f, File URL: %s, Created At: %s", result.ID, result.Name, result.PlayCount, result.Duration, result.FileUrl, result.CreatedAt)}
@@ -96,7 +95,7 @@ func (a *TrackUsecase) CreateTrack() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s", result.ID)}
@@ -109,7 +108,7 @@ func (a *TrackUsecase) DeleteTrack() (string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	time, err := helpers.QueryTimeErrorWithParams[error](a.repo.DeleteTrack)(id)
+	time, err := helpers.QueryTimeErrorWithOneParam[error](a.repo.DeleteTrack)(id)
 	if err != nil {
 		return "", err
 	}
@@ -160,7 +159,7 @@ func (a *TrackUsecase) UpdateTrack() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s", result.ID)}

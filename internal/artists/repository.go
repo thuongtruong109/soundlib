@@ -61,7 +61,7 @@ func (ar *ArtistRepository) CreateArtist(newArtist *Artist) (*Artist, error) {
 
 	err2 := gouse.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
 	if err2 != nil {
-		return nil, fmt.Errorf(constants.CREATE_FAILED)
+		return nil, fmt.Errorf(gouse.DESC_CREATE_FAILED)
 	}
 	return newArtist, nil
 }
@@ -70,7 +70,7 @@ func (ar *ArtistRepository) UpdateArtist(artistUpdate *Artist) (*Artist, error) 
 	allArtist, _ := ar.GetArtists()
 
 	if allArtist == nil {
-		return nil, fmt.Errorf(constants.UPDATE_FAILED)
+		return nil, fmt.Errorf(gouse.DESC_UPDATE_FAILED)
 	}
 
 	var artistInit []*Artist
@@ -86,7 +86,7 @@ func (ar *ArtistRepository) UpdateArtist(artistUpdate *Artist) (*Artist, error) 
 
 	err2 := gouse.WriteFileObj[[]*Artist](constants.ARTIST_PATH, artistInit)
 	if err2 != nil {
-		return nil, fmt.Errorf(constants.UPDATE_FAILED)
+		return nil, fmt.Errorf(gouse.DESC_UPDATE_FAILED)
 	}
 	return artistUpdate, nil
 }
@@ -95,7 +95,7 @@ func (ar *ArtistRepository) DeleteArtist(artlistID string) error {
 	allArtist, _ := ar.GetArtists()
 
 	if allArtist == nil {
-		return fmt.Errorf(constants.DELETE_FAILED)
+		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
 	}
 
 	for i, v := range allArtist {
@@ -107,7 +107,7 @@ func (ar *ArtistRepository) DeleteArtist(artlistID string) error {
 
 	err2 := gouse.WriteFileObj[[]*Artist](constants.ARTIST_PATH, allArtist)
 	if err2 != nil {
-		return fmt.Errorf(constants.DELETE_FAILED)
+		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
 	}
 	return nil
 }

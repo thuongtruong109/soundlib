@@ -2,6 +2,7 @@
 
 ![GitHub CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
 ![CodeQL analysis](https://github.com/thuongtruong109/soundlib/actions/workflows/analysis.yml/badge.svg?branch=main)
+![Go report](https://goreportcard.com/badge/github.com/thuongtruong109/soundlib)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thuongtruong109/soundlib)
 ![GitHub License](https://img.shields.io/github/license/thuongtruong109/soundlib?color=orange)
 

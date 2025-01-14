@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
@@ -27,7 +26,7 @@ func (a *ArtistUsecase) GetArtists() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	var output []string
@@ -49,7 +48,7 @@ func (a *ArtistUsecase) GetArtist() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s, Username: %s, Full Name: %s, Bio: %s, Avatar URL: %s, Debut At: %s", result.ID, result.Username, result.FullName, result.Bio, result.AvatarUrl, result.DebutAt)}
@@ -86,7 +85,7 @@ func (a *ArtistUsecase) CreateArtist() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s", result.ID)}
@@ -99,7 +98,7 @@ func (a *ArtistUsecase) DeleteArtist() (string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	time, err := helpers.QueryTimeErrorWithParams[error](a.repo.DeleteArtist)(id)
+	time, err := helpers.QueryTimeErrorWithOneParam[error](a.repo.DeleteArtist)(id)
 	if err != nil {
 		return time, err
 	}
@@ -139,7 +138,7 @@ func (a *ArtistUsecase) UpdateArtist() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	output := []string{fmt.Sprintf("ID: %s", result.ID)}

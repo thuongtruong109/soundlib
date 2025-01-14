@@ -5,7 +5,7 @@ go 1.23
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/jedib0t/go-pretty/v6 v6.4.6
-	github.com/thuongtruong109/gouse v0.1.1-0.20241206030217-b9011911b337
+	github.com/thuongtruong109/gouse v1.0.0
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 )
 
@@ -33,6 +33,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0 // indirect
 	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.8 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect

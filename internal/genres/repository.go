@@ -62,7 +62,7 @@ func (gr *GenreRepository) CreateGenre(newGenre *Genre) (*Genre, error) {
 
 	err2 := gouse.WriteFileObj(constants.GENRE_PATH, genresInit)
 	if err2 != nil {
-		return nil, fmt.Errorf(constants.CREATE_FAILED)
+		return nil, fmt.Errorf(gouse.DESC_CREATE_FAILED)
 	}
 	return newGenre, nil
 }
@@ -90,7 +90,7 @@ func (gr *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
 
 	err2 := gouse.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
-		return nil, fmt.Errorf(constants.UPDATE_FAILED)
+		return nil, fmt.Errorf(gouse.DESC_UPDATE_FAILED)
 	}
 	return updateGenre, nil
 }
@@ -113,7 +113,7 @@ func (gr *GenreRepository) DeleteGenre(genreID string) error {
 
 	err2 := gouse.WriteFileObj[[]*Genre](constants.GENRE_PATH, genresInit)
 	if err2 != nil {
-		return fmt.Errorf(constants.DELETE_FAILED)
+		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
 	}
 
 	return nil

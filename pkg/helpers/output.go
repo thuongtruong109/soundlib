@@ -8,40 +8,40 @@ import (
 func (h *Helper) OutputColor(level int8) string {
 	switch level {
 	case constants.DEBUG:
-		return constants.Gray
+		return gouse.GRAY_CONSOLE
 	case constants.INFO:
-		return gouse.GREEN_FG
+		return gouse.GREEN_CONSOLE
 	case constants.WARNING:
-		return gouse.ORANGE_FG
+		return gouse.ORANGE_CONSOLE
 	case constants.ERROR:
-		return gouse.RED_FG
+		return gouse.RED_CONSOLE
 	case constants.FATAL:
-		return gouse.PURPLE_FG
+		return gouse.PURPLE_CONSOLE
 	case constants.LABEL:
-		return gouse.CYAN_FG
+		return gouse.CYAN_CONSOLE
 	case constants.DESC:
-		return gouse.YELLOW_FG
+		return gouse.YELLOW_CONSOLE
 	case constants.INPUT:
-		return gouse.CYAN_FG
+		return gouse.CYAN_CONSOLE
 	case constants.QUERY:
-		return gouse.PINK_FG
+		return gouse.PINK_CONSOLE
 	default:
-		return gouse.WHITE_FG
+		return gouse.WHITE_CONSOLE
 	}
 }
 
 func (h *Helper) OutputSuccess(statusMsg string) {
-	println(gouse.GREEN_FG + "\n::: Status: " + statusMsg + gouse.DEFAULT_FG)
+	println(gouse.GREEN_CONSOLE + "\n::: Status: " + statusMsg + gouse.DEFAULT_CONSOLE)
 }
 
 func (h *Helper) OutputError(statusMsg string, err string) {
-	println(gouse.RED_FG + "\n::: Status: " + statusMsg + "\n::: Message: " + err + gouse.DEFAULT_FG)
+	println(gouse.RED_CONSOLE + "\n::: Status: " + statusMsg + "\n::: Message: " + err + gouse.DEFAULT_CONSOLE)
 }
 
 func (h *Helper) OutputNomal(label int8, msg string) {
-	println(h.OutputColor(label) + msg + gouse.DEFAULT_FG)
+	println(h.OutputColor(label) + msg + gouse.DEFAULT_CONSOLE)
 }
 
 func OutputTime(time string) {
-	println(gouse.PURPLE_FG + "\n::: Query time: " + time + gouse.DEFAULT_FG)
+	println(gouse.PURPLE_CONSOLE + "\n::: Query time: " + time + gouse.DEFAULT_CONSOLE)
 }

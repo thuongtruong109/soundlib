@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/thuongtruong109/gouse"
-	"github.com/thuongtruong109/soundlib/pkg/constants"
 	"github.com/thuongtruong109/soundlib/pkg/helpers"
 )
 
@@ -28,7 +27,7 @@ func (g *GenreUsecase) GetGenres() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, "", fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, "", fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	var items []string
@@ -50,7 +49,7 @@ func (g *GenreUsecase) GetGenre() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, "", fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, "", fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
@@ -79,7 +78,7 @@ func (g *GenreUsecase) CreateGenre() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	newItem := []string{fmt.Sprintf("Id: %s", result.ID)}
@@ -92,9 +91,9 @@ func (g *GenreUsecase) DeleteGenre() (string, error) {
 	fmt.Print("» Enter id: ")
 	fmt.Scanln(&id)
 
-	time, err := helpers.QueryTimeErrorWithParams[error](g.repo.DeleteGenre)(id)
+	time, err := helpers.QueryTimeErrorWithOneParam[error](g.repo.DeleteGenre)(id)
 	if err != nil {
-		return "", fmt.Errorf(constants.NOT_FOUND_DATA)
+		return "", fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	return time, err
@@ -125,7 +124,7 @@ func (g *GenreUsecase) UpdateGenre() ([]string, string, error) {
 	}
 
 	if result == nil {
-		return nil, time, fmt.Errorf(constants.NOT_FOUND_DATA)
+		return nil, time, fmt.Errorf(gouse.DESC_NOT_FOUND_DATA)
 	}
 
 	newItem := []string{fmt.Sprintf("Id: %s, Name: %s, Description: %s", result.ID, result.Name, result.Description)}
