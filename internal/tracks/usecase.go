@@ -20,7 +20,7 @@ func NewTrackUsecase(repo TrackRepository, helper helpers.Helper) *TrackUsecase 
 }
 
 func (a *TrackUsecase) GetTracks() ([]string, string, error) {
-	result, time, err := helpers.QueryTimeTwoOutput[[]*Track](a.repo.GetTracks)()
+	result, time, err := helpers.QueryTimeTwoOutput(a.repo.GetTracks)()
 	if err != nil {
 		return nil, time, err
 	}
@@ -42,7 +42,7 @@ func (a *TrackUsecase) GetTrack() ([]string, string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Track, string](a.repo.GetTrackById)(id)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.GetTrackById)(id)
 	if err != nil {
 		return nil, time, err
 	}
@@ -89,7 +89,7 @@ func (a *TrackUsecase) CreateTrack() ([]string, string, error) {
 		CreatedAt: gouse.ISODate(),
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Track, *Track](a.repo.CreateTrack)(newTrack)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.CreateTrack)(newTrack)
 	if err != nil {
 		return nil, time, err
 	}
@@ -153,7 +153,7 @@ func (a *TrackUsecase) UpdateTrack() ([]string, string, error) {
 		CreatedAt: gouse.ISODate(),
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Track, *Track](a.repo.UpdateTrack)(newTrack)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.UpdateTrack)(newTrack)
 	if err != nil {
 		return nil, time, err
 	}

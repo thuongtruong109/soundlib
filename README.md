@@ -1,7 +1,6 @@
 # Soundlib - music management system
 
 ![GitHub CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/soundlib/ci.yml)
-![CodeQL analysis](https://github.com/thuongtruong109/soundlib/actions/workflows/analysis.yml/badge.svg?branch=main)
 ![Go report](https://goreportcard.com/badge/github.com/thuongtruong109/soundlib)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thuongtruong109/soundlib)
 ![GitHub License](https://img.shields.io/github/license/thuongtruong109/soundlib?color=orange)
@@ -27,15 +26,25 @@ This is a music management system that allows you to interect and manage data th
 
 ![ERD](/docs/erd.png)
 
-## Installation
-
-To install this program, you need to have Go installed on your computer. You can download it [here](https://golang.org/dl/).
-
 ## Usage
 
-To run the program, you need to run the following command in the terminal:
+This program is designed to run on the command line interface (CLI)
+
+For user: Download [Soundlib](https://github.com/thuongtruong109/soundlib/blob/main/soundlib) app
+At the same dir, open Command Prompt (cmd) or Terminal and run:
 
 ```bash
+soundlib
+```
+
+Then, you can use the following commands to interact with the program
+
+For developer: Install Go on your computer at [Golang](https://golang.org/dl/). Then, clone this repository and run the following commands:
+
+```bash
+git clone https://github.com/thuongtruong109/soundlib.git
+cd soundlib
+go mod tidy
 go run main.go
 ```
 

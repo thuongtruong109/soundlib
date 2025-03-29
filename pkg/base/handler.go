@@ -32,5 +32,5 @@ func (ch *BaseHandler) SuccessNoDataWrapper(desc string, time string) {
 }
 
 func (ch *BaseHandler) SuccessDataWrapper(desc string, body_output []string, time string) {
-	helpers.TableOutput(ch.scope, body_output, "Total: " + gouse.IntToString(len(body_output)), "\t- Status: "+desc, "- Time: "+time)
+	helpers.TableOutput(ch.scope, body_output, "Total: " + gouse.Int2Str(len(body_output)), "\t- Status: "+desc, "- Time: "+time)
 }

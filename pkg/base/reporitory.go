@@ -28,9 +28,9 @@ func (br *Repository[T]) GetAll() ([]T, error) {
     if err != nil {
         return nil, err
     }
-    if data == nil {
-        return nil, nil
-    }
+    // if data == nil {
+    //     return nil, nil
+    // }
 
     return data, nil
 }

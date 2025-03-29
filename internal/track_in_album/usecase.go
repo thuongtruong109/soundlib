@@ -20,7 +20,7 @@ func NewTrackInAlbumUsecase(repo TrackInAlbumRepository, helper helpers.Helper) 
 }
 
 func (g *TrackInAlbumUsecase) GetTracksOfAlbum() ([]string, string, error) {
-	result, time, err := helpers.QueryTimeTwoOutput[[]*TrackInAlbum](g.repo.GetTracksOfAlbum)()
+	result, time, err := helpers.QueryTimeTwoOutput(g.repo.GetTracksOfAlbum)()
 
 	if err != nil {
 		return nil, "", err
@@ -57,7 +57,7 @@ func (g *TrackInAlbumUsecase) AddTrackToAlbum() ([]string, string, error) {
 		ReleasedAt: gouse.ISODate(),
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*TrackInAlbum, *TrackInAlbum](g.repo.AddTrackToAlbum)(newTrack)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(g.repo.AddTrackToAlbum)(newTrack)
 	if err != nil {
 		return nil, time, err
 	}

@@ -20,7 +20,7 @@ func NewGenreUsecase(repo GenreRepository, helper helpers.Helper) *GenreUsecase 
 }
 
 func (g *GenreUsecase) GetGenres() ([]string, string, error) {
-	result, time, err := helpers.QueryTimeTwoOutput[[]*Genre](g.repo.GetGenres)()
+	result, time, err := helpers.QueryTimeTwoOutput(g.repo.GetGenres)()
 
 	if err != nil {
 		return nil, "", err
@@ -43,7 +43,7 @@ func (g *GenreUsecase) GetGenre() ([]string, string, error) {
 	fmt.Print("» Enter id: ")
 	fmt.Scanln(&id)
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Genre, string](g.repo.GetGenre)(id)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(g.repo.GetGenre)(id)
 	if err != nil {
 		return nil, "", err
 	}
@@ -72,7 +72,7 @@ func (g *GenreUsecase) CreateGenre() ([]string, string, error) {
 		Description: description,
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.CreateGenre)(newGenre)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(g.repo.CreateGenre)(newGenre)
 	if err != nil {
 		return nil, time, err
 	}
@@ -118,7 +118,7 @@ func (g *GenreUsecase) UpdateGenre() ([]string, string, error) {
 		Description: description,
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Genre, *Genre](g.repo.UpdateGenre)(newGenre)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(g.repo.UpdateGenre)(newGenre)
 	if err != nil {
 		return nil, time, err
 	}

@@ -20,7 +20,7 @@ func NewAlbumUsecase(repo AlbumRepository, helper helpers.Helper) *AlbumUsecase 
 }
 
 func (a *AlbumUsecase) GetAlbums() ([]string, string, error) {
-	result, time, err := helpers.QueryTimeTwoOutput[[]*Album](a.repo.GetAlbums)()
+	result, time, err := helpers.QueryTimeTwoOutput(a.repo.GetAlbums)()
 	if err != nil {
 		return nil, time, err
 	}
@@ -42,7 +42,7 @@ func (a *AlbumUsecase) GetAlbum() ([]string, string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Album, string](a.repo.GetAlbum)(id)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.GetAlbum)(id)
 	if err != nil {
 		return nil, time, err
 	}
@@ -75,7 +75,7 @@ func (a *AlbumUsecase) CreateAlbum() ([]string, string, error) {
 		OwnerID: ownerId,
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Album, *Album](a.repo.CreateAlbum)(album)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.CreateAlbum)(album)
 	if err != nil {
 		return nil, time, err
 	}
@@ -124,7 +124,7 @@ func (a *AlbumUsecase) UpdateAlbum() ([]string, string, error) {
 		OwnerID: owner_id,
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Album, *Album](a.repo.UpdateAlbum)(newAlbum)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.UpdateAlbum)(newAlbum)
 	if err != nil {
 		return nil, time, err
 	}

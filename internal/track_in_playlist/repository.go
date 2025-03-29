@@ -67,7 +67,7 @@ func (r *TrackInPlaylistRepository) DeleteTrackFromAlbum(trackID, playlistID str
 		}
 	}
 
-	err2 := gouse.WriteFileObj[[]*TrackInPlaylist](r.dbPath, tracksInit)
+	err2 := gouse.WriteFileObj(r.dbPath, tracksInit)
 	if err2 != nil {
 		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
 	}

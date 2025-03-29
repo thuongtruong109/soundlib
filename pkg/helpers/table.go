@@ -18,11 +18,11 @@ func TableOutput[H, R any, S, D, T string](header H, rows []R, sum S, descriptio
 	if rows != nil {
 		if len(rows) == 1 {
 			for _, row := range rows {
-				t.AppendRow([]interface{}{row})
+				t.AppendRow([]any{row})
 			}
 		} else {
 			for i, row := range rows {
-				t.AppendRow([]interface{}{i, row})
+				t.AppendRow([]any{i + 1, row})
 				t.AppendSeparator()
 			}
 		}

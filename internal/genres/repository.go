@@ -91,7 +91,7 @@ func (gr *GenreRepository) UpdateGenre(updateGenre *Genre) (*Genre, error) {
 
 	genresInit = append(genresInit, allGenres[len(genresInit):]...)
 
-	err2 := gouse.WriteFileObj[[]*Genre](gr.dbPath, genresInit)
+	err2 := gouse.WriteFileObj(gr.dbPath, genresInit)
 	if err2 != nil {
 		return nil, fmt.Errorf(gouse.DESC_UPDATE_FAILED)
 	}
@@ -114,7 +114,7 @@ func (gr *GenreRepository) DeleteGenre(genreID string) error {
 		}
 	}
 
-	err2 := gouse.WriteFileObj[[]*Genre](gr.dbPath, genresInit)
+	err2 := gouse.WriteFileObj(gr.dbPath, genresInit)
 	if err2 != nil {
 		return fmt.Errorf(gouse.DESC_DELETE_FAILED)
 	}

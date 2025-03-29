@@ -20,7 +20,7 @@ func NewPlaylistUsecase(repo PlaylistRepository, helper helpers.Helper) *Playlis
 }
 
 func (a *PlaylistUsecase) GetPlaylists() ([]string, string, error) {
-	result, time, err := helpers.QueryTimeTwoOutput[[]*Playlist](a.repo.GetPlaylists)()
+	result, time, err := helpers.QueryTimeTwoOutput(a.repo.GetPlaylists)()
 	if err != nil {
 		return nil, time, err
 	}
@@ -42,7 +42,7 @@ func (a *PlaylistUsecase) GetPlaylist() ([]string, string, error) {
 	fmt.Print("» Enter ID: ")
 	fmt.Scanln(&id)
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Playlist, string](a.repo.GetPlaylist)(id)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.GetPlaylist)(id)
 	if err != nil {
 		return nil, time, err
 	}
@@ -79,7 +79,7 @@ func (a *PlaylistUsecase) CreatePlaylist() ([]string, string, error) {
 		CreatorID: creatorId,
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Playlist, *Playlist](a.repo.CreatePlaylist)(playlist)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.CreatePlaylist)(playlist)
 	if err != nil {
 		return nil, time, err
 	}
@@ -129,7 +129,7 @@ func (a *PlaylistUsecase) UpdatePlaylist() ([]string, string, error) {
 		CreatorID: creatorId,
 	}
 
-	result, time, err := helpers.QueryTimeTwoOutputWithParams[*Playlist, *Playlist](a.repo.UpdatePlaylist)(newPlaylist)
+	result, time, err := helpers.QueryTimeTwoOutputWithParams(a.repo.UpdatePlaylist)(newPlaylist)
 	if err != nil {
 		return nil, time, err
 	}

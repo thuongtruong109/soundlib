@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/thuongtruong109/gouse"
 	"golang.org/x/exp/slices"
 )
 
@@ -81,7 +80,7 @@ func (d *Delivery) Run() int8 {
 	var scopes []string
 
 	for _, option := range options {
-		scopes = append(scopes, fmt.Sprintf("%s%v", gouse.SCOPE_SYM, option.Name))
+		scopes = append(scopes, fmt.Sprintf("%s%v", "⦿", option.Name))
 	}
 
 	var qs = []*survey.Question{
@@ -116,7 +115,7 @@ func (d *Delivery) Run() int8 {
 		if strings.Contains(answers.Scopes, option.Name) {
 			for _, item := range option.Items {
 				for k, v := range item {
-					choiceValue = append(choiceValue, gouse.DOT_SYM+v)
+					choiceValue = append(choiceValue, "•"+v)
 					getResult := &Choice{
 						Key:   k,
 						Value: v,
